@@ -1,9 +1,10 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from '../placecard/placecard.jsx';
+import PlaceCard from '../PlaceCard/placecard.jsx';
 
 export default function App(props) {
   const placeNames = props.cityPlaces;
+  const {onClickHeader} = props;
 
   return (
     <Fragment>
@@ -102,7 +103,7 @@ export default function App(props) {
                   */}
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {placeNames.map((item) => <PlaceCard key={item} placeName={item} />)}
+                  {placeNames.map((item) => <PlaceCard key={item} placeName={item} onClickHeader={onClickHeader} />)}
                 </div>
               </section>
               <div className="cities__right-section">
@@ -117,5 +118,6 @@ export default function App(props) {
 }
 
 App.propTypes = {
-  cityPlaces: PropTypes.arrayOf(PropTypes.string)
+  cityPlaces: PropTypes.arrayOf(PropTypes.string),
+  onClickHeader: PropTypes.func.isRequired
 };
