@@ -12,6 +12,7 @@ const cityPlaces = [
 ReactDOM.render(
     <App
       cityPlaces={cityPlaces}
+      onClickHeader={() => { }}
     />,
     document.getElementById(`root`)
 );
