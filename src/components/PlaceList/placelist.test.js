@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import PlaceList from './placelist';
 
 const cityPlaces = [
   {
@@ -18,13 +18,12 @@ const cityPlaces = [
   }
 ];
 
-it(`App correctly renders after relaunch`, () => {
-  const tree = renderer
-    .create(<App
+it(`PlaceList correctly renders after relaunch`, () => {
+  const placeList = renderer
+    .create(<PlaceList
       cityPlaces={cityPlaces}
-      onClickHeader={jest.fn()}/>)
+      onClickCardHeader={jest.fn()}/>)
     .toJSON();
 
-  expect(tree).toMatchSnapshot();
+  expect(placeList).toMatchSnapshot();
 });
-
