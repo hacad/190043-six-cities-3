@@ -1,12 +1,17 @@
 import React, {Fragment} from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import PlacesList from "../places-list/places-list.jsx";
 import CitiesMap from "../cities-map/cities-map.jsx";
-import PlacePropType from "../prop-types/place-prop-type.js";
+import CitiesList from "../cities-list/cities-list.jsx";
+import {ActionCreator} from "../../reducers/reducer";
+import CityPlacePropType from "../prop-types/city-place.js";
+import CityPropType from "../prop-types/city.js";
 
-export default function App(props) {
-  const {cityPlaces, onClickHeader} = props;
-  const offers = cityPlaces.map((item) => item.location);
+
+function App(props) {
+  const {cityPlaces, city: activeCity, cities, onChangeCity} = props;
+  const offers = cityPlaces.map((cityPlace) => cityPlace.location);
 
   return (
     <Fragment>
@@ -40,47 +45,16 @@ export default function App(props) {
 
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Paris</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Cologne</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Brussels</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item tabs__item--active">
-                    <span>Amsterdam</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Hamburg</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Dusseldorf</span>
-                  </a>
-                </li>
-              </ul>
-            </section>
-          </div>
+          <CitiesList
+            activeCity={activeCity}
+            cities={cities}
+            onChangeCity={onChangeCity}
+          />
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">312 places to stay in Amsterdam</b>
+                <b className="places__found">{offers.length} {offers.length === 1 ? `place` : `places`} to stay in {activeCity.name}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -106,11 +80,11 @@ export default function App(props) {
                 </form>
                 <PlacesList
                   cityPlaces={cityPlaces}
-                  onClickCardHeader={onClickHeader}
+                  onClickCardHeader={() => {}}
                 />
               </section>
               <div className="cities__right-section">
-                <CitiesMap offers={offers}/>
+                <CitiesMap city={activeCity} offers={offers}/>
               </div>
             </div>
           </div>
@@ -121,7 +95,35 @@ export default function App(props) {
 }
 
 App.propTypes = {
-  cityPlaces: PropTypes.arrayOf(
-      PropTypes.shape(PlacePropType).isRequired),
-  onClickHeader: PropTypes.func.isRequired
+  city: CityPropType,
+  cities: PropTypes.arrayOf(CityPropType).isRequired,
+  cityPlaces: PropTypes.arrayOf(CityPlacePropType).isRequired,
+  onChangeCity: PropTypes.func.isRequired
 };
+
+const mapStateToProps = (state, ownProps) => {
+  const cities = [];
+  for (let offer of state.allOffers) {
+    if (!cities.find((city) => city.name === offer.city.name)) {
+      cities.push(offer.city);
+    }
+  }
+
+  return Object.assign({}, ownProps, {
+    cityPlaces: state.offers,
+    city: state.city,
+    cities
+  });
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeCity: (city) => {
+      dispatch(ActionCreator.changeCity(city));
+    }
+  };
+};
+
+export {App};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
