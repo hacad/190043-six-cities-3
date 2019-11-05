@@ -1,53 +1,51 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card.jsx";
-import CityPlacePropType from "../prop-types/city-place.js";
+import PlacePropType from "../prop-types/place.js";
 
 class PlacesList extends PureComponent {
   constructor(props) {
     super(props);
 
-    this._activateCardHandler = this._activateCardHandler.bind(this);
-    this._deactivateCardHandler = this._deactivateCardHandler.bind(this);
-
-    this.state = {
-      activeCard: null
-    };
+    this._handleActivateCard = this._handleActivateCard.bind(this);
+    this._handleDeactivateCard = this._handleDeactivateCard.bind(this);
   }
 
   render() {
     const {
-      cityPlaces,
-      onClickCardHeader
+      onClickCardHeader,
+      places
     } = this.props;
 
     return (
       <div className="cities__places-list places__list tabs__content">
-        {cityPlaces.map((place) => (
+        {places.map((place) => (
           <PlaceCard
             key={place.id}
             place={place}
             onClickHeader={onClickCardHeader}
-            onActivate={this._activateCardHandler}
-            onDeactivate={this._deactivateCardHandler}
+            onActivate={this._handleActivateCard}
+            onDeactivate={this._handleDeactivateCard}
           />
         ))}
       </div>
     );
   }
 
-  _activateCardHandler(place) {
-    this.setState({activeCard: place});
+  _handleActivateCard(place) {
+    this.props.onActivateItem(place);
   }
 
-  _deactivateCardHandler() {
-    this.setState({activeCard: null});
+  _handleDeactivateCard() {
+    this.props.onDeactivateItem();
   }
 }
 
 PlacesList.propTypes = {
-  cityPlaces: PropTypes.arrayOf(CityPlacePropType).isRequired,
-  onClickCardHeader: PropTypes.func.isRequired
+  places: PropTypes.arrayOf(PlacePropType).isRequired,
+  onClickCardHeader: PropTypes.func.isRequired,
+  onActivateItem: PropTypes.func.isRequired,
+  onDeactivateItem: PropTypes.func.isRequired
 };
 
 export default PlacesList;

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CityPlacePropType from "../prop-types/city-place.js";
+import PlacePropType from "../prop-types/place.js";
 
 const PlaceCard = (props) => {
   const {place, onClickHeader, onActivate, onDeactivate} = props;
@@ -57,7 +57,7 @@ const PlaceCard = (props) => {
 };
 
 PlaceCard.propTypes = {
-  place: CityPlacePropType.isRequired,
+  place: PlacePropType.isRequired,
   onClickHeader: PropTypes.func.isRequired,
   onActivate: PropTypes.func.isRequired,
   onDeactivate: PropTypes.func.isRequired
