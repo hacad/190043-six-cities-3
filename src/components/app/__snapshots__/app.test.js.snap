@@ -376,6 +376,7 @@ Array [
           >
             <section
               className="cities__map map"
+              id="map"
             />
           </div>
         </div>
