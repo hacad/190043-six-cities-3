@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import {App} from "./app.jsx";
 
 const cityPlaces = [
   {
@@ -33,8 +33,10 @@ const cityPlaces = [
 it(`App correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<App
+      city={cityPlaces[0].city}
+      cities={[cityPlaces[0].city]}
       cityPlaces={cityPlaces}
-      onClickHeader={jest.fn()}/>)
+      onChangeCity={jest.fn()}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
