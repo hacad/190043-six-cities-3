@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {App} from "./app.jsx";
 
-const cityPlaces = [
+const places = [
   {
     id: 1,
     city: {
@@ -33,9 +33,9 @@ const cityPlaces = [
 it(`App correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<App
-      city={cityPlaces[0].city}
-      cities={[cityPlaces[0].city]}
-      cityPlaces={cityPlaces}
+      city={places[0].city}
+      cities={[places[0].city]}
+      places={places}
       onChangeCity={jest.fn()}/>)
     .toJSON();
 
