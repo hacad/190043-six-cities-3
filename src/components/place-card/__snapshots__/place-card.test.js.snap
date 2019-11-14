@@ -6,13 +6,7 @@ exports[`PlaceCard correctly renders after relaunch 1`] = `
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
-  <div
-    className="place-card__mark"
-  >
-    <span>
-      Premium
-    </span>
-  </div>
+  
   <div
     className="cities__image-wrapper place-card__image-wrapper"
   >
@@ -102,7 +96,7 @@ exports[`PlaceCard correctly renders after relaunch 1`] = `
     <p
       className="place-card__type"
     >
-      Apartment
+      apartment
     </p>
   </div>
 </article>
