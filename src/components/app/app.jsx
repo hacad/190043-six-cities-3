@@ -4,10 +4,15 @@ import PropTypes from "prop-types";
 import CitiesList from "../cities-list/cities-list.jsx";
 import PlacesList from "../places-list/places-list.jsx";
 import CitiesMap from "../cities-map/cities-map.jsx";
-import {ActionCreator} from "../../reducers/reducer";
+import {ActionCreator} from "../../reducers/data/reducer";
 import PlacePropType from "../prop-types/place.js";
 import CityPropType from "../prop-types/city.js";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
+import {
+  getSelectedPlaces,
+  getCities,
+  getCity
+} from '../../reducers/data/selectors';
 
 const CitiesListWrapped = withActiveItem(CitiesList);
 const PlacesListWrapped = withActiveItem(PlacesList);
@@ -105,17 +110,10 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const cities = [];
-  for (let offer of state.allOffers) {
-    if (!cities.find((city) => city.name === offer.city.name)) {
-      cities.push(offer.city);
-    }
-  }
-
   return Object.assign({}, ownProps, {
-    places: state.offers,
-    city: state.city,
-    cities
+    places: getSelectedPlaces(state),
+    city: getCity(state),
+    cities: getCities(state)
   });
 };
 
