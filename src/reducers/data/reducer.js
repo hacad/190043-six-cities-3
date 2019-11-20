@@ -1,4 +1,5 @@
 import reducerNames from "../reducerNames.js";
+import {keysToCamel} from "../../utils.js";
 
 const initialState = {
   city: {
@@ -72,7 +73,8 @@ const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        dispatch(ActionCreator.loadOffers(response.data));
+        const responseData = keysToCamel(response.data);
+        dispatch(ActionCreator.loadOffers(responseData));
       });
   }
 };
