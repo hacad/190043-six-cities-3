@@ -4,6 +4,8 @@ import PlacesList from "./places-list.jsx";
 
 /* eslint-disable camelcase */
 
+jest.mock(`../place-card/place-card.jsx`, () => `<div />`);
+
 const places = [
   {
     id: 1,
@@ -21,7 +23,7 @@ const places = [
     title: `Beautiful &amp; luxurious apartment at great location`,
     price: 120,
     rating: 93,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 52.370216,
       longitude: 4.895168

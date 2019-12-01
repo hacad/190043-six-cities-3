@@ -10,12 +10,14 @@ const initialState = {
       zoom: 10
     }},
   offers: [],
-  cities: []
+  cities: [],
+  favorite: undefined
 };
 
 const ActionType = {
   CHANGE_CITY: `${reducerNames.DATA}_CHANGE_CITY`,
-  LOAD_OFFERS: `${reducerNames.DATA}_LOAD_OFFERS`
+  LOAD_OFFERS: `${reducerNames.DATA}_LOAD_OFFERS`,
+  TOGGLE_FAVORITE: `${reducerNames.DATA}_TOGGLE_FAVORITE`
 };
 
 const ActionCreator = {
@@ -36,6 +38,18 @@ const ActionCreator = {
       }
     };
   },
+
+  toggleFavorite: (placeId, isFavorite) => {
+    return {
+      type: ActionType.TOGGLE_FAVORITE,
+      payload: {
+        favorite: {
+          placeId,
+          isFavorite
+        }
+      }
+    };
+  }
 };
 
 const data = function (state = initialState, action) {
@@ -62,6 +76,11 @@ const data = function (state = initialState, action) {
         cities: citiesList
       });
       break;
+    case ActionType.TOGGLE_FAVORITE:
+      Object.assign(newState, state, {
+        favorite: action.payload.favorite
+      });
+      break;
     default:
       return state;
   }
@@ -70,12 +89,25 @@ const data = function (state = initialState, action) {
 };
 
 const Operation = {
-  loadOffers: () => (dispatch, getState, api) => {
+  loadOffers: () => (dispatch, _, api) => {
     return api.get(`/hotels`)
       .then((response) => {
         const responseData = keysToCamel(response.data);
         dispatch(ActionCreator.loadOffers(responseData));
       });
+  },
+
+  toggleFavorite: (placeId, isFavorite) => (dispatch, getState) => {
+    const promise = new Promise((resolve) => {
+      setTimeout(resolve(), 1000);
+    });
+
+    return promise.then(() => {
+      const offers = getState()[reducerNames.DATA].offers;
+      const offer = offers.find((o) => o.id === placeId);
+      offer.isFavorite = isFavorite;
+      dispatch(ActionCreator.toggleFavorite(placeId, isFavorite));
+    });
   }
 };
 
