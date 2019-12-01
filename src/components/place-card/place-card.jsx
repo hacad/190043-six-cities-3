@@ -4,7 +4,7 @@ import PlacePropType from "../prop-types/place.js";
 
 const PlaceCard = (props) => {
   const {place, onClickHeader, onActivate, onDeactivate} = props;
-  const {type, preview_image: previewImage, is_premium: isPremium, title, price, rating} = place;
+  const {type, previewImage, isPremium, title, price, rating} = place;
 
   return (
     <article className="cities__place-card place-card"

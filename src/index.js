@@ -8,7 +8,9 @@ import {createAPI} from "./api.js";
 import reducer from "./reducers/reducer.js";
 import {Operation} from "./reducers/data/reducer.js";
 import App from "./components/app/app.jsx";
+import withScreenSwitch from "./hocs/with-screen-switch/with-screen-switch.js";
 
+const AppWrapped = withScreenSwitch(App);
 const api = createAPI((...args) => store.dispatch(...args));
 
 let store = createStore(
@@ -23,7 +25,7 @@ store.dispatch(Operation.loadOffers());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <AppWrapped />
     </Provider>,
     document.getElementById(`root`)
 );
