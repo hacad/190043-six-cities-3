@@ -17,7 +17,7 @@ const offers = [
     title: `Beautiful &amp; luxurious apartment at great location`,
     price: 200,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 52.403635,
       longitude: 4.918402
@@ -38,7 +38,7 @@ const offers = [
     title: `Wood and stone place`,
     price: 80,
     rating: 80,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 52.338273,
       longitude: 4.902297
@@ -59,7 +59,7 @@ const offers = [
     title: `Canal View Prinsengracht`,
     price: 150,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 52.339455,
       longitude: 4.920547
@@ -81,7 +81,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 180,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 52.383731,
       longitude: 4.920490
@@ -103,7 +103,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 100,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 50.865852,
       longitude: 4.417412
@@ -125,7 +125,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 180,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 50.837783,
       longitude: 4.395461
@@ -147,7 +147,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 400,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 50.841708,
       longitude: 4.361490
@@ -169,7 +169,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 200,
     rating: 95,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 50.875796,
       longitude: 4.363003
@@ -191,7 +191,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 180,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 50.942134,
       longitude: 6.952892
@@ -213,7 +213,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 180,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 50.936729,
       longitude: 6.977543
@@ -235,7 +235,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 180,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 51.233125,
       longitude: 6.760446
@@ -257,7 +257,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 100,
     rating: 90,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 51.236359,
       longitude: 6.778507
@@ -279,7 +279,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 280,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 51.232364,
       longitude: 6.794059
@@ -301,7 +301,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 150,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 53.547479,
       longitude: 9.968873
@@ -323,7 +323,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 180,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 53.554221,
       longitude: 9.992588
@@ -345,7 +345,7 @@ const offers = [
     title: `Nice, cozy, warm big bed apartment`,
     price: 300,
     rating: 100,
-    bookmarked: false,
+    isFavorite: false,
     location: {
       latitude: 48.845933,
       longitude: 2.357839

@@ -36,8 +36,8 @@ exports[`SignIn correctly renders with authorization required 1`] = `
           >
             <a
               className="header__nav-link header__nav-link--profile"
-              href="#"
-              onClick={[MockFunction]}
+              href="/login"
+              onClick={[Function]}
             >
               <div
                 className="header__avatar-wrapper user__avatar-wrapper"
@@ -91,8 +91,9 @@ exports[`SignIn correctly renders without authorization required 1`] = `
             className="header__nav-item user"
           >
             <a
-              className="header__nav-link header__nav-link--profile"
-              href="#"
+              className="header__nav-link header__nav-link--active"
+              href="/favorites"
+              onClick={[Function]}
             >
               <div
                 className="header__avatar-wrapper user__avatar-wrapper"

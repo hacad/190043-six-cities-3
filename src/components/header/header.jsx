@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import UserPropType from "../prop-types/user.js";
+import {Link} from "react-router-dom";
 
-function Header({isAuthorized, user, onClickSignIn}) {
+function Header({isAuthorized, user}) {
   return (
     <header className="header">
       <div className="container">
@@ -17,18 +18,18 @@ function Header({isAuthorized, user, onClickSignIn}) {
               <li className="header__nav-item user">
                 {isAuthorized
                   ? (
-                    <a className="header__nav-link header__nav-link--profile" href="#">
+                    <Link className="header__nav-link header__nav-link--active" to={`/favorites`}>
                       <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${user.avatarUrl})`}}>
                       </div>
                       <span className="header__user-name user__name">{user.email}</span>
-                    </a>
+                    </Link>
                   )
                   : (
-                    <a className="header__nav-link header__nav-link--profile" href="#" onClick={onClickSignIn}>
+                    <Link className="header__nav-link header__nav-link--profile" to={`/login`}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
                       <span className="header__user-name user__name">Sign In</span>
-                    </a>
+                    </Link>
                   )
                 }
               </li>
@@ -42,8 +43,7 @@ function Header({isAuthorized, user, onClickSignIn}) {
 
 Header.propTypes = {
   isAuthorized: PropTypes.bool.isRequired,
-  user: UserPropType,
-  onClickSignIn: PropTypes.func.isRequired
+  user: UserPropType
 };
 
 export default Header;

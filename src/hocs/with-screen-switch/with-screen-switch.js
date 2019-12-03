@@ -14,8 +14,11 @@ import {isAuthorized as isAuthorizedSelector} from "../../reducers/user/selector
 import withAuthorization from "../with-authorization/with-authorization.js";
 import SignIn from "../../components/sign-in/sign-in.jsx";
 import Main from "../../components/main/main.jsx";
+import Favorites from "../../components/favorites/favorites.jsx";
 
 import {compose} from "recompose";
+
+import {Switch, Route} from "react-router-dom";
 
 const SingInWrapped = withAuthorization(SignIn);
 
@@ -29,7 +32,6 @@ function withScreenSwitch(Component) {
         cities,
         places,
         onChangeCity,
-        isAuthorized
       } = childProps;
       delete childProps.city;
       delete childProps.cities;
@@ -38,21 +40,32 @@ function withScreenSwitch(Component) {
       delete childProps.isAuthorized;
 
       return (
-        <Component
-          {...childProps}
-          renderScreen={() => {
-            if (!isAuthorized) {
-              return <SingInWrapped />;
-            } else {
-              return <Main
-                city={city}
-                cities={cities}
-                places={places}
-                onChangeCity={onChangeCity}
-              />;
-            }
-          }}
-        />
+        <Switch>
+          <Route path="/login" render={() => (
+            <SingInWrapped />
+          )}/>
+          <Route path="/favorites" render={() => (
+            <Favorites />
+          )}/>
+          <Route path="/" exact render={() => (
+            <Component
+              {...childProps}
+              renderScreen={() => {
+                // if (!isAuthorized) {
+                //   return <Redirect to="/login" />;
+                // } else {
+                return <Main
+                  city={city}
+                  cities={cities}
+                  places={places}
+                  onChangeCity={onChangeCity}
+                />;
+                // }
+              }}
+            />
+          )}/>
+        </Switch>
+
       );
     }
   }
