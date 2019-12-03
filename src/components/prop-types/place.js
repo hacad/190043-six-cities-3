@@ -2,8 +2,6 @@ import PropTypes from "prop-types";
 import CityPropType from "./city.js";
 import LocationPropType from "./location.js";
 
-/* eslint-disable camelcase */
-
 const CityPlacePropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   city: CityPropType.isRequired,
@@ -18,5 +16,3 @@ const CityPlacePropType = PropTypes.shape({
 });
 
 export default CityPlacePropType;
-
-/* eslint-enable */

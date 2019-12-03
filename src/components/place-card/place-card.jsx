@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import PlacePropType from "../prop-types/place.js";
 import {connect} from "react-redux";
 import {Operation} from "../../reducers/data/reducer.js";
+import {Link} from "react-router-dom";
 
 const PlaceCard = (props) => {
   const {place, onClickHeader, onActivate, onDeactivate, toggleFavorite} = props;
@@ -54,7 +55,7 @@ const PlaceCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name" onClick={onClickHeader}>
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
