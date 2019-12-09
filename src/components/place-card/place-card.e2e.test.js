@@ -19,6 +19,7 @@ const testPlace = {
   title: `Beautiful &amp; luxurious apartment at great location`,
   price: 120,
   rating: 93,
+  starRating: 93,
   isFavorite: false,
   location: {
     latitude: 52.370216,
@@ -37,6 +38,7 @@ it(`Handler is called when click on header`, () => {
     onActivate={jest.fn()}
     onDeactivate={jest.fn()}
     toggleFavorite={jest.fn()}
+    toggleActive={jest.fn()}
   />);
 
   // Act
@@ -51,12 +53,14 @@ it(`Handler is called when card is hovered`, () => {
   // Arrange
   const onActivateHandler = jest.fn();
   const onDeactivateHandler = jest.fn();
+  const toggleActive = jest.fn();
   const placeCard = shallow(<PlaceCard
     place={testPlace}
     onActivate={onActivateHandler}
     onDeactivate={onDeactivateHandler}
     onClickHeader={jest.fn()}
     toggleFavorite={jest.fn()}
+    toggleActive={toggleActive}
   />);
 
   // Act
@@ -65,6 +69,7 @@ it(`Handler is called when card is hovered`, () => {
 
   // Assert
   expect(onActivateHandler).toHaveBeenCalledTimes(1);
+  expect(toggleActive).toHaveBeenCalledTimes(1);
 });
 
 it(`Active place is set correctly`, () => {
@@ -77,6 +82,7 @@ it(`Active place is set correctly`, () => {
     onDeactivate={onDeactivateHandler}
     onClickHeader={jest.fn()}
     toggleFavorite={jest.fn()}
+    toggleActive={jest.fn()}
   />);
 
   // Act
@@ -97,6 +103,7 @@ it(`Handler is called when bookmark button clicked`, () => {
     onDeactivate={jest.fn()}
     onClickHeader={jest.fn()}
     toggleFavorite={toggleFavorite}
+    toggleActive={jest.fn()}
   />);
 
   // Act

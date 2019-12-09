@@ -73,7 +73,7 @@ exports[`PlaceCard correctly renders after relaunch 1`] = `
         <span
           style={
             Object {
-              "width": "93%",
+              "width": "undefined%",
             }
           }
         />

@@ -37,7 +37,8 @@ it(`PlaceCard correctly renders after relaunch`, () => {
             onClickHeader={jest.fn()}
             onActivate={jest.fn()}
             onDeactivate={jest.fn()}
-            toggleFavorite={jest.fn()}/>
+            toggleFavorite={jest.fn()}
+            toggleActive={jest.fn()}/>
         </Router>)
     .toJSON();
 

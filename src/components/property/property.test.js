@@ -22,6 +22,7 @@ const testProperty = {
   title: `Beautiful &amp; luxurious apartment at great location`,
   price: 120,
   rating: 93,
+  starRating: 93,
   isFavorite: false,
   goods: [`Coffee machine`, `Wi-Fi`],
   host: {
@@ -36,12 +37,33 @@ const testProperty = {
   }
 };
 
+const reviews = [
+  {
+    "id": 1,
+    "user": {
+      "id": 18,
+      "isPro": true,
+      "name": `Sophie`,
+      "avatarUrl": `https://htmlacademy-react-2.appspot.com/six-cities/static/avatar/9.jpg`
+    },
+    "rating": 4,
+    "comment": `The deluxe room was a quite comfortable one with all the adequate facilities. The only thing that made me feel uncomfortable was the rude behavior of an impolite staff at the reception desk.`,
+    "date": new Date(`2019-12-03T14:11:47.471Z`)
+  }
+];
+
 it(`Property correctly renders after relaunch`, () => {
   const offer = testProperty;
 
   const property = renderer.create(
       <Router>
-        <Property offer={offer} />
+        <Property
+          offer={offer}
+          nearOffers={[]}
+          comments={reviews}
+          loadComments={jest.fn()}
+          toggleFavorite={jest.fn()}
+          className="near-places__list places__list" />
       </Router>).toJSON();
 
   expect(property).toMatchSnapshot();
