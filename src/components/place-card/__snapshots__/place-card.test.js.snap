@@ -89,7 +89,8 @@ exports[`PlaceCard correctly renders after relaunch 1`] = `
       onClick={[MockFunction]}
     >
       <a
-        href="#"
+        href="/offer/1"
+        onClick={[Function]}
       >
         Beautiful &amp; luxurious apartment at great location
       </a>

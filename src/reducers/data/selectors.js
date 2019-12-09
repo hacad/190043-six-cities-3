@@ -11,3 +11,29 @@ export const getSelectedPlaces = createSelector(
       offers
         .filter((offer) => offer.city.name === city.name)
 );
+export const getOfferById = (id, state) => {
+  return getOffers(state).filter((offer) => offer.id === id)[0];
+};
+export const getFavorites = (state) => {
+  const favorites = getOffers(state).filter((offer) => offer.isFavorite);
+  let favoritesGroupedByCity = {};
+
+  for (let favorite of favorites) {
+    if (!favoritesGroupedByCity.hasOwnProperty(favorite.city.name)) {
+      favoritesGroupedByCity[favorite.city.name] = [];
+    }
+    favoritesGroupedByCity[favorite.city.name].push(favorite);
+  }
+
+  const cities = getCities(state);
+  return cities
+    .map((c) => {
+      return {
+        city: c,
+        places: favoritesGroupedByCity.hasOwnProperty(c.name)
+          ? favoritesGroupedByCity[c.name]
+          : []
+      };
+    })
+    .filter((f) => f.places && f.places.length);
+};
