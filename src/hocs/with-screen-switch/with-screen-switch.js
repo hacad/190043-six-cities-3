@@ -77,8 +77,6 @@ function withScreenSwitch(Component) {
     onChangeCity: PropTypes.func.isRequired
   };
 
-  // return connect(mapStateToProps, mapDispatchToProps)(WithScreenSwitch);
-
   return WithScreenSwitch;
 }
 
@@ -99,6 +97,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-// export default withScreenSwitch;
 export {withScreenSwitch};
 export default compose(connect(mapStateToProps, mapDispatchToProps), withScreenSwitch);

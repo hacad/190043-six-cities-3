@@ -37,3 +37,4 @@ export const getFavorites = (state) => {
     })
     .filter((f) => f.places && f.places.length);
 };
+export const getComments = (state) => state[reducerNames.DATA].comments;

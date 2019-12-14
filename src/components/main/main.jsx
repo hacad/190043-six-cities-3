@@ -1,4 +1,5 @@
 import React, {Fragment} from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
@@ -6,6 +7,7 @@ import PlacesList from "../places-list/places-list.jsx";
 import CitiesMap from "../cities-map/cities-map.jsx";
 import PlacePropType from "../prop-types/place.js";
 import CityPropType from "../prop-types/city.js";
+import CitiesMapOffer from "../prop-types/cities-map-offer.js";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
 
@@ -14,8 +16,10 @@ const CitiesListWrapped = withActiveItem(CitiesList);
 const PlacesListWrapped = withActiveItem(PlacesList);
 
 function Main(props) {
-  const {places, city: activeCity, cities, onChangeCity} = props;
-  const offers = places.map((place) => place.location);
+  const {places, city: activeCity, cities, onChangeCity, activeOffer} = props;
+  const offers = places.map((place) => {
+    return {data: place.location};
+  });
 
   return (
     <Fragment>
@@ -24,31 +28,7 @@ function Main(props) {
       </div>
 
       <div className="page page--gray page--main">
-        {/* <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <a className="header__logo-link header__logo-link--active">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </a>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header> */}
-
         <HeaderWrapped />
-
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <CitiesListWrapped
@@ -87,10 +67,11 @@ function Main(props) {
                 <PlacesListWrapped
                   places={places}
                   onClickCardHeader={() => {}}
+                  className="cities__places-list places__list tabs__content"
                 />
               </section>
               <div className="cities__right-section">
-                <CitiesMap city={activeCity} offers={offers}/>
+                <CitiesMap city={activeCity} offers={offers} activeOffer={activeOffer} className="property__map map"/>
               </div>
             </div>
           </div>
@@ -104,7 +85,16 @@ Main.propTypes = {
   city: CityPropType,
   cities: PropTypes.arrayOf(CityPropType).isRequired,
   places: PropTypes.arrayOf(PlacePropType).isRequired,
-  onChangeCity: PropTypes.func.isRequired
+  onChangeCity: PropTypes.func.isRequired,
+  activeOffer: CitiesMapOffer
 };
 
-export default Main;
+function mapStateToProps(state, ownProps) {
+  return Object.assign({}, ownProps, {
+    activeOffer: state.data.activeOffer
+  });
+}
+
+export {Main};
+
+export default connect(mapStateToProps)(Main);
