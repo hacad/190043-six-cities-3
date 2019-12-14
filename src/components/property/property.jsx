@@ -9,13 +9,11 @@ import ReviewList from "../review-list/review-list.jsx";
 import {getOfferById, getComments, getSelectedPlaces} from "../../reducers/data/selectors.js";
 import Header from "../header/header.jsx";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
-import CitiesMap from "../cities-map/cities-map.jsx";
-import CitiesMapOffer from "../prop-types/cities-map-offer.js";
-import PlacesList from "../places-list/places-list.jsx";
+import NearPlaces from "../near-places/near-places.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 
 const HeaderWrapped = withAuthorization(Header);
-const PlacesListWrapped = withActiveItem(PlacesList);
+const NearPlacesWrapped = withActiveItem(NearPlaces);
 
 class Property extends PureComponent {
   constructor(props) {
@@ -37,23 +35,11 @@ class Property extends PureComponent {
   }
 
   render() {
-    const {offer, comments, nearOffers, activeOffer, toggleFavorite} = this.props;
+    const {offer, comments, nearOffers, toggleFavorite} = this.props;
 
     if (!offer) {
       return null;
     }
-
-    const nearOfferLocations = nearOffers.map((nearOffer) => {
-      return {data: nearOffer.location};
-    });
-    nearOfferLocations.push({
-      data: offer.location,
-      displaySettings: {
-        icon: {
-          iconUrl: `/img/pin-active.svg`
-        }
-      }
-    });
 
     return (
       <div className="page">
@@ -153,18 +139,8 @@ class Property extends PureComponent {
                 <ReviewList reviews={comments} />
               </div>
             </div>
-            <CitiesMap city={offer.city} offers={nearOfferLocations} activeOffer={activeOffer} className="property__map map"/>
           </section>
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <PlacesListWrapped
-                places={nearOffers}
-                onClickCardHeader={() => {}}
-                className="near-places__list places__list"
-              />
-            </section>
-          </div>
+          <NearPlacesWrapped activeCity={offer.city} currentOfferLocation={offer.location} places={nearOffers} />
         </main>
       </div>
     );
@@ -173,7 +149,6 @@ class Property extends PureComponent {
 
 Property.propTypes = {
   offer: PropertyPropType,
-  activeOffer: CitiesMapOffer,
   toggleFavorite: PropTypes.func.isRequired,
   nearOffers: PropTypes.arrayOf(PlacePropType),
   comments: PropTypes.arrayOf(ReviewPropType),
@@ -186,7 +161,6 @@ const mapStateToProps = (state, ownProps) => {
   return Object.assign({}, ownProps, {
     id,
     offer: getOfferById(id, state),
-    activeOffer: state.data.activeOffer,
     nearOffers: getSelectedPlaces(state)
                 .filter((offer) => offer.id !== id)
                 .slice(0, 3),

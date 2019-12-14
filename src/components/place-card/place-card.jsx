@@ -2,22 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import PlacePropType from "../prop-types/place.js";
 import {connect} from "react-redux";
-import {ActionCreator, Operation} from "../../reducers/data/reducer.js";
+import {Operation} from "../../reducers/data/reducer.js";
 import {Link} from "react-router-dom";
 
 const PlaceCard = (props) => {
-  const {place, onClickHeader, onActivate, onDeactivate, toggleFavorite, toggleActive} = props;
+  const {place, onClickHeader, onActivate, onDeactivate, toggleFavorite} = props;
   const {type, previewImage, isPremium, title, price, starRating: rating, id, isFavorite} = place;
 
   return (
     <article className="cities__place-card place-card"
       onMouseEnter={() => {
         onActivate(place);
-        toggleActive(place);
       }}
       onMouseLeave={() => {
         onDeactivate(place);
-        toggleActive(null);
       }}
     >
       {isPremium
@@ -74,8 +72,7 @@ PlaceCard.propTypes = {
   favorite: PropTypes.shape({
     placeId: PropTypes.number,
     isFavorite: PropTypes.bool
-  }),
-  toggleActive: PropTypes.func.isRequired
+  })
 };
 
 function mapStateToProps(state, ownProps) {
@@ -88,20 +85,6 @@ function mapDispatchToProps(dispatch) {
   return {
     toggleFavorite: (placeId, isFavorite) => {
       dispatch(Operation.toggleFavorite(placeId, isFavorite));
-    },
-    toggleActive: (place) => {
-      dispatch(ActionCreator.setActiveItem(
-          place !== null
-            ? {
-              data: place.location,
-              displaySettings: {
-                icon: {
-                  iconUrl: `/img/pin-active.svg`
-                }
-              }
-            }
-            : null,
-          `activeOffer`));
     }
   };
 }

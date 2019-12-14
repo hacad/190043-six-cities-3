@@ -27,14 +27,18 @@ store.dispatch(Operation.loadOffers())
       .then((offers) => {
         if (offers && offers.length > 0) {
           store.dispatch(ActionCreator.changeCity(offers[0].city));
+          ReactDOM.render(
+              <Provider store={store}>
+                <Router history={history}>
+                  <AppWrapped />
+                </Router>
+              </Provider>,
+              document.getElementById(`root`)
+          );
+        } else {
+          ReactDOM.render(
+              <div>Something goes wrong. Please try again later</div>,
+              document.getElementById(`root`)
+          );
         }
       });
-
-ReactDOM.render(
-    <Provider store={store}>
-      <Router history={history}>
-        <AppWrapped />
-      </Router>
-    </Provider>,
-    document.getElementById(`root`)
-);

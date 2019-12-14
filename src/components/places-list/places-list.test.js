@@ -2,8 +2,6 @@ import React from "react";
 import renderer from "react-test-renderer";
 import PlacesList from "./places-list.jsx";
 
-/* eslint-disable camelcase */
-
 jest.mock(`../place-card/place-card.jsx`, () => `<div />`);
 
 const places = [
@@ -36,12 +34,10 @@ it(`PlacesList correctly renders after relaunch`, () => {
     .create(<PlacesList
       places={places}
       onClickCardHeader={jest.fn()}
-      onActivateItem={jest.fn()}
-      onDeactivateItem={jest.fn()}
+      onActivatePlace={jest.fn()}
+      onDeactivatePlace={jest.fn()}
       className="cities__places-list places__list tabs__content"/>)
     .toJSON();
 
   expect(placesList).toMatchSnapshot();
 });
-
-/* eslint-enable */

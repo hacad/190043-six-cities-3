@@ -443,11 +443,11 @@ exports[`Property correctly renders after relaunch 1`] = `
           </section>
         </div>
       </div>
-      <section
-        className="property__map map"
-        id="map"
-      />
     </section>
+    <section
+      className="property__map map"
+      id="map"
+    />
     <div
       className="container"
     >
