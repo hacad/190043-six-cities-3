@@ -3,8 +3,6 @@ import renderer from "react-test-renderer";
 import {BrowserRouter as Router} from "react-router-dom";
 import {PlaceCard} from "./place-card.jsx";
 
-/* eslint-disable camelcase */
-
 const testPlace = {
   id: 1,
   city: {
@@ -44,5 +42,3 @@ it(`PlaceCard correctly renders after relaunch`, () => {
 
   expect(placeCard).toMatchSnapshot();
 });
-
-/* eslint-enable */

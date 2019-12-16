@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Places correctly renders after relaunch 1`] = `
+Array [
+  <section
+    className="cities__places places"
+  >
+    <h2
+      className="visually-hidden"
+    >
+      Places
+    </h2>
+    <b
+      className="places__found"
+    >
+      1
+       
+      place
+       to stay in 
+      Hamburg
+    </b>
+    <form
+      action="#"
+      className="places__sorting"
+      method="get"
+    >
+      <span
+        className="places__sorting-caption"
+      >
+        Sort by
+      </span>
+      <span
+        className="places__sorting-type"
+        onClick={[Function]}
+        tabIndex="0"
+      >
+        Popular
+        <svg
+          className="places__sorting-arrow"
+          height="4"
+          width="7"
+        >
+          <use
+            xlinkHref="#icon-arrow-select"
+          />
+        </svg>
+      </span>
+      <ul
+        className="places__options places__options--custom "
+      >
+        <li
+          className="places__option places__option--active"
+          onClick={[Function]}
+          tabIndex={0}
+        >
+          Popular
+        </li>
+        <li
+          className="places__option "
+          onClick={[Function]}
+          tabIndex={1}
+        >
+          Price: low to high
+        </li>
+        <li
+          className="places__option "
+          onClick={[Function]}
+          tabIndex={2}
+        >
+          Price: high to low
+        </li>
+        <li
+          className="places__option "
+          onClick={[Function]}
+          tabIndex={3}
+        >
+          Top rated first
+        </li>
+      </ul>
+    </form>
+    <div
+      className="cities__places-list places__list tabs__content"
+    >
+      <<div />
+        onActivate={[MockFunction]}
+        onClickHeader={[Function]}
+        onDeactivate={[MockFunction]}
+        place={
+          Object {
+            "city": Object {
+              "location": Object {
+                "latitude": 53.552645,
+                "longitude": 9.966287,
+                "zoom": 10,
+              },
+              "name": "Hamburg",
+            },
+            "id": 15,
+            "isFavorite": false,
+            "isPremium": false,
+            "location": Object {
+              "latitude": 53.554221,
+              "longitude": 9.992588,
+            },
+            "previewImage": "img/apartment-03.jpg",
+            "price": 180,
+            "rating": 100,
+            "title": "Nice, cozy, warm big bed apartment",
+            "type": "apartment",
+          }
+        }
+      />
+    </div>
+  </section>,
+  <div
+    className="cities__right-section"
+  >
+    <section
+      className="property__map map"
+      id="map"
+    />
+  </div>,
+]
+`;

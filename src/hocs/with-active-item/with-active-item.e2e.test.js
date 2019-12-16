@@ -30,3 +30,26 @@ it(`When onDeactivateItem is called should clear current value`, () => {
   // Assert
   expect(wrapper.state().activeItem).toBeNull();
 });
+
+it(`When defaultActiveItem is set should be returned as current value`, () => {
+  // Arrange
+  const ComponentWrappedWithDefaultActiveItem = withActiveItem(MockComponent, `value`);
+  const wrapper = shallow(<ComponentWrappedWithDefaultActiveItem />);
+
+  // Act && Assert
+  expect(wrapper.state().activeItem).toEqual(`value`);
+});
+
+it(`When item name is set should be used as part of active item and event names`, () => {
+  // Arrange
+  const ComponentWrappedWithItemName = withActiveItem(MockComponent, `value`, `Opened`);
+  const wrapper = shallow(<ComponentWrappedWithItemName />);
+
+  // Act && Assert
+  expect(wrapper.state()).toHaveProperty(`activeOpened`);
+  expect(wrapper.state().activeOpened).toEqual(`value`);
+  expect(wrapper.props()).toHaveProperty(`onActivateOpened`);
+  expect(wrapper.props().onActivateOpened).toBeInstanceOf(Function);
+  expect(wrapper.props()).toHaveProperty(`onDeactivateOpened`);
+  expect(wrapper.props().onDeactivateOpened).toBeInstanceOf(Function);
+});
