@@ -43,7 +43,7 @@ it(`Reducer should change city and offers`, () => {
   expect(newState).toEqual(requiredState);
 });
 
-it(`Reducer should make correct API call`, () => {
+it(`Reducer should make correct API call load offers`, () => {
   // Arrange
   const dispatch = jest.fn();
   const api = createAPI(dispatch);
@@ -61,6 +61,28 @@ it(`Reducer should make correct API call`, () => {
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: ActionType.LOAD_OFFERS,
         payload: {offers: []}
+      });
+    });
+});
+
+it(`Reducer should make correct API call to load comments`, () => {
+  // Arrange
+  const dispatch = jest.fn();
+  const api = createAPI(dispatch);
+  const apiMock = new MockAdapter(api);
+  const loadComments = Operation.loadComments(1);
+
+  apiMock
+    .onGet(`/comments/1`)
+    .reply(200, []);
+
+  // Act & Assert
+  return loadComments(dispatch, jest.fn(), api)
+    .then(() => {
+      expect(dispatch).toBeCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.LOAD_COMMENTS,
+        payload: {comments: []}
       });
     });
 });
