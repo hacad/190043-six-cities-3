@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
 import PlacePropType from "../prop-types/place.js";
 import Places from "../places/places.jsx";
+import PlacesEmpty from "../places-empty/places-empty.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import CityPropType from "../prop-types/city.js";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
@@ -14,7 +15,7 @@ const CitiesListWrapped = withActiveItem(CitiesList);
 
 function Main(props) {
   const {places, city: activeCity, cities, onChangeCity} = props;
-  const PlacesWrapped = withSorting(withActiveItem(Places), places, `ASC`);
+  const PlacesWrapped = withSorting(withActiveItem(Places), places, `ASC`, `places`);
 
   return (
     <Fragment>
@@ -32,13 +33,14 @@ function Main(props) {
             onChangeCity={onChangeCity}
           />
           <div className="cities">
-            <div className="cities__places-container container">
-              <PlacesWrapped
+            {places && places.length
+              ? <PlacesWrapped
                 onClickCardHeader={() => {}}
                 className="cities__places-list places__list tabs__content"
                 activeCity={activeCity}
               />
-            </div>
+              : <PlacesEmpty cityName={activeCity.name} />
+            }
           </div>
         </main>
       </div>
