@@ -8,7 +8,7 @@ const initialState = {
     location: {
       latitude: 52.373057,
       longitude: 4.892557,
-      zoom: 10
+      zoom: 13
     }},
   offers: [],
   cities: [],
@@ -117,12 +117,14 @@ const Operation = {
   loadOffers: () => (dispatch, _, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const offers = keysToCamel(response.data);
-        for (let offer of offers) {
-          offer.starRating = Math.round((offer.rating / 5) * 100);
+        let offers = [];
+        if (response && response.data) {
+          offers = keysToCamel(response.data);
+          for (let offer of offers) {
+            offer.starRating = Math.round((offer.rating / 5) * 100);
+          }
+          dispatch(ActionCreator.loadOffers(offers));
         }
-        dispatch(ActionCreator.loadOffers(offers));
-
         return offers;
       });
   },
@@ -147,19 +149,35 @@ const Operation = {
   loadComments: (hotelId) => (dispatch, _, api) => {
     return api.get(`/comments/${hotelId}`)
       .then((response) => {
-        const monthNames = [`January`, `February`, `March`, `April`, `May`, `June`,
-          `July`, `August`, `September`, `October`, `November`, `December`
-        ];
-
-        const comments = keysToCamel(response.data);
-        for (let comment of comments) {
-          comment.rating = Math.round((comment.rating / 5) * 100);
-          comment.date = new Date(comment.date);
-          comment.formattedDate = `${monthNames[comment.date.getMonth()]} ${comment.date.getFullYear()}`;
+        if (response && response.data) {
+          const comments = formatComments(response.data);
+          dispatch(ActionCreator.loadComments(comments));
         }
+      });
+  },
+
+  postComment: (hotelId, review) => (dispatch, _, api) => {
+    return api.post(`/comments/${hotelId}`, review)
+      .then((response) => {
+        const comments = formatComments(response.data);
         dispatch(ActionCreator.loadComments(comments));
       });
   }
 };
+
+function formatComments(comments) {
+  const monthNames = [`January`, `February`, `March`, `April`, `May`, `June`,
+    `July`, `August`, `September`, `October`, `November`, `December`
+  ];
+
+  comments = keysToCamel(comments);
+  for (let comment of comments) {
+    comment.rating = Math.round((comment.rating / 5) * 100);
+    comment.date = new Date(comment.date);
+    comment.formattedDate = `${monthNames[comment.date.getMonth()]} ${comment.date.getFullYear()}`;
+  }
+
+  return comments;
+}
 
 export {ActionType, ActionCreator, data, Operation};

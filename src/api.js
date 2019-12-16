@@ -12,7 +12,7 @@ export const createAPI = (onLoginFail) => {
   };
 
   const onFail = (err) => {
-    if (err.response.status === 400 || err.response.status === 401 || err.response.status === 403) {
+    if (err.response.status === 401 || err.response.status === 403) {
       onLoginFail();
 
       return;
