@@ -2,10 +2,23 @@ import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
-
+import ErrorLabel from "../error-label/error-label.jsx";
 const HeaderWrapped = withAuthorization(Header);
 
-function SignIn({isCredentialsValid, onClickSignIn, onEmailChange, onPasswordChange}) {
+function SignIn({onChange, onSubmit, form, onClickSignIn, isDisabled, errors}) {
+
+  const onFormSubmit = (evt) => {
+    evt.preventDefault();
+    onSubmit();
+    onClickSignIn(form);
+  };
+
+  const renderEmailValidationError = errors && errors[`email`]
+    ? <ErrorLabel txtLbl={errors[`email`]} htmlFor="email" />
+    : ``;
+  const renderPasswordValidationError = errors && errors[`password`]
+    ? <ErrorLabel txtLbl={errors[`password`]} htmlFor="password" />
+    : ``;
   return (
     <Fragment>
       <div style={{display: `none`}}>
@@ -18,33 +31,35 @@ function SignIn({isCredentialsValid, onClickSignIn, onEmailChange, onPasswordCha
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post" onSubmit={onClickSignIn}>
+              <form className="login__form form" action="#" method="post" onChange={onChange} onSubmit={onFormSubmit}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input
                     className="login__input form__input"
                     type="email"
+                    id="email"
                     name="email"
                     placeholder="Email"
-                    required=""
-                    onChange={(event) => onEmailChange(event)}
+                    required
                   />
+                  {renderEmailValidationError}
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
                   <input
                     className="login__input form__input"
                     type="password"
+                    id="password"
                     name="password"
                     placeholder="Password"
-                    required=""
-                    onChange={(event) => onPasswordChange(event)}
+                    required
                   />
+                  {renderPasswordValidationError}
                 </div>
                 <button
                   className="login__submit form__submit button"
                   type="submit"
-                  disabled={!isCredentialsValid}
+                  disabled={isDisabled}
                 >
                   Sign in
                 </button>
@@ -65,10 +80,18 @@ function SignIn({isCredentialsValid, onClickSignIn, onEmailChange, onPasswordCha
 }
 
 SignIn.propTypes = {
-  isCredentialsValid: PropTypes.bool,
-  onClickSignIn: PropTypes.func,
-  onEmailChange: PropTypes.func,
-  onPasswordChange: PropTypes.func
+  isDisabled: PropTypes.bool,
+  onClickSignIn: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  form: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string
+  }),
+  errors: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string
+  })
 };
 
 export default SignIn;

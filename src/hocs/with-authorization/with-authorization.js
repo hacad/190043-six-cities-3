@@ -11,40 +11,17 @@ function withAuthorization(Component, isPrivate) {
   class WithAuthorization extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = {
-        email: ``,
-        password: ``
-      };
+
       this._handleLogin = this._handleLogin.bind(this);
       this._handleLogout = this._handleLogout.bind(this);
-      this._handleEmailChange = this._handleEmailChange.bind(this);
-      this._handlePasswordChange = this._handlePasswordChange.bind(this);
     }
 
-    _handleEmailChange(evt) {
-      const email = evt.target.value;
-      this.setState((prevState) => ({
-        email,
-        isCredentialsValid: !!email && !!prevState.password
-      }));
+    _handleLogin(user) {
+      this.props.login({email: user.email, password: user.password});
     }
 
-    _handlePasswordChange(evt) {
-      const password = evt.target.value;
-      this.setState((prevState) => ({
-        password,
-        isCredentialsValid: !!password && !!prevState.email
-      }));
-    }
-
-    _handleLogin(evt) {
-      evt.preventDefault();
-      this.props.login({email: this.state.email, password: this.state.password});
-    }
-
-    _handleLogout(evt) {
-      evt.preventDefault();
-      this.props.logout({email: this.state.email, password: this.state.password});
+    _handleLogout(user) {
+      this.props.logout({email: user.email, password: user.password});
     }
 
     render() {
@@ -56,14 +33,12 @@ function withAuthorization(Component, isPrivate) {
           : (
             <Component
               {...this.props}
-              onEmailChange={this._handleEmailChange}
-              onPasswordChange={this._handlePasswordChange}
               onClickSignIn={this._handleLogin}
               onClickSignOut={this._handleLogout}
-              isCredentialsValid={!!this.state.email && !!this.state.password}
+              isAuthorized={this.props.isAuthorized}
+              user={this.props.user}
             />
           )
-
       );
     }
   }

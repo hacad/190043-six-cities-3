@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorLabel correctly renders after relaunch 1`] = `
+<label
+  htmlFor="id"
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  some error text
+</label>
+`;

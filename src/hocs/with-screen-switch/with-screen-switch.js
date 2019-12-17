@@ -12,6 +12,7 @@ import {
 import {isAuthorized as isAuthorizedSelector} from "../../reducers/user/selectors.js";
 
 import withAuthorization from "../with-authorization/with-authorization.js";
+import withForm from "../with-form/with-form.js";
 import SignIn from "../../components/sign-in/sign-in.jsx";
 import Main from "../../components/main/main.jsx";
 import Favorites from "../../components/favorites/favorites.jsx";
@@ -21,7 +22,7 @@ import {compose} from "recompose";
 
 import {Switch, Route} from "react-router-dom";
 
-const SingInWrapped = withAuthorization(SignIn, false);
+const SingInWrapped = withAuthorization(withForm(SignIn), false);
 const FavoritesWrapped = withAuthorization(Favorites, true);
 
 function withScreenSwitch(Component) {
