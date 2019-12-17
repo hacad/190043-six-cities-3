@@ -46,6 +46,8 @@ function Places(props) {
           className="cities__places-list places__list tabs__content"
           onActivatePlace={onActivateItem}
           onDeactivatePlace={onDeactivateItem}
+          articleTagClassNamePrefix="cities__place-card"
+          divImageWrapperClassNamePrefix="cities__image-wrapper"
         />
       </section>
       <div className="cities__right-section">

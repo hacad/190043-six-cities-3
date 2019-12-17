@@ -21,6 +21,8 @@ Array [
         className="near-places__list places__list"
       >
         <<div />
+          articleTagClassNamePrefix="near-places__card"
+          divImageWrapperClassNamePrefix="near-places"
           onActivate={[MockFunction]}
           onClickHeader={[Function]}
           onDeactivate={[MockFunction]}

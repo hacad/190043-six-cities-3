@@ -5,6 +5,9 @@ exports[`PlacesList correctly renders after relaunch 1`] = `
   className="cities__places-list places__list tabs__content"
 >
   <<div />
+    articleTagClassNamePrefix="cities__place-card"
+    divImageWrapperClassNamePrefix="cities__image-wrapper"
+    divInfoClassNamePrefix=""
     onActivate={[MockFunction]}
     onClickHeader={[MockFunction]}
     onDeactivate={[MockFunction]}

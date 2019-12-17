@@ -1,6 +1,5 @@
 import reducerNames from "../reducerNames.js";
 import {keysToCamel} from "../../utils.js";
-import history from "../../history.js";
 
 const initialState = {
   city: {
@@ -12,7 +11,7 @@ const initialState = {
     }},
   offers: [],
   cities: [],
-  favorite: undefined,
+  favorites: [],
   comments: []
 };
 
@@ -20,6 +19,7 @@ const ActionType = {
   CHANGE_CITY: `${reducerNames.DATA}_CHANGE_CITY`,
   LOAD_OFFERS: `${reducerNames.DATA}_LOAD_OFFERS`,
   TOGGLE_FAVORITE: `${reducerNames.DATA}_TOGGLE_FAVORITE`,
+  LOAD_FAVORITES: `${reducerNames.DATA}_LOAD_FAVORITES`,
   LOAD_COMMENTS: `${reducerNames.DATA}_LOAD_COMMENTS`
 };
 
@@ -42,14 +42,20 @@ const ActionCreator = {
     };
   },
 
-  toggleFavorite: (placeId, isFavorite) => {
+  toggleFavorite: (offer) => {
     return {
       type: ActionType.TOGGLE_FAVORITE,
       payload: {
-        favorite: {
-          placeId,
-          isFavorite
-        }
+        offer
+      }
+    };
+  },
+
+  loadFavorites: (favoriteOffers) => {
+    return {
+      type: ActionType.LOAD_FAVORITES,
+      payload: {
+        favoriteOffers
       }
     };
   },
@@ -97,10 +103,18 @@ const data = function (state = initialState, action) {
       });
       break;
     case ActionType.TOGGLE_FAVORITE:
+      const updatedOffers = state.offers.map((offer) => {
+        return offer.id === action.payload.offer.id ? action.payload.offer : offer;
+      });
+
       Object.assign(newState, state, {
-        favorite: action.payload.favorite
+        offers: updatedOffers,
       });
       break;
+    case ActionType.LOAD_FAVORITES:
+      return Object.assign({}, state, {
+        favorites: action.payload.favoriteOffers,
+      });
     case ActionType.LOAD_COMMENTS:
       Object.assign(newState, state, {
         comments: action.payload.comments,
@@ -119,31 +133,38 @@ const Operation = {
       .then((response) => {
         let offers = [];
         if (response && response.data) {
-          offers = keysToCamel(response.data);
-          for (let offer of offers) {
-            offer.starRating = Math.round((offer.rating / 5) * 100);
-          }
+          offers = formatOffers(response.data);
           dispatch(ActionCreator.loadOffers(offers));
         }
         return offers;
       });
   },
 
-  toggleFavorite: (placeId, isFavorite) => (dispatch, getState) => {
-    const promise = new Promise((resolve) => {
-      setTimeout(resolve(), 1000);
-    });
+  toggleFavorite: (placeId, isFavorite) => (dispatch, _, api) => {
+    return api.post(`/favorite/${placeId}/${isFavorite ? 1 : 0}`)
+      .then((response) => {
+        let updatedOffers = [];
+        if (response && response.data) {
+          updatedOffers = formatOffers([response.data]);
+          dispatch(ActionCreator.toggleFavorite(updatedOffers[0]));
+        }
 
-    return promise.then(() => {
-      if (!getState()[reducerNames.USER].isAuthorized) {
-        history.push(`/login`);
-      } else {
-        const offers = getState()[reducerNames.DATA].offers;
-        const offer = offers.find((o) => o.id === placeId);
-        offer.isFavorite = isFavorite;
-        dispatch(ActionCreator.toggleFavorite(placeId, isFavorite));
-      }
-    });
+        return updatedOffers;
+      });
+  },
+
+  loadFavorites: () => (dispatch, _, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        let favoriteOffers = [];
+        if (response && response.data) {
+          favoriteOffers = formatOffers(response.data);
+          dispatch(ActionCreator.loadFavorites(favoriteOffers));
+          dispatch(Operation.loadFavorites());
+        }
+
+        return favoriteOffers;
+      });
   },
 
   loadComments: (hotelId) => (dispatch, _, api) => {
@@ -164,6 +185,15 @@ const Operation = {
       });
   }
 };
+
+function formatOffers(offers) {
+  offers = keysToCamel(offers);
+  for (let offer of offers) {
+    offer.starRating = Math.round((offer.rating / 5) * 100);
+  }
+
+  return offers;
+}
 
 function formatComments(comments) {
   const monthNames = [`January`, `February`, `March`, `April`, `May`, `June`,

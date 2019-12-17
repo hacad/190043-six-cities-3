@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PlacePropType from "../prop-types/place.js";
-import {connect} from "react-redux";
-import {Operation} from "../../reducers/data/reducer.js";
+import BookmarkButton from "../bookmark-button/bookmark-button.jsx";
+import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
 import {Link} from "react-router-dom";
 
+const BookmarkButtonWrapped = withAuthorization(BookmarkButton);
+
 const PlaceCard = (props) => {
-  const {place, onClickHeader, onActivate, onDeactivate, toggleFavorite} = props;
+  const {place, onClickHeader, onActivate, onDeactivate,
+    articleTagClassNamePrefix, divImageWrapperClassNamePrefix,
+    divInfoClassNamePrefix} = props;
   const {type, previewImage, isPremium, title, price, starRating: rating, id, isFavorite} = place;
 
   return (
-    <article className="cities__place-card place-card"
+    <article className={`${articleTagClassNamePrefix} place-card`}
       onMouseEnter={() => {
         onActivate(place);
       }}
@@ -26,27 +30,24 @@ const PlaceCard = (props) => {
         )
         : ``
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+      <div className={`${divImageWrapperClassNamePrefix}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${divInfoClassNamePrefix} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button button ${isFavorite ? `property__bookmark-button--active` : ``}`}
-            type="button"
-            onClick={() => toggleFavorite(id, !isFavorite)}
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButtonWrapped
+            offerId={id}
+            isFavorite={isFavorite}
+            iconWidth={18}
+            iconHeight={19}
+            classNamePrefix="place-card"
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -54,7 +55,7 @@ const PlaceCard = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name" onClick={onClickHeader}>
+        <h2 className="place-card__name" onClick={onClickHeader ? onClickHeader : () => {}}>
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -65,30 +66,12 @@ const PlaceCard = (props) => {
 
 PlaceCard.propTypes = {
   place: PlacePropType.isRequired,
-  onClickHeader: PropTypes.func.isRequired,
+  onClickHeader: PropTypes.func,
   onActivate: PropTypes.func.isRequired,
   onDeactivate: PropTypes.func.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
-  favorite: PropTypes.shape({
-    placeId: PropTypes.number,
-    isFavorite: PropTypes.bool
-  })
+  articleTagClassNamePrefix: PropTypes.string.isRequired,
+  divImageWrapperClassNamePrefix: PropTypes.string.isRequired,
+  divInfoClassNamePrefix: PropTypes.string
 };
 
-function mapStateToProps(state, ownProps) {
-  return Object.assign({}, ownProps, {
-    favorite: state.data.favorite
-  });
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    toggleFavorite: (placeId, isFavorite) => {
-      dispatch(Operation.toggleFavorite(placeId, isFavorite));
-    }
-  };
-}
-
-export {PlaceCard};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+export default PlaceCard;

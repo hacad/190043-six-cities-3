@@ -6,6 +6,7 @@ import ReviewForm from "../review-form/review-form.jsx";
 import withForm from "../../hocs/with-form/with-form.js";
 
 const ReviewFormWrapped = withForm(ReviewForm);
+const MAX_ITEMS_COUNT = 10;
 
 const ReviewsList = ({reviews, isAuthorized, hotelId}) => {
   return (
@@ -21,7 +22,7 @@ const ReviewsList = ({reviews, isAuthorized, hotelId}) => {
         </span>
       </h2>
       <ul className="reviews__list">
-        {reviews.map((review) => {
+        {reviews.slice(0, MAX_ITEMS_COUNT).map((review) => {
           return (
             <ReviewItem
               key={`review-item-${review.id}`}

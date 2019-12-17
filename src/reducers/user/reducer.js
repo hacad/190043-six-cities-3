@@ -9,8 +9,6 @@ const initialState = {
 
 const ActionType = {
   REQUIRE_AUTHORIZATION: `${reducerNames.USER}_REQUIRE_AUTHORIZATION`,
-  LOGIN: `${reducerNames.USER}_LOGIN`,
-  LOGOUT: `${reducerNames.USER}_LOGOUT`
 };
 
 const ActionCreator = {
@@ -23,25 +21,6 @@ const ActionCreator = {
       }
     };
   },
-/*
-  login: (user) => {
-    return {
-      type: ActionType.LOGIN,
-      payload: {
-        user
-      }
-    };
-  },
-
-  logout: () => {
-    return {
-      type: ActionType.LOGOUT,
-      payload: {
-        user: undefined
-      }
-    };
-  }
-  */
 };
 
 const user = function (state = initialState, action) {
@@ -54,18 +33,6 @@ const user = function (state = initialState, action) {
         user: action.payload.user
       });
       break;
-    /*
-    case ActionType.LOGIN:
-      Object.assign(newState, state, {
-        user: action.payload.user
-      });
-      break;
-    case ActionType.LOGOUT:
-      Object.assign(newState, state, {
-        user: action.payload.user
-      });
-      break;
-    */
     default:
       return state;
   }

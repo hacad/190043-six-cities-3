@@ -72,7 +72,7 @@ ReviewForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   form: PropTypes.shape({
-    rating: PropTypes.number,
+    rating: PropTypes.string,
     comment: PropTypes.string
   }),
   errors: PropTypes.shape({
