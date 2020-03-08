@@ -3,6 +3,8 @@ import renderer from "react-test-renderer";
 import Main from "./main.jsx";
 
 jest.mock(`../../hocs/with-authorization/with-authorization.js`, () => () => `<div />`);
+jest.mock(`../../hocs/with-active-item/with-active-item.js`, () => () => `<div />`);
+jest.mock(`../places/places.jsx`, () => `<div />`);
 jest.mock(`../place-card/place-card.jsx`, () => `<div />`);
 
 const places = [

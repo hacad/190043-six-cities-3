@@ -4,8 +4,10 @@ import ReviewPropType from "../prop-types/review.js";
 import ReviewItem from "../review-item/review-item.jsx";
 import ReviewForm from "../review-form/review-form.jsx";
 import withForm from "../../hocs/with-form/with-form.js";
+import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 
-const ReviewFormWrapped = withForm(ReviewForm);
+const ReviewFormWrapped = withForm(withActiveItem(ReviewForm, false));
+const MAX_ITEMS_COUNT = 10;
 
 const ReviewsList = ({reviews, isAuthorized, hotelId}) => {
   return (
@@ -21,7 +23,7 @@ const ReviewsList = ({reviews, isAuthorized, hotelId}) => {
         </span>
       </h2>
       <ul className="reviews__list">
-        {reviews.map((review) => {
+        {reviews.slice(0, MAX_ITEMS_COUNT).map((review) => {
           return (
             <ReviewItem
               key={`review-item-${review.id}`}

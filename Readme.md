@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
-* Студент: [Sviatoslav](https://up.htmlacademy.ru/react/3/user/190043).
-* Наставник: ``
+* Студент: [Святослав](https://up.htmlacademy.ru/react/2/user/190043).
+* Наставник: [Данила Маношкин](https://up.htmlacademy.ru/react/2/user/1197595).
 
 ---
 
@@ -48,5 +48,5 @@ git clone SSH-адрес_вашего_форка
 
 Репозиторий создан для обучения на профессиональном онлайн‑курсе «[JavaScript, уровень 3](https://htmlacademy.ru/intensive/react)» от [HTML Academy](https://htmlacademy.ru).
 
-[travis-image]: https://travis-ci.com/htmlacademy-react/190043-six-cities-3.svg?branch=master
-[travis-url]: https://travis-ci.com/htmlacademy-react/190043-six-cities-3
+[travis-image]: https://travis-ci.com/htmlacademy-react/190043-six-cities-2.svg?branch=master
+[travis-url]: https://travis-ci.com/htmlacademy-react/190043-six-cities-2

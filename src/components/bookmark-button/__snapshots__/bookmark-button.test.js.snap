@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookmarkButton correctly renders after relaunch 1`] = `
+<button
+  className="place-card__bookmark-button button place-card__bookmark-button--active"
+  id="toggleFavorite"
+  onClick={[Function]}
+  type="button"
+>
+  <svg
+    className="place-card__bookmark-icon property__bookmark-icon"
+    height={19}
+    width={18}
+  >
+    <use
+      xlinkHref="#icon-bookmark"
+    />
+  </svg>
+  <span
+    className="visually-hidden"
+  >
+    In bookmarks
+  </span>
+  
+</button>
+`;

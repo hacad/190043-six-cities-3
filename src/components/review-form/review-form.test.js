@@ -11,8 +11,10 @@ it(`ReviewForm correctly renders after relaunch`, () => {
         onSendForm={jest.fn()}
         onChange={jest.fn()}
         isDisabled={false}
-        form={{rating: 5, comment: `comment`}}
+        form={{rating: `5`, comment: `comment`}}
         errors={{}}
+        onActivateItem={jest.fn()}
+        activeItem={false}
       />
   ).toJSON();
 

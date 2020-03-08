@@ -44,7 +44,7 @@ it(`Favorites empty correctly renders after relaunch`, () => {
   // Arrange && Act
   const favoritesPage = renderer.create(
       <Router>
-        <Favorites favorites={[]}/>
+        <Favorites favorites={[]} loadFavorites={jest.fn()}/>
       </Router>).toJSON();
 
   // Assert
@@ -56,7 +56,7 @@ it(`Favorites not empty correctly renders after relaunch`, () => {
   // Arrange && Act
   const favoritesPage = renderer.create(
       <Router>
-        <Favorites favorites={favorites}/>
+        <Favorites favorites={favorites} loadFavorites={jest.fn()}/>
       </Router>).toJSON();
 
   // Assert

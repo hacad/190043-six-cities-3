@@ -8,14 +8,12 @@ import CitiesList from "../cities-list/cities-list.jsx";
 import CityPropType from "../prop-types/city.js";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
-import withSorting from "../../hocs/with-sorting/with-sorting.js";
 
 const HeaderWrapped = withAuthorization(Header);
 const CitiesListWrapped = withActiveItem(CitiesList);
 
 function Main(props) {
   const {places, city: activeCity, cities, onChangeCity} = props;
-  const PlacesWrapped = withSorting(withActiveItem(Places), places, `ASC`, `places`);
 
   return (
     <Fragment>
@@ -34,7 +32,8 @@ function Main(props) {
           />
           <div className="cities">
             {places && places.length
-              ? <PlacesWrapped
+              ? <Places
+                places={places}
                 onClickCardHeader={() => {}}
                 className="cities__places-list places__list tabs__content"
                 activeCity={activeCity}

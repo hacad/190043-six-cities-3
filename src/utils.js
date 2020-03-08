@@ -15,19 +15,19 @@ const toCamel = (s) => {
 };
 
 
-export const keysToCamel = function (o) {
+export const applyCamelCase = function (o) {
   if (isObject(o)) {
     const n = {};
 
     Object.keys(o)
       .forEach((k) => {
-        n[toCamel(k)] = keysToCamel(o[k]);
+        n[toCamel(k)] = applyCamelCase(o[k]);
       });
 
     return n;
   } else if (isArray(o)) {
     return o.map((i) => {
-      return keysToCamel(i);
+      return applyCamelCase(i);
     });
   }
   return o;

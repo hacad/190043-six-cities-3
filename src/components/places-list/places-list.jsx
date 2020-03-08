@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card.jsx";
 import PlacePropType from "../prop-types/place.js";
 
-function PlacesList({className, onClickCardHeader, places, onActivatePlace, onDeactivatePlace}) {
+function PlacesList(props) {
+  const {className, onClickCardHeader, places, onActivatePlace, onDeactivatePlace,
+    articleTagClassNamePrefix, divImageWrapperClassNamePrefix, divInfoClassNamePrefix} = props;
   return (
     <div className={className}>
       {places.map((place) => (
@@ -13,6 +15,9 @@ function PlacesList({className, onClickCardHeader, places, onActivatePlace, onDe
           onClickHeader={onClickCardHeader}
           onActivate={onActivatePlace}
           onDeactivate={onDeactivatePlace}
+          articleTagClassNamePrefix={articleTagClassNamePrefix}
+          divImageWrapperClassNamePrefix={divImageWrapperClassNamePrefix}
+          divInfoClassNamePrefix={divInfoClassNamePrefix}
         />
       ))}
     </div>
@@ -24,7 +29,10 @@ PlacesList.propTypes = {
   onClickCardHeader: PropTypes.func.isRequired,
   onActivatePlace: PropTypes.func.isRequired,
   onDeactivatePlace: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired
+  className: PropTypes.string.isRequired,
+  articleTagClassNamePrefix: PropTypes.string.isRequired,
+  divImageWrapperClassNamePrefix: PropTypes.string.isRequired,
+  divInfoClassNamePrefix: PropTypes.string
 };
 
 export default PlacesList;

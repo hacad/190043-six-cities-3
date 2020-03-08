@@ -82,7 +82,8 @@ Array [
     >
       <a
         className="footer__logo-link"
-        href="main.html"
+        href="/"
+        onClick={[Function]}
       >
         <img
           alt="6 cities logo"
@@ -184,19 +185,23 @@ Array [
               >
                 <article
                   className="favorites__card place-card"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                 >
+                  
                   <div
                     className="favorites__image-wrapper place-card__image-wrapper"
                   >
                     <a
-                      href="#"
+                      href="/offer/1"
+                      onClick={[Function]}
                     >
                       <img
                         alt="Place image"
                         className="place-card__image"
-                        height="110"
+                        height="200"
                         src="img/apartment-01.jpg"
-                        width="150"
+                        width="260"
                       />
                     </a>
                   </div>
@@ -221,25 +226,13 @@ Array [
                           / night
                         </span>
                       </div>
-                      <button
-                        className="place-card__bookmark-button place-card__bookmark-button--active button"
-                        type="button"
-                      >
-                        <svg
-                          className="place-card__bookmark-icon"
-                          height="19"
-                          width="18"
-                        >
-                          <use
-                            xlinkHref="#icon-bookmark"
-                          />
-                        </svg>
-                        <span
-                          className="visually-hidden"
-                        >
-                          In bookmarks
-                        </span>
-                      </button>
+                      <<div />
+                        classNamePrefix="place-card"
+                        iconHeight={19}
+                        iconWidth={18}
+                        isFavorite={true}
+                        offerId={1}
+                      />
                     </div>
                     <div
                       className="place-card__rating rating"
@@ -250,7 +243,7 @@ Array [
                         <span
                           style={
                             Object {
-                              "width": "93%",
+                              "width": "undefined%",
                             }
                           }
                         />
@@ -263,6 +256,7 @@ Array [
                     </div>
                     <h2
                       className="place-card__name"
+                      onClick={[Function]}
                     >
                       <a
                         href="/offer/1"
@@ -289,7 +283,8 @@ Array [
     >
       <a
         className="footer__logo-link"
-        href="main.html"
+        href="/"
+        onClick={[Function]}
       >
         <img
           alt="6 cities logo"

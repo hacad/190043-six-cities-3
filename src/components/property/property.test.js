@@ -63,8 +63,9 @@ it(`Property correctly renders after relaunch`, () => {
           nearOffers={[]}
           comments={reviews}
           loadComments={jest.fn()}
-          toggleFavorite={jest.fn()}
-          className="near-places__list places__list" />
+          className="near-places__list places__list"
+          onActivateItem={jest.fn()}
+          onDeactivateItem={jest.fn()} />
       </Router>).toJSON();
 
   expect(property).toMatchSnapshot();
