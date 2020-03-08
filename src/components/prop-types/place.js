@@ -8,12 +8,12 @@ const CityPlacePropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   city: CityPropType.isRequired,
   type: PropTypes.oneOf([`apartment`, `room`, `hotel`, `house`]).isRequired,
-  preview_image: PropTypes.string.isRequired,
+  previewImage: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   bookmarked: PropTypes.bool,
-  is_premium: PropTypes.bool.isRequired,
+  isPremium: PropTypes.bool.isRequired,
   location: LocationPropType.isRequired
 });
 

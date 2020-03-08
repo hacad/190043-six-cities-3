@@ -1,8 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlacesList from "./places-list.jsx";
+import Main from "./main.jsx";
 
 /* eslint-disable camelcase */
+
+jest.mock(`../../hocs/with-authorization/with-authorization.js`, () => () => `<div />`);
 
 const places = [
   {
@@ -29,16 +31,16 @@ const places = [
   }
 ];
 
-it(`PlacesList correctly renders after relaunch`, () => {
-  const placesList = renderer
-    .create(<PlacesList
+it(`Main correctly renders after relaunch`, () => {
+  const tree = renderer
+    .create(<Main
+      city={places[0].city}
+      cities={[places[0].city]}
       places={places}
-      onClickCardHeader={jest.fn()}
-      onActivateItem={jest.fn()}
-      onDeactivateItem={jest.fn()}/>)
+      onChangeCity={jest.fn()}/>)
     .toJSON();
 
-  expect(placesList).toMatchSnapshot();
+  expect(tree).toMatchSnapshot();
 });
 
 /* eslint-enable */
