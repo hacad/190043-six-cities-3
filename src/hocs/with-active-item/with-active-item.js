@@ -1,37 +1,47 @@
 import React, {PureComponent} from "react";
 
-const withActiveItem = (Component) => {
+const withActiveItem = (Component, defaultItem, itemName) => {
+  const defaultItemName = itemName || `Item`;
+  const activeItemName = `active${itemName || defaultItemName}`;
+  const activateHandlerName = `_handleActivate${defaultItemName}`;
+  const deactivateHandlerName = `_handleDeactivate${defaultItemName}`;
+
+  const activateItemEventName = `onActivate${defaultItemName}`;
+  const deactivateItemEventName = `onDeactivate${defaultItemName}`;
+
   class WithActiveItem extends PureComponent {
     constructor(props) {
       super(props);
 
       this.state = {
-        activeItem: null
+        [activeItemName]: defaultItem
       };
 
-      this._handleActivateItem = this._handleActivateItem.bind(this);
-      this._handleDeactivateItem = this._handleDeactivateItem.bind(this);
+      this[activateHandlerName] = this[activateHandlerName].bind(this);
+      this[deactivateHandlerName] = this[deactivateHandlerName].bind(this);
     }
 
     render() {
-      const {activeItem} = this.state;
+      const childProps = {
+        [activateItemEventName]: this[activateHandlerName],
+        [deactivateItemEventName]: this[deactivateHandlerName]
+      };
 
+      childProps[activeItemName] = this.state[activeItemName];
       return (
         <Component
           {...this.props}
-          activeItem={activeItem}
-          onActivateItem={this._handleActivateItem}
-          onDeactivateItem={this._handleDeactivateItem}
+          {...childProps}
         />
       );
     }
 
-    _handleActivateItem(item) {
-      this.setState({activeItem: item});
+    [activateHandlerName](item) {
+      this.setState({[activeItemName]: item});
     }
 
-    _handleDeactivateItem() {
-      this.setState({activeItem: null});
+    [deactivateHandlerName]() {
+      this.setState({[activeItemName]: null});
     }
   }
 

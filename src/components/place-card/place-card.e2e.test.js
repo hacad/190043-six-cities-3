@@ -53,14 +53,12 @@ it(`Handler is called when card is hovered`, () => {
   // Arrange
   const onActivateHandler = jest.fn();
   const onDeactivateHandler = jest.fn();
-  const toggleActive = jest.fn();
   const placeCard = shallow(<PlaceCard
     place={testPlace}
     onActivate={onActivateHandler}
     onDeactivate={onDeactivateHandler}
     onClickHeader={jest.fn()}
     toggleFavorite={jest.fn()}
-    toggleActive={toggleActive}
   />);
 
   // Act
@@ -69,7 +67,6 @@ it(`Handler is called when card is hovered`, () => {
 
   // Assert
   expect(onActivateHandler).toHaveBeenCalledTimes(1);
-  expect(toggleActive).toHaveBeenCalledTimes(1);
 });
 
 it(`Active place is set correctly`, () => {
