@@ -1,5 +1,6 @@
 import reducerNames from "../reducerNames.js";
 import {keysToCamel} from "../../utils.js";
+import history from "../../history.js";
 
 const initialState = {
   isAuthorized: false,
@@ -80,6 +81,8 @@ const Operation = {
         const data = keysToCamel(response.data);
         data.avatarUrl = `${api.defaults.baseURL}${data.avatarUrl}`;
         dispatch(ActionCreator.requireAuthorization(false, data));
+
+        history.push(`/`);
       })
       .catch(() => {
         dispatch(ActionCreator.requireAuthorization(true, undefined));

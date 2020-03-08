@@ -12,7 +12,7 @@ const CityPlacePropType = PropTypes.shape({
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
-  bookmarked: PropTypes.bool,
+  isFavorite: PropTypes.bool,
   isPremium: PropTypes.bool.isRequired,
   location: LocationPropType.isRequired
 });
