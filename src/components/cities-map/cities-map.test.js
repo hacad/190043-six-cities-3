@@ -5,7 +5,7 @@ import CitiesMap from "./cities-map.jsx";
 jest.mock(`leaflet`);
 
 it(`CitiesMap renders correctly`, () => {
-  const cityLocation = {latitude: 52.38333, longitude: 4.9};
+  const city = {name: ``, location: {latitude: 52.38333, longitude: 4.9}};
   const offers = [
     {
       latitude: 52.3909553943508,
@@ -26,7 +26,7 @@ it(`CitiesMap renders correctly`, () => {
   ];
 
   const placesMap = renderer.create(
-      <CitiesMap cityLocation={cityLocation} offers={offers}/>
+      <CitiesMap city={city} offers={offers}/>
   );
 
   expect(placesMap).toMatchSnapshot();
