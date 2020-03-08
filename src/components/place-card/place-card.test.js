@@ -1,7 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {BrowserRouter as Router} from "react-router-dom";
-import {PlaceCard} from "./place-card.jsx";
+import PlaceCard from "./place-card.jsx";
+
+jest.mock(`../../hocs/with-authorization/with-authorization.js`, () => () => `<div />`);
 
 const testPlace = {
   id: 1,
@@ -35,8 +37,10 @@ it(`PlaceCard correctly renders after relaunch`, () => {
             onClickHeader={jest.fn()}
             onActivate={jest.fn()}
             onDeactivate={jest.fn()}
-            toggleFavorite={jest.fn()}
-            toggleActive={jest.fn()}/>
+            articleTagClassNamePrefix="cities__place-card"
+            divImageWrapperClassNamePrefix="cities__image-wrapper"
+            divInfoClassNamePrefix=""
+          />
         </Router>)
     .toJSON();
 

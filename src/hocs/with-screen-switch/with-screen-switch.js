@@ -22,8 +22,8 @@ import {compose} from "recompose";
 
 import {Switch, Route} from "react-router-dom";
 
-const SingInWrapped = withAuthorization(withForm(SignIn), false);
-const FavoritesWrapped = withAuthorization(Favorites, true);
+const SingInWrapped = withAuthorization(withForm(SignIn), true, `/`);
+const FavoritesWrapped = withAuthorization(Favorites, false, `login`);
 
 function withScreenSwitch(Component) {
   class WithScreenSwitch extends PureComponent {
@@ -44,12 +44,8 @@ function withScreenSwitch(Component) {
 
       return (
         <Switch>
-          <Route path="/login" render={() => (
-            <SingInWrapped />
-          )}/>
-          <Route path="/favorites" render={() => (
-            <FavoritesWrapped />
-          )}/>
+          <Route path="/login" component={SingInWrapped}/>
+          <Route path="/favorites" component={FavoritesWrapped}/>
           <Route path="/offer/:id" component={Property} />
           <Route path="/" exact render={() => (
             <Component

@@ -36,7 +36,10 @@ it(`PlacesList correctly renders after relaunch`, () => {
       onClickCardHeader={jest.fn()}
       onActivatePlace={jest.fn()}
       onDeactivatePlace={jest.fn()}
-      className="cities__places-list places__list tabs__content"/>)
+      className="cities__places-list places__list tabs__content"
+      articleTagClassNamePrefix="cities__place-card"
+      divImageWrapperClassNamePrefix="cities__image-wrapper"
+      divInfoClassNamePrefix=""/>)
     .toJSON();
 
   expect(placesList).toMatchSnapshot();

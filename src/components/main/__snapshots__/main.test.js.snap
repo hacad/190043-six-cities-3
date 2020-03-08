@@ -165,6 +165,8 @@ Array [
               className="cities__places-list places__list tabs__content"
             >
               <<div />
+                articleTagClassNamePrefix="cities__place-card"
+                divImageWrapperClassNamePrefix="cities__image-wrapper"
                 onActivate={[Function]}
                 onClickHeader={[Function]}
                 onDeactivate={[Function]}

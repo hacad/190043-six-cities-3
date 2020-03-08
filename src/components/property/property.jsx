@@ -8,21 +8,19 @@ import {Operation} from "../../reducers/data/reducer";
 import ReviewList from "../review-list/review-list.jsx";
 import {getOfferById, getComments, getSelectedPlaces} from "../../reducers/data/selectors.js";
 import Header from "../header/header.jsx";
+import BookmarkButton from "../bookmark-button/bookmark-button.jsx";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
 import NearPlaces from "../near-places/near-places.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 
 const HeaderWrapped = withAuthorization(Header);
+const BookmarkButtonWrapped = withAuthorization(BookmarkButton);
 const ReviewListWrapped = withAuthorization(ReviewList);
 const NearPlacesWrapped = withActiveItem(NearPlaces);
 
 class Property extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      currentPropertyId: undefined
-    };
   }
 
   componentDidMount() {
@@ -36,7 +34,7 @@ class Property extends PureComponent {
   }
 
   render() {
-    const {offer, comments, nearOffers, toggleFavorite, hotelId} = this.props;
+    const {offer, comments, nearOffers, hotelId} = this.props;
 
     if (!offer) {
       return null;
@@ -72,15 +70,13 @@ class Property extends PureComponent {
                   <h1 className="property__name">
                     {offer.title}
                   </h1>
-                  <button
-                    className={`property__bookmark-button button ${offer.isFavorite ? `property__bookmark-button--active` : ``}`}
-                    type="button"
-                    onClick={() => toggleFavorite(offer.id, !offer.isFavorite)}>
-                    <svg className="place-card__bookmark-icon property__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <BookmarkButtonWrapped
+                    offerId={offer.id}
+                    isFavorite={offer.isFavorite}
+                    iconWidth={31}
+                    iconHeight={33}
+                    classNamePrefix="property"
+                  />
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
@@ -151,7 +147,6 @@ class Property extends PureComponent {
 Property.propTypes = {
   hotelId: PropTypes.number.isRequired,
   offer: PropertyPropType,
-  toggleFavorite: PropTypes.func.isRequired,
   nearOffers: PropTypes.arrayOf(PlacePropType),
   comments: PropTypes.arrayOf(ReviewPropType),
   loadComments: PropTypes.func.isRequired
@@ -174,9 +169,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadComments: () => {
       dispatch(Operation.loadComments(parseInt(ownProps.match.params.id, 10)));
-    },
-    toggleFavorite: (placeId, isFavorite) => {
-      dispatch(Operation.toggleFavorite(placeId, isFavorite));
     }
   };
 };

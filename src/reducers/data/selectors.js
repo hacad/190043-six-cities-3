@@ -15,7 +15,7 @@ export const getOfferById = (id, state) => {
   return getOffers(state).filter((offer) => offer.id === id)[0];
 };
 export const getFavorites = (state) => {
-  const favorites = getOffers(state).filter((offer) => offer.isFavorite);
+  const favorites = state[reducerNames.DATA].favorites;
   let favoritesGroupedByCity = {};
 
   for (let favorite of favorites) {

@@ -7,10 +7,10 @@ import {withAuthorization} from "./with-authorization.js";
 Enzyme.configure({adapter: new Adapter()});
 
 const MockComponent = () => <div />;
-const GuardedMockComponentWrapped = withAuthorization(MockComponent, true);
 
-it(`When isPrivate and is not authorized should redirect to login`, () => {
+it(`When isAuthorizedState is equal isAuthorized should redirect to passed url`, () => {
   // Arrange
+  const GuardedMockComponentWrapped = withAuthorization(MockComponent, false, `/login`);
   const wrapper = mount(
       <Router>
         <GuardedMockComponentWrapped
@@ -24,8 +24,9 @@ it(`When isPrivate and is not authorized should redirect to login`, () => {
   expect(wrapper.find(`Router`).prop(`history`).location.pathname).toEqual(`/login`);
 });
 
-it(`When isPrivate and is authorized should return guarded component`, () => {
+it(`When isAuthorizedState is not equal isAuthorized should return guarded component`, () => {
   // Arrange
+  const GuardedMockComponentWrapped = withAuthorization(MockComponent, false, `/login`);
   const wrapper = mount(
       <Router>
         <GuardedMockComponentWrapped

@@ -41,6 +41,8 @@ function NearPlaces({places, activeCity, currentOfferLocation, activeItem, onAct
             className="near-places__list places__list"
             onActivatePlace={onActivateItem}
             onDeactivatePlace={onDeactivateItem}
+            articleTagClassNamePrefix="near-places__card"
+            divImageWrapperClassNamePrefix="near-places"
           />
         </section>
       </div>

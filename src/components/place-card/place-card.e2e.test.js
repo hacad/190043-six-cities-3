@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import {PlaceCard} from "./place-card.jsx";
+import PlaceCard from "./place-card.jsx";
 
 const testPlace = {
   id: 1,
@@ -37,8 +37,9 @@ it(`Handler is called when click on header`, () => {
     onClickHeader={clickHandler}
     onActivate={jest.fn()}
     onDeactivate={jest.fn()}
-    toggleFavorite={jest.fn()}
-    toggleActive={jest.fn()}
+    articleTagClassNamePrefix="cities__place-card"
+    divImageWrapperClassNamePrefix="cities__image-wrapper"
+    divInfoClassNamePrefix=""
   />);
 
   // Act
@@ -58,7 +59,9 @@ it(`Handler is called when card is hovered`, () => {
     onActivate={onActivateHandler}
     onDeactivate={onDeactivateHandler}
     onClickHeader={jest.fn()}
-    toggleFavorite={jest.fn()}
+    articleTagClassNamePrefix="cities__place-card"
+    divImageWrapperClassNamePrefix="cities__image-wrapper"
+    divInfoClassNamePrefix=""
   />);
 
   // Act
@@ -78,8 +81,9 @@ it(`Active place is set correctly`, () => {
     onActivate={onActivateHandler}
     onDeactivate={onDeactivateHandler}
     onClickHeader={jest.fn()}
-    toggleFavorite={jest.fn()}
-    toggleActive={jest.fn()}
+    articleTagClassNamePrefix="cities__place-card"
+    divImageWrapperClassNamePrefix="cities__image-wrapper"
+    divInfoClassNamePrefix=""
   />);
 
   // Act
@@ -89,24 +93,4 @@ it(`Active place is set correctly`, () => {
   // Assert
   expect(onActivateHandler).toHaveBeenCalledTimes(1);
   expect(onActivateHandler).toHaveBeenCalledWith(testPlace);
-});
-
-it(`Handler is called when bookmark button clicked`, () => {
-  // Arrange
-  const toggleFavorite = jest.fn();
-  const placeCard = shallow(<PlaceCard
-    place={testPlace}
-    onActivate={jest.fn()}
-    onDeactivate={jest.fn()}
-    onClickHeader={jest.fn()}
-    toggleFavorite={toggleFavorite}
-    toggleActive={jest.fn()}
-  />);
-
-  // Act
-  const bookmarkButtonNode = placeCard.find(`button.place-card__bookmark-button`);
-  bookmarkButtonNode.simulate(`click`);
-
-  // Assert
-  expect(toggleFavorite).toHaveBeenCalledTimes(1);
 });

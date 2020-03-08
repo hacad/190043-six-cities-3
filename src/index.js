@@ -7,7 +7,6 @@ import {compose} from "recompose";
 import {createAPI} from "./api.js";
 import reducer from "./reducers/reducer.js";
 import {ActionCreator, Operation} from "./reducers/data/reducer.js";
-import {getCity} from "./reducers/data/selectors.js";
 import App from "./components/app/app.jsx";
 import withScreenSwitch from "./hocs/with-screen-switch/with-screen-switch.js";
 import {Router} from "react-router-dom";
@@ -27,8 +26,7 @@ let store = createStore(
 store.dispatch(Operation.loadOffers())
       .then((offers) => {
         if (offers && offers.length > 0) {
-          const city = getCity(store.getState());
-          store.dispatch(ActionCreator.changeCity(city));
+          store.dispatch(ActionCreator.changeCity(offers[0].city));
           ReactDOM.render(
               <Provider store={store}>
                 <Router history={history}>
