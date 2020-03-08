@@ -5,9 +5,9 @@ exports[`PlacesList correctly renders after relaunch 1`] = `
   className="cities__places-list places__list tabs__content"
 >
   <<div />
-    onActivate={[Function]}
+    onActivate={[MockFunction]}
     onClickHeader={[MockFunction]}
-    onDeactivate={[Function]}
+    onDeactivate={[MockFunction]}
     place={
       Object {
         "city": Object {

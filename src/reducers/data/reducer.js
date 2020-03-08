@@ -20,8 +20,7 @@ const ActionType = {
   CHANGE_CITY: `${reducerNames.DATA}_CHANGE_CITY`,
   LOAD_OFFERS: `${reducerNames.DATA}_LOAD_OFFERS`,
   TOGGLE_FAVORITE: `${reducerNames.DATA}_TOGGLE_FAVORITE`,
-  LOAD_COMMENTS: `${reducerNames.DATA}_LOAD_COMMENTS`,
-  SET_ACTIVE_ITEM: `${reducerNames.DATA}_SET_ACTIVE_ITEM`
+  LOAD_COMMENTS: `${reducerNames.DATA}_LOAD_COMMENTS`
 };
 
 const ActionCreator = {
@@ -63,16 +62,6 @@ const ActionCreator = {
       }
     };
   },
-
-  setActiveItem: (item, key) => {
-    return {
-      type: ActionType.SET_ACTIVE_ITEM,
-      payload: {
-        item,
-        key
-      }
-    };
-  }
 };
 
 const data = function (state = initialState, action) {
@@ -107,11 +96,6 @@ const data = function (state = initialState, action) {
     case ActionType.LOAD_COMMENTS:
       Object.assign(newState, state, {
         comments: action.payload.comments,
-      });
-      break;
-    case ActionType.SET_ACTIVE_ITEM:
-      Object.assign(newState, state, {
-        [action.payload.key]: action.payload.item
       });
       break;
     default:

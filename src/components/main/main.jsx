@@ -1,25 +1,20 @@
 import React, {Fragment} from "react";
-import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
-import CitiesList from "../cities-list/cities-list.jsx";
-import PlacesList from "../places-list/places-list.jsx";
-import CitiesMap from "../cities-map/cities-map.jsx";
 import PlacePropType from "../prop-types/place.js";
+import Places from "../places/places.jsx";
+import CitiesList from "../cities-list/cities-list.jsx";
 import CityPropType from "../prop-types/city.js";
-import CitiesMapOffer from "../prop-types/cities-map-offer.js";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
+import withSorting from "../../hocs/with-sorting/with-sorting.js";
 
 const HeaderWrapped = withAuthorization(Header);
 const CitiesListWrapped = withActiveItem(CitiesList);
-const PlacesListWrapped = withActiveItem(PlacesList);
 
 function Main(props) {
-  const {places, city: activeCity, cities, onChangeCity, activeOffer} = props;
-  const offers = places.map((place) => {
-    return {data: place.location};
-  });
+  const {places, city: activeCity, cities, onChangeCity} = props;
+  const PlacesWrapped = withSorting(withActiveItem(Places), places, `ASC`);
 
   return (
     <Fragment>
@@ -38,41 +33,11 @@ function Main(props) {
           />
           <div className="cities">
             <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.length} {offers.length === 1 ? `place` : `places`} to stay in {activeCity.name}</b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>
-                  <span className="places__sorting-type" tabIndex="0">
-                    Popular
-                    <svg className="places__sorting-arrow" width="7" height="4">
-                      <use xlinkHref="#icon-arrow-select"></use>
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                    <li className="places__option" tabIndex="0">Price: low to high</li>
-                    <li className="places__option" tabIndex="0">Price: high to low</li>
-                    <li className="places__option" tabIndex="0">Top rated first</li>
-                  </ul>
-                  {/*
-                  <select className="places__sorting-type" id="places-sorting">
-                    <option className="places__option" value="popular" selected="">Popular</option>
-                    <option className="places__option" value="to-high">Price: low to high</option>
-                    <option className="places__option" value="to-low">Price: high to low</option>
-                    <option className="places__option" value="top-rated">Top rated first</option>
-                  </select>
-                  */}
-                </form>
-                <PlacesListWrapped
-                  places={places}
-                  onClickCardHeader={() => {}}
-                  className="cities__places-list places__list tabs__content"
-                />
-              </section>
-              <div className="cities__right-section">
-                <CitiesMap city={activeCity} offers={offers} activeOffer={activeOffer} className="property__map map"/>
-              </div>
+              <PlacesWrapped
+                onClickCardHeader={() => {}}
+                className="cities__places-list places__list tabs__content"
+                activeCity={activeCity}
+              />
             </div>
           </div>
         </main>
@@ -86,15 +51,6 @@ Main.propTypes = {
   cities: PropTypes.arrayOf(CityPropType).isRequired,
   places: PropTypes.arrayOf(PlacePropType).isRequired,
   onChangeCity: PropTypes.func.isRequired,
-  activeOffer: CitiesMapOffer
 };
 
-function mapStateToProps(state, ownProps) {
-  return Object.assign({}, ownProps, {
-    activeOffer: state.data.activeOffer
-  });
-}
-
-export {Main};
-
-export default connect(mapStateToProps)(Main);
+export default Main;

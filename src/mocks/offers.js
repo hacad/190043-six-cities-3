@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 const offers = [
   {
     id: 1,
@@ -354,5 +352,3 @@ const offers = [
 ];
 
 export default offers;
-
-/* eslint-enable */
