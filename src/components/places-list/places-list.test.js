@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import PlacesList from "./places-list.jsx";
 
-const cityPlaces = [
+const places = [
   {
     id: 1,
     city: {
@@ -33,8 +33,10 @@ const cityPlaces = [
 it(`PlacesList correctly renders after relaunch`, () => {
   const placesList = renderer
     .create(<PlacesList
-      cityPlaces={cityPlaces}
-      onClickCardHeader={jest.fn()}/>)
+      places={places}
+      onClickCardHeader={jest.fn()}
+      onActivateItem={jest.fn()}
+      onDeactivateItem={jest.fn()}/>)
     .toJSON();
 
   expect(placesList).toMatchSnapshot();

@@ -1,17 +1,20 @@
 import React, {Fragment} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import CitiesList from "../cities-list/cities-list.jsx";
 import PlacesList from "../places-list/places-list.jsx";
 import CitiesMap from "../cities-map/cities-map.jsx";
-import CitiesList from "../cities-list/cities-list.jsx";
 import {ActionCreator} from "../../reducers/reducer";
-import CityPlacePropType from "../prop-types/city-place.js";
+import PlacePropType from "../prop-types/place.js";
 import CityPropType from "../prop-types/city.js";
+import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 
+const CitiesListWrapped = withActiveItem(CitiesList);
+const PlacesListWrapped = withActiveItem(PlacesList);
 
 function App(props) {
-  const {cityPlaces, city: activeCity, cities, onChangeCity} = props;
-  const offers = cityPlaces.map((cityPlace) => cityPlace.location);
+  const {places, city: activeCity, cities, onChangeCity} = props;
+  const offers = places.map((place) => place.location);
 
   return (
     <Fragment>
@@ -45,7 +48,7 @@ function App(props) {
 
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <CitiesList
+          <CitiesListWrapped
             activeCity={activeCity}
             cities={cities}
             onChangeCity={onChangeCity}
@@ -78,8 +81,8 @@ function App(props) {
                   </select>
                   */}
                 </form>
-                <PlacesList
-                  cityPlaces={cityPlaces}
+                <PlacesListWrapped
+                  places={places}
                   onClickCardHeader={() => {}}
                 />
               </section>
@@ -97,7 +100,7 @@ function App(props) {
 App.propTypes = {
   city: CityPropType,
   cities: PropTypes.arrayOf(CityPropType).isRequired,
-  cityPlaces: PropTypes.arrayOf(CityPlacePropType).isRequired,
+  places: PropTypes.arrayOf(PlacePropType).isRequired,
   onChangeCity: PropTypes.func.isRequired
 };
 
@@ -110,7 +113,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   return Object.assign({}, ownProps, {
-    cityPlaces: state.offers,
+    places: state.offers,
     city: state.city,
     cities
   });
