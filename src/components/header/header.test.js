@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-
+import {BrowserRouter as Router} from "react-router-dom";
 import Header from "./header.jsx";
 
 const mock = {
@@ -10,23 +10,18 @@ const mock = {
     name: `Name A. Surname`,
     avatarUrl: ``,
     isPro: false
-  },
-  onClickSignIn: jest.fn()
+  }
 };
 
 it(`SignIn correctly renders with authorization required`, () => {
-  // Arrange
-  const {
-    onClickSignIn
-  } = mock;
-
-  // Act
+  // Arrange && Act
   const header = renderer.create(
-      <Header
-        isAuthorized={false}
-        user={undefined}
-        onClickSignIn={onClickSignIn}
-      />).toJSON();
+      <Router>
+        <Header
+          isAuthorized={false}
+          user={undefined}
+        />
+      </Router>).toJSON();
 
   // Assert
   expect(header).toMatchSnapshot();
@@ -34,15 +29,16 @@ it(`SignIn correctly renders with authorization required`, () => {
 
 it(`SignIn correctly renders without authorization required`, () => {
   // Arrange
-  const {user, onClickSignIn} = mock;
+  const {user} = mock;
 
   // Act
   const header = renderer.create(
-      <Header
-        isAuthorized={true}
-        user={user}
-        onClickSignIn={onClickSignIn}
-      />).toJSON();
+      <Router>
+        <Header
+          isAuthorized={true}
+          user={user}
+        />
+      </Router>).toJSON();
 
   // Assert
   expect(header).toMatchSnapshot();

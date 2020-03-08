@@ -9,9 +9,11 @@ import reducer from "./reducers/reducer.js";
 import {Operation} from "./reducers/data/reducer.js";
 import App from "./components/app/app.jsx";
 import withScreenSwitch from "./hocs/with-screen-switch/with-screen-switch.js";
+import {Router} from "react-router-dom";
+import history from "./history.js";
 
 const AppWrapped = withScreenSwitch(App);
-const api = createAPI((...args) => store.dispatch(...args));
+const api = createAPI(() => history.push(`/login`));
 
 let store = createStore(
     reducer,
@@ -25,7 +27,9 @@ store.dispatch(Operation.loadOffers());
 
 ReactDOM.render(
     <Provider store={store}>
-      <AppWrapped />
+      <Router history={history}>
+        <AppWrapped />
+      </Router>
     </Provider>,
     document.getElementById(`root`)
 );
