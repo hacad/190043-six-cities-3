@@ -4,7 +4,7 @@ import PlacePropType from "../prop-types/place.js";
 
 const PlaceCard = (props) => {
   const {place, onClickHeader, onActivate, onDeactivate} = props;
-  const {type, img, category, name, price, rating} = place;
+  const {type, preview_image: previewImage, is_premium: isPremium, title, price, rating} = place;
 
   return (
     <article className="cities__place-card place-card"
@@ -15,23 +15,23 @@ const PlaceCard = (props) => {
         onDeactivate(place);
       }}
     >
-      {category
+      {isPremium
         ? (
           <div className="place-card__mark">
-            <span>{category}</span>
+            <span>Premium</span>
           </div>
         )
         : ``
       }
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={img} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">{price.currency}{price.value}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button button" type="button">
@@ -48,7 +48,7 @@ const PlaceCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name" onClick={onClickHeader}>
-          <a href="#">{name}</a>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

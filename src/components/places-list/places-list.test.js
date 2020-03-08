@@ -2,6 +2,8 @@ import React from "react";
 import renderer from "react-test-renderer";
 import PlacesList from "./places-list.jsx";
 
+/* eslint-disable camelcase */
+
 const places = [
   {
     id: 1,
@@ -13,14 +15,11 @@ const places = [
         zoom: 10
       }
     },
-    type: `Apartment`,
-    img: `img/apartment-01.jpg`,
-    category: `Premium`,
-    name: `Beautiful &amp; luxurious apartment at great location`,
-    price: {
-      value: 120,
-      currency: `€`
-    },
+    type: `apartment`,
+    preview_image: `img/apartment-01.jpg`,
+    is_premium: false,
+    title: `Beautiful &amp; luxurious apartment at great location`,
+    price: 120,
     rating: 93,
     bookmarked: false,
     location: {
@@ -41,3 +40,5 @@ it(`PlacesList correctly renders after relaunch`, () => {
 
   expect(placesList).toMatchSnapshot();
 });
+
+/* eslint-enable */
