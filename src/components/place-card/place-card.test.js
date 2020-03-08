@@ -1,5 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {BrowserRouter as Router} from "react-router-dom";
 import {PlaceCard} from "./place-card.jsx";
 
 /* eslint-disable camelcase */
@@ -29,12 +30,15 @@ const testPlace = {
 
 it(`PlaceCard correctly renders after relaunch`, () => {
   const placeCard = renderer
-    .create(<PlaceCard
-      place={testPlace}
-      onClickHeader={jest.fn()}
-      onActivate={jest.fn()}
-      onDeactivate={jest.fn()}
-      toggleFavorite={jest.fn()}/>)
+    .create(
+        <Router>
+          <PlaceCard
+            place={testPlace}
+            onClickHeader={jest.fn()}
+            onActivate={jest.fn()}
+            onDeactivate={jest.fn()}
+            toggleFavorite={jest.fn()}/>
+        </Router>)
     .toJSON();
 
   expect(placeCard).toMatchSnapshot();
