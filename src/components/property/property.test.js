@@ -58,6 +58,7 @@ it(`Property correctly renders after relaunch`, () => {
   const property = renderer.create(
       <Router>
         <Property
+          hotelId={1}
           offer={offer}
           nearOffers={[]}
           comments={reviews}

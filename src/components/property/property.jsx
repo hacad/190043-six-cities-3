@@ -13,6 +13,7 @@ import NearPlaces from "../near-places/near-places.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 
 const HeaderWrapped = withAuthorization(Header);
+const ReviewListWrapped = withAuthorization(ReviewList);
 const NearPlacesWrapped = withActiveItem(NearPlaces);
 
 class Property extends PureComponent {
@@ -35,7 +36,7 @@ class Property extends PureComponent {
   }
 
   render() {
-    const {offer, comments, nearOffers, toggleFavorite} = this.props;
+    const {offer, comments, nearOffers, toggleFavorite, hotelId} = this.props;
 
     if (!offer) {
       return null;
@@ -136,7 +137,7 @@ class Property extends PureComponent {
                     </p>
                   </div>
                 </div>
-                <ReviewList reviews={comments} />
+                <ReviewListWrapped hotelId={hotelId} reviews={comments} />
               </div>
             </div>
           </section>
@@ -148,6 +149,7 @@ class Property extends PureComponent {
 }
 
 Property.propTypes = {
+  hotelId: PropTypes.number.isRequired,
   offer: PropertyPropType,
   toggleFavorite: PropTypes.func.isRequired,
   nearOffers: PropTypes.arrayOf(PlacePropType),
@@ -156,13 +158,13 @@ Property.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const id = parseInt(ownProps.match.params.id, 10);
+  const hotelId = parseInt(ownProps.match.params.id, 10);
 
   return Object.assign({}, ownProps, {
-    id,
-    offer: getOfferById(id, state),
+    hotelId,
+    offer: getOfferById(hotelId, state),
     nearOffers: getSelectedPlaces(state)
-                .filter((offer) => offer.id !== id)
+                .filter((offer) => offer.id !== hotelId)
                 .slice(0, 3),
     comments: getComments(state)
   });

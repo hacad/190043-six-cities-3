@@ -2,9 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import ReviewPropType from "../prop-types/review.js";
 import ReviewItem from "../review-item/review-item.jsx";
-import {ReviewForm} from "../review-form/review-form.jsx";
+import ReviewForm from "../review-form/review-form.jsx";
+import withForm from "../../hocs/with-form/with-form.js";
 
-const ReviewsList = ({reviews}) => {
+const ReviewFormWrapped = withForm(ReviewForm);
+
+const ReviewsList = ({reviews, isAuthorized, hotelId}) => {
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">
@@ -27,13 +30,19 @@ const ReviewsList = ({reviews}) => {
           );
         })}
       </ul>
-      <ReviewForm />
+      {
+        isAuthorized
+          ? <ReviewFormWrapped hotelId={hotelId} />
+          : null
+      }
     </section>
   );
 };
 
 ReviewsList.propTypes = {
-  reviews: PropTypes.arrayOf(ReviewPropType)
+  hotelId: PropTypes.number.isRequired,
+  reviews: PropTypes.arrayOf(ReviewPropType),
+  isAuthorized: PropTypes.bool.isRequired
 };
 
 export default ReviewsList;

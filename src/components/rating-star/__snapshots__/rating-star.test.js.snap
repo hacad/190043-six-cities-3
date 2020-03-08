@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rating Star correctly renders after relaunch 1`] = `
+Array [
+  <input
+    className="form__rating-input visually-hidden"
+    id="5-stars"
+    name="rating"
+    required={true}
+    type="radio"
+    value={5}
+  />,
+  <label
+    className="reviews__rating-label form__rating-label"
+    htmlFor="5-stars"
+    title="perfect!"
+  >
+    <svg
+      className="form__star-image"
+      height="33"
+      width="37"
+    >
+      <use
+        xlinkHref="#icon-star"
+      />
+    </svg>
+  </label>,
+]
+`;
