@@ -8,32 +8,36 @@ const sortByOrder = (arr, value, order) => {
   }
 };
 
-function withSorting(Component, items, defaultOrder) {
+function withSorting(Component, items, defaultOrder, sortedItemsName = `sortedItems`, changeSortingEventName = `onChangeSorting`) {
   return class WithSorting extends PureComponent {
     constructor(props) {
       super(props);
       this.state = {
         order: defaultOrder,
-        list: [...items]
+        [sortedItemsName]: [...items]
       };
       this._sortItemsByOrder = this._sortItemsByOrder.bind(this);
     }
 
     render() {
+      const childProps = {
+        [changeSortingEventName]: this._sortItemsByOrder,
+      };
+
+      childProps[sortedItemsName] = this.state[sortedItemsName];
       return (
         <Component
           {...this.props}
-          sortedItems={this.state.list}
-          onChangeSorting={this._sortItemsByOrder}
+          {...childProps}
         />
       );
     }
 
     _sortItemsByOrder({value, order}) {
       if (!order) {
-        this.setState({list: [...items], order: defaultOrder});
+        this.setState({[sortedItemsName]: [...items], order: defaultOrder});
       } else {
-        this.setState({list: [...sortByOrder(this.state.list, value, order)], order});
+        this.setState({[sortedItemsName]: [...sortByOrder(this.state[sortedItemsName], value, order)], order});
       }
     }
   };

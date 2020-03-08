@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 import PlacesSorting from "../places-sorting/places-sorting.jsx";
@@ -16,7 +16,7 @@ const PlacesSortingWrapped = withActiveItem(
 const PlacesListWrapped = withActiveItem(PlacesList);
 
 function Places(props) {
-  const {sortedItems: places, onActivateItem, onDeactivateItem, onChangeSorting, activeCity, activeItem} = props;
+  const {places, onActivateItem, onDeactivateItem, onChangeSorting, activeCity, activeItem} = props;
   const offers = places.map((place) => {
     return {data: place.location};
   });
@@ -32,7 +32,7 @@ function Places(props) {
     : undefined;
 
   return (
-    <Fragment>
+    <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{offers.length} {offers.length === 1 ? `place` : `places`} to stay in {places[0].city.name}</b>
@@ -51,12 +51,12 @@ function Places(props) {
       <div className="cities__right-section">
         <CitiesMap city={activeCity} offers={offers} activeOffer={activeOffer} className="property__map map"/>
       </div>
-    </Fragment>
+    </div>
   );
 }
 
 Places.propTypes = {
-  sortedItems: PropTypes.arrayOf(PlacePropType).isRequired,
+  places: PropTypes.arrayOf(PlacePropType).isRequired,
   className: PropTypes.string.isRequired,
   onClickCardHeader: PropTypes.func.isRequired,
   activeItem: CitiesMapOffer,

@@ -62,7 +62,7 @@ it(`When withSorting is changed should sort passed values`, () => {
   wrapper.props().onChangeSorting(placesSortingOptions[3]);
 
   // Assert
-  const sortedItems = wrapper.state().list;
+  const sortedItems = wrapper.state()[`sortedItems`];
   expect(sortedItems.length).toEqual(2);
   expect(sortedItems[0].id).toEqual(places[1].id);
   expect(sortedItems[1].id).toEqual(places[0].id);
@@ -77,7 +77,7 @@ it(`When withSorting order is not set should return original order`, () => {
   wrapper.props().onChangeSorting({value: placesSortingOptions[3].rating});
 
   // Assert
-  const sortedItems = wrapper.state().list;
+  const sortedItems = wrapper.state()[`sortedItems`];
   expect(sortedItems.length).toEqual(2);
   expect(sortedItems[0].id).toEqual(places[0].id);
   expect(sortedItems[1].id).toEqual(places[1].id);

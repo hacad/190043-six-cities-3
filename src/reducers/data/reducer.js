@@ -74,13 +74,21 @@ const data = function (state = initialState, action) {
       });
       break;
     case ActionType.LOAD_OFFERS:
-      const citiesSet = new Set();
-      const citiesList = [];
+      const cityMap = new Map();
+      const cityNamesOrder = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+      for (let cityName of cityNamesOrder) {
+        cityMap.set(cityName, undefined);
+      }
+
       for (let offer of action.payload.offers) {
-        if (!citiesSet.has(offer.city.name)) {
-          citiesList.push(offer.city);
-          citiesSet.add(offer.city.name);
+        if (cityMap.has(offer.city.name) && !cityMap.get(offer.city.name)) {
+          cityMap.set(offer.city.name, offer.city);
         }
+      }
+
+      const citiesList = [];
+      for (let city of cityMap.values()) {
+        citiesList.push(city);
       }
 
       Object.assign(newState, state, {

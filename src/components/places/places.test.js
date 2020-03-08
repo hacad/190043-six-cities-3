@@ -2,13 +2,11 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Places from "./places.jsx";
 
-// jest.mock(`../../hocs/with-active-item/with-active-item.js`, () => () => `<div />`);
-
 jest.mock(`../place-card/place-card.jsx`, () => `<div />`);
 
 it(`Places correctly renders after relaunch`, () => {
   // Arrange
-  const sortedItems = [{
+  const places = [{
     id: 15,
     city: {
       name: `Hamburg`,
@@ -54,9 +52,9 @@ it(`Places correctly renders after relaunch`, () => {
     }
   };
 
-  const places = renderer.create(
+  const placesComponent = renderer.create(
       <Places
-        sortedItems={sortedItems}
+        places={places}
         className="cities__places-list places__list tabs__content"
         onClickCardHeader={jest.fn()}
         activeItem={activeItem}
@@ -68,5 +66,5 @@ it(`Places correctly renders after relaunch`, () => {
   );
 
   // Act & Assert
-  expect(places).toMatchSnapshot();
+  expect(placesComponent).toMatchSnapshot();
 });
