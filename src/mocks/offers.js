@@ -1,8 +1,10 @@
+/* eslint-disable camelcase */
+
 const offers = [
   {
     id: 1,
     city: {
-      name: `Amsterdam`,
+      title: `Amsterdam`,
       location: {
         latitude: 52.373057,
         longitude: 4.892557,
@@ -10,13 +12,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-01.jpg`,
-    category: `Premium`,
-    name: `Beautiful &amp; luxurious apartment at great location`,
-    price: {
-      value: 200,
-      currency: `€`
-    },
+    preview_image: `img/apartment-01.jpg`,
+    is_premium: false,
+    title: `Beautiful &amp; luxurious apartment at great location`,
+    price: 200,
     rating: 100,
     bookmarked: false,
     location: {
@@ -27,7 +26,7 @@ const offers = [
   {
     id: 2,
     city: {
-      name: `Amsterdam`,
+      title: `Amsterdam`,
       location: {
         latitude: 52.373057,
         longitude: 4.892557,
@@ -35,12 +34,9 @@ const offers = [
       }
     },
     type: `Private room`,
-    img: `img/room.jpg`,
-    name: `Wood and stone place`,
-    price: {
-      value: 80,
-      currency: `€`
-    },
+    preview_image: `img/room.jpg`,
+    title: `Wood and stone place`,
+    price: 80,
     rating: 80,
     bookmarked: false,
     location: {
@@ -51,7 +47,7 @@ const offers = [
   {
     id: 3,
     city: {
-      name: `Amsterdam`,
+      title: `Amsterdam`,
       location: {
         latitude: 52.373057,
         longitude: 4.892557,
@@ -59,12 +55,9 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-02.jpg`,
-    name: `Canal View Prinsengracht`,
-    price: {
-      value: 150,
-      currency: `€`
-    },
+    preview_image: `img/apartment-02.jpg`,
+    title: `Canal View Prinsengracht`,
+    price: 150,
     rating: 100,
     bookmarked: false,
     location: {
@@ -75,7 +68,7 @@ const offers = [
   {
     id: 4,
     city: {
-      name: `Amsterdam`,
+      title: `Amsterdam`,
       location: {
         latitude: 52.373057,
         longitude: 4.892557,
@@ -83,13 +76,10 @@ const offers = [
       }
     },
     type: `Hotel`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 180,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 180,
     rating: 100,
     bookmarked: false,
     location: {
@@ -100,7 +90,7 @@ const offers = [
   {
     id: 5,
     city: {
-      name: `Brussels`,
+      title: `Brussels`,
       location: {
         latitude: 50.851309,
         longitude: 4.351718,
@@ -108,13 +98,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 100,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 100,
     rating: 100,
     bookmarked: false,
     location: {
@@ -125,7 +112,7 @@ const offers = [
   {
     id: 6,
     city: {
-      name: `Brussels`,
+      title: `Brussels`,
       location: {
         latitude: 50.851309,
         longitude: 4.351718,
@@ -133,13 +120,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 180,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 180,
     rating: 100,
     bookmarked: false,
     location: {
@@ -150,7 +134,7 @@ const offers = [
   {
     id: 7,
     city: {
-      name: `Brussels`,
+      title: `Brussels`,
       location: {
         latitude: 50.851309,
         longitude: 4.351718,
@@ -158,13 +142,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 400,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 400,
     rating: 100,
     bookmarked: false,
     location: {
@@ -175,7 +156,7 @@ const offers = [
   {
     id: 8,
     city: {
-      name: `Brussels`,
+      title: `Brussels`,
       location: {
         latitude: 50.851309,
         longitude: 4.351718,
@@ -183,13 +164,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 200,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 200,
     rating: 95,
     bookmarked: false,
     location: {
@@ -200,7 +178,7 @@ const offers = [
   {
     id: 9,
     city: {
-      name: `Cologne`,
+      title: `Cologne`,
       location: {
         latitude: 50.930779,
         longitude: 6.938399,
@@ -208,13 +186,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 180,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 180,
     rating: 100,
     bookmarked: false,
     location: {
@@ -225,7 +200,7 @@ const offers = [
   {
     id: 10,
     city: {
-      name: `Cologne`,
+      title: `Cologne`,
       location: {
         latitude: 50.930779,
         longitude: 6.938399,
@@ -233,13 +208,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 180,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 180,
     rating: 100,
     bookmarked: false,
     location: {
@@ -250,7 +222,7 @@ const offers = [
   {
     id: 11,
     city: {
-      name: `Dusseldorf`,
+      title: `Dusseldorf`,
       location: {
         latitude: 51.230569,
         longitude: 6.787428,
@@ -258,13 +230,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 180,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 180,
     rating: 100,
     bookmarked: false,
     location: {
@@ -275,7 +244,7 @@ const offers = [
   {
     id: 12,
     city: {
-      name: `Dusseldorf`,
+      title: `Dusseldorf`,
       location: {
         latitude: 51.230569,
         longitude: 6.787428,
@@ -283,13 +252,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 100,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 100,
     rating: 90,
     bookmarked: false,
     location: {
@@ -300,7 +266,7 @@ const offers = [
   {
     id: 13,
     city: {
-      name: `Dusseldorf`,
+      title: `Dusseldorf`,
       location: {
         latitude: 51.230569,
         longitude: 6.787428,
@@ -308,13 +274,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 280,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 280,
     rating: 100,
     bookmarked: false,
     location: {
@@ -325,7 +288,7 @@ const offers = [
   {
     id: 14,
     city: {
-      name: `Hamburg`,
+      title: `Hamburg`,
       location: {
         latitude: 53.552645,
         longitude: 9.966287,
@@ -333,13 +296,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 150,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 150,
     rating: 100,
     bookmarked: false,
     location: {
@@ -350,7 +310,7 @@ const offers = [
   {
     id: 15,
     city: {
-      name: `Hamburg`,
+      title: `Hamburg`,
       location: {
         latitude: 53.552645,
         longitude: 9.966287,
@@ -358,13 +318,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-03.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 180,
-      currency: `€`
-    },
+    preview_image: `img/apartment-03.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 180,
     rating: 100,
     bookmarked: false,
     location: {
@@ -375,7 +332,7 @@ const offers = [
   {
     id: 16,
     city: {
-      name: `Paris`,
+      title: `Paris`,
       location: {
         latitude: 48.856663,
         longitude: 2.351556,
@@ -383,13 +340,10 @@ const offers = [
       }
     },
     type: `Apartment`,
-    img: `img/apartment-02.jpg`,
-    category: `Premium`,
-    name: `Nice, cozy, warm big bed apartment`,
-    price: {
-      value: 300,
-      currency: `€`
-    },
+    preview_image: `img/apartment-02.jpg`,
+    is_premium: false,
+    title: `Nice, cozy, warm big bed apartment`,
+    price: 300,
     rating: 100,
     bookmarked: false,
     location: {
@@ -400,3 +354,5 @@ const offers = [
 ];
 
 export default offers;
+
+/* eslint-enable */

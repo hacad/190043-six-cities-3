@@ -3,6 +3,8 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import PlaceCard from "./place-card.jsx";
 
+/* eslint-disable camelcase */
+
 const testPlace = {
   id: 1,
   city: {
@@ -13,14 +15,11 @@ const testPlace = {
       zoom: 10
     }
   },
-  type: `Apartment`,
-  img: `img/apartment-01.jpg`,
-  category: `Premium`,
-  name: `Beautiful &amp; luxurious apartment at great location`,
-  price: {
-    value: 120,
-    currency: `€`
-  },
+  type: `apartment`,
+  preview_image: `img/apartment-01.jpg`,
+  is_premium: false,
+  title: `Beautiful &amp; luxurious apartment at great location`,
+  price: 120,
   rating: 93,
   bookmarked: false,
   location: {
@@ -78,3 +77,5 @@ it(`Active place is set correctly`, () => {
   expect(onActivateHandler).toHaveBeenCalledTimes(1);
   expect(onActivateHandler).toHaveBeenCalledWith(testPlace);
 });
+
+/* eslint-enable */
