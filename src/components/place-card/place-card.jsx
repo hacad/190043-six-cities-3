@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import PlacePropType from "../prop-types/place-prop-type.js";
 
 const PlaceCard = (props) => {
   const {place, onClickHeader, onActivate, onDeactivate} = props;
@@ -56,18 +57,7 @@ const PlaceCard = (props) => {
 };
 
 PlaceCard.propTypes = {
-  place: PropTypes.shape({
-    type: PropTypes.oneOf([`Apartment`, `Private room`, `Hotel`]).isRequired,
-    img: PropTypes.string.isRequired,
-    category: PropTypes.oneOf([`Premium`]),
-    name: PropTypes.string.isRequired,
-    price: PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      currency: PropTypes.oneOf([`€`]).isRequired
-    }),
-    rating: PropTypes.number.isRequired,
-    bookmarked: PropTypes.bool.isRequired
-  }).isRequired,
+  place: PropTypes.shape(PlacePropType).isRequired,
   onClickHeader: PropTypes.func.isRequired,
   onActivate: PropTypes.func.isRequired,
   onDeactivate: PropTypes.func.isRequired

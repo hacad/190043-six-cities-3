@@ -1,9 +1,12 @@
-import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
-import PlaceList from '../PlaceList/placelist.jsx';
+import React, {Fragment} from "react";
+import PropTypes from "prop-types";
+import PlacesList from "../places-list/places-list.jsx";
+import CitiesMap from "../cities-map/cities-map.jsx";
+import PlacePropType from "../prop-types/place-prop-type.js";
 
 export default function App(props) {
   const {cityPlaces, onClickHeader} = props;
+  const offers = cityPlaces.map((item) => item.location);
 
   return (
     <Fragment>
@@ -101,13 +104,13 @@ export default function App(props) {
                   </select>
                   */}
                 </form>
-                <PlaceList
+                <PlacesList
                   cityPlaces={cityPlaces}
                   onClickCardHeader={onClickHeader}
                 />
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <CitiesMap offers={offers}/>
               </div>
             </div>
           </div>
@@ -119,18 +122,6 @@ export default function App(props) {
 
 App.propTypes = {
   cityPlaces: PropTypes.arrayOf(
-      PropTypes.shape({
-        type: PropTypes.oneOf([`Apartment`, `Private room`, `Hotel`]).isRequired,
-        img: PropTypes.string.isRequired,
-        category: PropTypes.oneOf([`Premium`]),
-        name: PropTypes.string.isRequired,
-        price: PropTypes.shape({
-          value: PropTypes.number.isRequired,
-          currency: PropTypes.oneOf([`€`]).isRequired
-        }).isRequired,
-        rating: PropTypes.number.isRequired,
-        bookmarked: PropTypes.bool.isRequired
-      })
-  ).isRequired,
+      PropTypes.shape(PlacePropType).isRequired),
   onClickHeader: PropTypes.func.isRequired
 };

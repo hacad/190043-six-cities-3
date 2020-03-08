@@ -1,8 +1,9 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import PlaceCard from '../PlaceCard/placecard.jsx';
+import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
+import PlaceCard from "../place-card/place-card.jsx";
+import PlacePropType from "../prop-types/place-prop-type.js";
 
-class PlaceList extends PureComponent {
+class PlacesList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -44,22 +45,10 @@ class PlaceList extends PureComponent {
   }
 }
 
-PlaceList.propTypes = {
+PlacesList.propTypes = {
   cityPlaces: PropTypes.arrayOf(
-      PropTypes.shape({
-        type: PropTypes.oneOf([`Apartment`, `Private room`, `Hotel`]).isRequired,
-        img: PropTypes.string.isRequired,
-        category: PropTypes.oneOf([`Premium`]),
-        name: PropTypes.string.isRequired,
-        price: PropTypes.shape({
-          value: PropTypes.number.isRequired,
-          currency: PropTypes.oneOf([`€`]).isRequired
-        }).isRequired,
-        rating: PropTypes.number.isRequired,
-        bookmarked: PropTypes.bool.isRequired
-      })
-  ).isRequired,
+      PropTypes.shape(PlacePropType).isRequired),
   onClickCardHeader: PropTypes.func.isRequired
 };
 
-export default PlaceList;
+export default PlacesList;
