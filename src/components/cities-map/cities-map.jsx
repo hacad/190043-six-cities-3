@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import CityPropType from "../prop-types/city.js";
-import LocationPropType from "../prop-types/location.js";
+import CitiesMapOfferPropType from "../prop-types/cities-map-offer.js";
 
 class CitiesMap extends PureComponent {
   constructor(props) {
@@ -14,7 +14,7 @@ class CitiesMap extends PureComponent {
 
   render() {
     return (
-      <section id="map" className="cities__map map"></section>
+      <section id="map" className={this.props.className}></section>
     );
   }
 
@@ -24,11 +24,15 @@ class CitiesMap extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.city.name !== this.props.city.name) {
+    if (prevProps.city.name !== this.props.city.name || prevProps.activeOffer !== this.props.activeOffer) {
       const cityLocation = [this.props.city.location.latitude, this.props.city.location.longitude];
       this._map.setView(cityLocation, this.zoom);
       this._resetMarkers();
     }
+  }
+
+  componentWillUnmount() {
+    this._map.remove();
   }
 
   _initMap() {
@@ -52,16 +56,49 @@ class CitiesMap extends PureComponent {
   }
 
   _addMarkers() {
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
+    const defaultDisplaySettings = {
+      icon: {
+        iconUrl: `/img/pin.svg`,
+        iconSize: {
+          width: 30,
+          height: 30
+        }
+      }
+    };
 
-    const {offers} = this.props;
+    let initializedIcons = {};
+    const {offers, activeOffer} = this.props;
     for (let offer of offers) {
+      let {displaySettings = {}} = (activeOffer
+                                    && offer.data.latitude === activeOffer.data.latitude
+                                    && offer.data.longitude === activeOffer.data.longitude)
+        ? activeOffer
+        : offer;
+      const {
+        icon: {
+          iconUrl = defaultDisplaySettings.icon.iconUrl,
+          iconSize: {
+            width = defaultDisplaySettings.icon.iconSize.width,
+            height = defaultDisplaySettings.icon.iconSize.height
+          } = {}
+        } = {}
+      } = displaySettings;
+
+      displaySettings = {
+        icon: {
+          iconUrl,
+          iconSize: [width, height]
+        }
+      };
+
+      let icon = initializedIcons[displaySettings.icon.iconUrl];
+      if (!icon) {
+        icon = leaflet.icon(displaySettings.icon);
+        initializedIcons[displaySettings.icon.iconUrl] = icon;
+      }
       const markerLayer =
         leaflet
-          .marker([offer.latitude, offer.longitude], {icon})
+          .marker([offer.data.latitude, offer.data.longitude], {icon})
           .addTo(this._map);
 
       this._markerLayers.push(markerLayer);
@@ -84,7 +121,9 @@ class CitiesMap extends PureComponent {
 
 CitiesMap.propTypes = {
   city: CityPropType.isRequired,
-  offers: PropTypes.arrayOf(LocationPropType).isRequired
+  offers: PropTypes.arrayOf(CitiesMapOfferPropType).isRequired,
+  activeOffer: CitiesMapOfferPropType,
+  className: PropTypes.string.isRequired
 };
 
 export default CitiesMap;

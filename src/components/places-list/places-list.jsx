@@ -14,11 +14,12 @@ class PlacesList extends PureComponent {
   render() {
     const {
       onClickCardHeader,
-      places
+      places,
+      className
     } = this.props;
 
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div className={className}>
         {places.map((place) => (
           <PlaceCard
             key={place.id}
@@ -45,7 +46,8 @@ PlacesList.propTypes = {
   places: PropTypes.arrayOf(PlacePropType).isRequired,
   onClickCardHeader: PropTypes.func.isRequired,
   onActivateItem: PropTypes.func.isRequired,
-  onDeactivateItem: PropTypes.func.isRequired
+  onDeactivateItem: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired
 };
 
 export default PlacesList;

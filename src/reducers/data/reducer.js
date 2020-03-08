@@ -1,5 +1,6 @@
 import reducerNames from "../reducerNames.js";
 import {keysToCamel} from "../../utils.js";
+import history from "../../history.js";
 
 const initialState = {
   city: {
@@ -11,13 +12,16 @@ const initialState = {
     }},
   offers: [],
   cities: [],
-  favorite: undefined
+  favorite: undefined,
+  comments: []
 };
 
 const ActionType = {
   CHANGE_CITY: `${reducerNames.DATA}_CHANGE_CITY`,
   LOAD_OFFERS: `${reducerNames.DATA}_LOAD_OFFERS`,
-  TOGGLE_FAVORITE: `${reducerNames.DATA}_TOGGLE_FAVORITE`
+  TOGGLE_FAVORITE: `${reducerNames.DATA}_TOGGLE_FAVORITE`,
+  LOAD_COMMENTS: `${reducerNames.DATA}_LOAD_COMMENTS`,
+  SET_ACTIVE_ITEM: `${reducerNames.DATA}_SET_ACTIVE_ITEM`
 };
 
 const ActionCreator = {
@@ -47,6 +51,25 @@ const ActionCreator = {
           placeId,
           isFavorite
         }
+      }
+    };
+  },
+
+  loadComments: (comments) => {
+    return {
+      type: ActionType.LOAD_COMMENTS,
+      payload: {
+        comments
+      }
+    };
+  },
+
+  setActiveItem: (item, key) => {
+    return {
+      type: ActionType.SET_ACTIVE_ITEM,
+      payload: {
+        item,
+        key
       }
     };
   }
@@ -81,6 +104,16 @@ const data = function (state = initialState, action) {
         favorite: action.payload.favorite
       });
       break;
+    case ActionType.LOAD_COMMENTS:
+      Object.assign(newState, state, {
+        comments: action.payload.comments,
+      });
+      break;
+    case ActionType.SET_ACTIVE_ITEM:
+      Object.assign(newState, state, {
+        [action.payload.key]: action.payload.item
+      });
+      break;
     default:
       return state;
   }
@@ -92,8 +125,13 @@ const Operation = {
   loadOffers: () => (dispatch, _, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const responseData = keysToCamel(response.data);
-        dispatch(ActionCreator.loadOffers(responseData));
+        const offers = keysToCamel(response.data);
+        for (let offer of offers) {
+          offer.starRating = Math.round((offer.rating / 5) * 100);
+        }
+        dispatch(ActionCreator.loadOffers(offers));
+
+        return offers;
       });
   },
 
@@ -103,11 +141,32 @@ const Operation = {
     });
 
     return promise.then(() => {
-      const offers = getState()[reducerNames.DATA].offers;
-      const offer = offers.find((o) => o.id === placeId);
-      offer.isFavorite = isFavorite;
-      dispatch(ActionCreator.toggleFavorite(placeId, isFavorite));
+      if (!getState()[reducerNames.USER].isAuthorized) {
+        history.push(`/login`);
+      } else {
+        const offers = getState()[reducerNames.DATA].offers;
+        const offer = offers.find((o) => o.id === placeId);
+        offer.isFavorite = isFavorite;
+        dispatch(ActionCreator.toggleFavorite(placeId, isFavorite));
+      }
     });
+  },
+
+  loadComments: (hotelId) => (dispatch, _, api) => {
+    return api.get(`/comments/${hotelId}`)
+      .then((response) => {
+        const monthNames = [`January`, `February`, `March`, `April`, `May`, `June`,
+          `July`, `August`, `September`, `October`, `November`, `December`
+        ];
+
+        const comments = keysToCamel(response.data);
+        for (let comment of comments) {
+          comment.rating = Math.round((comment.rating / 5) * 100);
+          comment.date = new Date(comment.date);
+          comment.formattedDate = `${monthNames[comment.date.getMonth()]} ${comment.date.getFullYear()}`;
+        }
+        dispatch(ActionCreator.loadComments(comments));
+      });
   }
 };
 
