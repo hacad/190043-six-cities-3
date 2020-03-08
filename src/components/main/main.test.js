@@ -41,3 +41,15 @@ it(`Main correctly renders after relaunch`, () => {
 
   expect(tree).toMatchSnapshot();
 });
+
+it(`Main correctly renders empty places after relaunch`, () => {
+  const tree = renderer
+    .create(<Main
+      city={places[0].city}
+      cities={[places[0].city]}
+      places={[]}
+      onChangeCity={jest.fn()}/>)
+    .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});

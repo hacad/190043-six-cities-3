@@ -38,7 +38,7 @@ class CitiesMap extends PureComponent {
   _initMap() {
     const {city} = this.props;
     const cityLocation = [city.location.latitude, city.location.longitude];
-    const zoom = city.zoom ? city.zoom : this._zoom;
+    const zoom = city.location.zoom ? city.location.zoom : this._zoom;
 
     this._map = leaflet.map(`map`, {
       center: cityLocation,

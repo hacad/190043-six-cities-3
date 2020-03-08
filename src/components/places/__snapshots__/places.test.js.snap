@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Places correctly renders after relaunch 1`] = `
-Array [
+<div
+  className="cities__places-container container"
+>
   <section
     className="cities__places places"
   >
@@ -111,7 +113,7 @@ Array [
         }
       />
     </div>
-  </section>,
+  </section>
   <div
     className="cities__right-section"
   >
@@ -119,6 +121,6 @@ Array [
       className="property__map map"
       id="map"
     />
-  </div>,
-]
+  </div>
+</div>
 `;
