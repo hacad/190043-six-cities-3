@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Places from "./places.jsx";
+import {Places} from "./places.jsx";
+import {defaultSortingOptionItem} from "../../mocks/places-sorting-options.js";
 
 jest.mock(`../place-card/place-card.jsx`, () => `<div />`);
 
@@ -29,7 +30,7 @@ it(`Places correctly renders after relaunch`, () => {
     }
   }];
 
-  const activeItem = {
+  const activeOffer = {
     id: 16,
     city: {
       name: `Paris`,
@@ -57,11 +58,12 @@ it(`Places correctly renders after relaunch`, () => {
         places={places}
         className="cities__places-list places__list tabs__content"
         onClickCardHeader={jest.fn()}
-        activeItem={activeItem}
+        activeOffer={activeOffer}
         onActivateItem={jest.fn()}
         onDeactivateItem={jest.fn()}
         onChangeSorting={jest.fn()}
-        activeCity={activeItem.city}
+        activeCity={activeOffer.city}
+        selectedItem={defaultSortingOptionItem}
       />
   );
 

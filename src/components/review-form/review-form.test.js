@@ -13,6 +13,8 @@ it(`ReviewForm correctly renders after relaunch`, () => {
         isDisabled={false}
         form={{rating: `5`, comment: `comment`}}
         errors={{}}
+        onActivateItem={jest.fn()}
+        activeItem={false}
       />
   ).toJSON();
 

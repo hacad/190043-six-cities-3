@@ -8,10 +8,18 @@ it(`PlacesSorting correctly renders after relaunch`, () => {
       <PlacesSorting
         items={placesSortingOptions}
         onItemSelect={jest.fn()}
-        activeItem={placesSortingOptions[0]}
+        selectedItem={placesSortingOptions[0]}
         onActivateItem={jest.fn()}
         activeOpened={true}
         onActivateOpened={jest.fn()}
+        activeCity={{
+          name: `Paris`,
+          location: {
+            latitude: 48.856663,
+            longitude: 2.351556,
+            zoom: 10
+          }
+        }}
       />
   ).toJSON();
 

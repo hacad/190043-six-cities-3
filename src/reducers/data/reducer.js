@@ -1,5 +1,6 @@
-import reducerNames from "../reducerNames.js";
-import {keysToCamel} from "../../utils.js";
+import ReducerNames from "../reducer-names.js";
+import {applyCamelCase} from "../../utils.js";
+import {defaultSortingOptionItem} from "../../mocks/places-sorting-options.js";
 
 const initialState = {
   city: {
@@ -12,15 +13,20 @@ const initialState = {
   offers: [],
   cities: [],
   favorites: [],
-  comments: []
+  comments: [],
+
+  placeSortingOption: defaultSortingOptionItem,
+  activeOffer: undefined
 };
 
 const ActionType = {
-  CHANGE_CITY: `${reducerNames.DATA}_CHANGE_CITY`,
-  LOAD_OFFERS: `${reducerNames.DATA}_LOAD_OFFERS`,
-  TOGGLE_FAVORITE: `${reducerNames.DATA}_TOGGLE_FAVORITE`,
-  LOAD_FAVORITES: `${reducerNames.DATA}_LOAD_FAVORITES`,
-  LOAD_COMMENTS: `${reducerNames.DATA}_LOAD_COMMENTS`
+  CHANGE_CITY: `${ReducerNames.DATA}_CHANGE_CITY`,
+  LOAD_OFFERS: `${ReducerNames.DATA}_LOAD_OFFERS`,
+  TOGGLE_FAVORITE: `${ReducerNames.DATA}_TOGGLE_FAVORITE`,
+  LOAD_FAVORITES: `${ReducerNames.DATA}_LOAD_FAVORITES`,
+  LOAD_COMMENTS: `${ReducerNames.DATA}_LOAD_COMMENTS`,
+  CHANGE_SORTING: `${ReducerNames.DATA}_CHANGE_SORTING`,
+  CHANGE_ACTIVE_OFFER: `${ReducerNames.DATA}_CHANGE_ACTIVE_OFFER`
 };
 
 const ActionCreator = {
@@ -28,7 +34,8 @@ const ActionCreator = {
     return {
       type: ActionType.CHANGE_CITY,
       payload: {
-        city
+        city,
+        placeSortingOption: defaultSortingOptionItem
       }
     };
   },
@@ -68,6 +75,24 @@ const ActionCreator = {
       }
     };
   },
+
+  changeSorting: (placeSortingOption) => {
+    return {
+      type: ActionType.CHANGE_SORTING,
+      payload: {
+        placeSortingOption
+      }
+    };
+  },
+
+  changeActiveOffer: (activeOffer) => {
+    return {
+      type: ActionType.CHANGE_ACTIVE_OFFER,
+      payload: {
+        activeOffer
+      }
+    };
+  }
 };
 
 const data = function (state = initialState, action) {
@@ -76,25 +101,18 @@ const data = function (state = initialState, action) {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       Object.assign(newState, state, {
-        city: action.payload.city
+        city: action.payload.city,
+        placeSortingOption: action.payload.placeSortingOption
       });
       break;
     case ActionType.LOAD_OFFERS:
-      const cityMap = new Map();
-      const cityNamesOrder = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
-      for (let cityName of cityNamesOrder) {
-        cityMap.set(cityName, undefined);
-      }
-
-      for (let offer of action.payload.offers) {
-        if (cityMap.has(offer.city.name) && !cityMap.get(offer.city.name)) {
-          cityMap.set(offer.city.name, offer.city);
-        }
-      }
-
+      const citiesSet = new Set();
       const citiesList = [];
-      for (let city of cityMap.values()) {
-        citiesList.push(city);
+      for (let offer of action.payload.offers) {
+        if (!citiesSet.has(offer.city.name)) {
+          citiesList.push(offer.city);
+          citiesSet.add(offer.city.name);
+        }
       }
 
       Object.assign(newState, state, {
@@ -112,12 +130,23 @@ const data = function (state = initialState, action) {
       });
       break;
     case ActionType.LOAD_FAVORITES:
-      return Object.assign({}, state, {
+      Object.assign(newState, state, {
         favorites: action.payload.favoriteOffers,
       });
+      break;
     case ActionType.LOAD_COMMENTS:
       Object.assign(newState, state, {
         comments: action.payload.comments,
+      });
+      break;
+    case ActionType.CHANGE_SORTING:
+      Object.assign(newState, state, {
+        placeSortingOption: action.payload.placeSortingOption,
+      });
+      break;
+    case ActionType.CHANGE_ACTIVE_OFFER:
+      Object.assign(newState, state, {
+        activeOffer: action.payload.activeOffer,
       });
       break;
     default:
@@ -187,7 +216,7 @@ const Operation = {
 };
 
 function formatOffers(offers) {
-  offers = keysToCamel(offers);
+  offers = applyCamelCase(offers);
   for (let offer of offers) {
     offer.starRating = Math.round((offer.rating / 5) * 100);
   }
@@ -196,17 +225,18 @@ function formatOffers(offers) {
 }
 
 function formatComments(comments) {
-  const monthNames = [`January`, `February`, `March`, `April`, `May`, `June`,
+  const MONTH_NAMES = [`January`, `February`, `March`, `April`, `May`, `June`,
     `July`, `August`, `September`, `October`, `November`, `December`
   ];
 
-  comments = keysToCamel(comments);
+  comments = applyCamelCase(comments);
   for (let comment of comments) {
     comment.rating = Math.round((comment.rating / 5) * 100);
     comment.date = new Date(comment.date);
-    comment.formattedDate = `${monthNames[comment.date.getMonth()]} ${comment.date.getFullYear()}`;
+    comment.formattedDate = `${MONTH_NAMES[comment.date.getMonth()]} ${comment.date.getFullYear()}`;
   }
 
+  comments.sort((a, b) => b.date - a.date);
   return comments;
 }
 

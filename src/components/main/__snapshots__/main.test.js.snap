@@ -54,158 +54,74 @@ Array [
       >
         Cities
       </h1>
-      <div
-        className="tabs"
-      >
-        <section
-          className="locations container"
-        >
-          <ul
-            className="locations__list tabs__list"
-          >
-            <li
-              className="locations__item"
-            >
-              <a
-                className="locations__item-link tabs__item tabs__item--active"
-                href="#"
-                onClick={[Function]}
-              >
-                <span>
-                  Amsterdam
-                </span>
-              </a>
-            </li>
-          </ul>
-        </section>
-      </div>
+      <<div />
+        activeCity={
+          Object {
+            "location": Object {
+              "latitude": 52.370216,
+              "longitude": 4.895168,
+              "zoom": 10,
+            },
+            "name": "Amsterdam",
+          }
+        }
+        cities={
+          Array [
+            Object {
+              "location": Object {
+                "latitude": 52.370216,
+                "longitude": 4.895168,
+                "zoom": 10,
+              },
+              "name": "Amsterdam",
+            },
+          ]
+        }
+        onChangeCity={[MockFunction]}
+      />
       <div
         className="cities"
       >
-        <div
-          className="cities__places-container container"
-        >
-          <section
-            className="cities__places places"
-          >
-            <h2
-              className="visually-hidden"
-            >
-              Places
-            </h2>
-            <b
-              className="places__found"
-            >
-              1
-               
-              place
-               to stay in 
-              Amsterdam
-            </b>
-            <form
-              action="#"
-              className="places__sorting"
-              method="get"
-            >
-              <span
-                className="places__sorting-caption"
-              >
-                Sort by
-              </span>
-              <span
-                className="places__sorting-type"
-                onClick={[Function]}
-                tabIndex="0"
-              >
-                Popular
-                <svg
-                  className="places__sorting-arrow"
-                  height="4"
-                  width="7"
-                >
-                  <use
-                    xlinkHref="#icon-arrow-select"
-                  />
-                </svg>
-              </span>
-              <ul
-                className="places__options places__options--custom "
-              >
-                <li
-                  className="places__option places__option--active"
-                  onClick={[Function]}
-                  tabIndex={0}
-                >
-                  Popular
-                </li>
-                <li
-                  className="places__option "
-                  onClick={[Function]}
-                  tabIndex={1}
-                >
-                  Price: low to high
-                </li>
-                <li
-                  className="places__option "
-                  onClick={[Function]}
-                  tabIndex={2}
-                >
-                  Price: high to low
-                </li>
-                <li
-                  className="places__option "
-                  onClick={[Function]}
-                  tabIndex={3}
-                >
-                  Top rated first
-                </li>
-              </ul>
-            </form>
-            <div
-              className="cities__places-list places__list tabs__content"
-            >
-              <<div />
-                articleTagClassNamePrefix="cities__place-card"
-                divImageWrapperClassNamePrefix="cities__image-wrapper"
-                onActivate={[Function]}
-                onClickHeader={[Function]}
-                onDeactivate={[Function]}
-                place={
-                  Object {
-                    "city": Object {
-                      "location": Object {
-                        "latitude": 52.370216,
-                        "longitude": 4.895168,
-                        "zoom": 10,
-                      },
-                      "name": "Amsterdam",
-                    },
-                    "id": 1,
-                    "isFavorite": false,
-                    "isPremium": false,
-                    "location": Object {
-                      "latitude": 52.370216,
-                      "longitude": 4.895168,
-                    },
-                    "previewImage": "img/apartment-01.jpg",
-                    "price": 120,
-                    "rating": 93,
-                    "title": "Beautiful &amp; luxurious apartment at great location",
-                    "type": "apartment",
-                  }
-                }
-              />
-            </div>
-          </section>
-          <div
-            className="cities__right-section"
-          >
-            <section
-              className="property__map map"
-              id="map"
-            />
-          </div>
-        </div>
+        <<div />
+          activeCity={
+            Object {
+              "location": Object {
+                "latitude": 52.370216,
+                "longitude": 4.895168,
+                "zoom": 10,
+              },
+              "name": "Amsterdam",
+            }
+          }
+          className="cities__places-list places__list tabs__content"
+          onClickCardHeader={[Function]}
+          places={
+            Array [
+              Object {
+                "city": Object {
+                  "location": Object {
+                    "latitude": 52.370216,
+                    "longitude": 4.895168,
+                    "zoom": 10,
+                  },
+                  "name": "Amsterdam",
+                },
+                "id": 1,
+                "isFavorite": false,
+                "isPremium": false,
+                "location": Object {
+                  "latitude": 52.370216,
+                  "longitude": 4.895168,
+                },
+                "previewImage": "img/apartment-01.jpg",
+                "price": 120,
+                "rating": 93,
+                "title": "Beautiful &amp; luxurious apartment at great location",
+                "type": "apartment",
+              },
+            ]
+          }
+        />
       </div>
     </main>
   </div>,
@@ -266,31 +182,31 @@ Array [
       >
         Cities
       </h1>
-      <div
-        className="tabs"
-      >
-        <section
-          className="locations container"
-        >
-          <ul
-            className="locations__list tabs__list"
-          >
-            <li
-              className="locations__item"
-            >
-              <a
-                className="locations__item-link tabs__item tabs__item--active"
-                href="#"
-                onClick={[Function]}
-              >
-                <span>
-                  Amsterdam
-                </span>
-              </a>
-            </li>
-          </ul>
-        </section>
-      </div>
+      <<div />
+        activeCity={
+          Object {
+            "location": Object {
+              "latitude": 52.370216,
+              "longitude": 4.895168,
+              "zoom": 10,
+            },
+            "name": "Amsterdam",
+          }
+        }
+        cities={
+          Array [
+            Object {
+              "location": Object {
+                "latitude": 52.370216,
+                "longitude": 4.895168,
+                "zoom": 10,
+              },
+              "name": "Amsterdam",
+            },
+          ]
+        }
+        onChangeCity={[MockFunction]}
+      />
       <div
         className="cities"
       >

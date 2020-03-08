@@ -6,7 +6,9 @@ import {Operation} from "../../reducers/data/reducer.js";
 import ErrorLabel from "../error-label/error-label.jsx";
 
 const ReviewForm = (props) => {
-  const {hotelId, onSubmit, onSendForm, isDisabled, onChange, form, errors} = props;
+  const {hotelId, onSubmit, onSendForm,
+    isDisabled, onChange, form,
+    errors, activeItem: isCommentedAlready, onActivateItem} = props;
   const RATING_ITEMS = [
     {value: 5, title: `perfect`},
     {value: 4, title: `good`},
@@ -14,12 +16,17 @@ const ReviewForm = (props) => {
     {value: 2, title: `badly`},
     {value: 1, title: `terribly`},
   ];
-  const MIN_REVIEW_CHARS = 50;
+  const MIN_REVIEW_CHARS = 1;
+  const MAX_REVIEW_CHARS = 5;
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit();
-    onSendForm(hotelId, form);
+    onSendForm(hotelId, form)
+      .then(() => {
+        onSubmit();
+        onActivateItem(true);
+      })
+      .catch(() => {});
   };
 
   const renderRatingValidationError = !form.rating && !(errors && errors[`comment`]) && form.comment
@@ -52,14 +59,15 @@ const ReviewForm = (props) => {
         id="comment"
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        minLength={MIN_REVIEW_CHARS}>
+        minLength={MIN_REVIEW_CHARS}
+        maxLength={MAX_REVIEW_CHARS}>
       </textarea>
       {renderPostCommentError}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
                       To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{MIN_REVIEW_CHARS} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={isDisabled}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isDisabled || isCommentedAlready}>Submit</button>
       </div>
     </form>
   );
@@ -78,15 +86,25 @@ ReviewForm.propTypes = {
   errors: PropTypes.shape({
     rating: PropTypes.string,
     comment: PropTypes.string
-  })
+  }),
+  onActivateItem: PropTypes.func.isRequired,
+  activeItem: PropTypes.bool.isRequired
 };
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     onSendForm: (hotelId, form) => {
-      dispatch(Operation.postComment(hotelId, form))
+      return dispatch(Operation.postComment(hotelId, form))
         .catch((error) => {
-          ownProps.onError({"review": error.response.data.error});
+          const errorMessage =
+            (error && error.response && error.response.status && error.response.status === 503)
+              ? `Server is unavailable. Please try again later.`
+              : ((error && error.response && error.response.data && error.response.data.error)
+            || (error && error.message)
+            || error);
+          ownProps.onError({"comment": errorMessage});
+
+          throw error;
         });
     }
   };

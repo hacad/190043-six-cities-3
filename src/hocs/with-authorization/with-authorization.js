@@ -15,10 +15,6 @@ function withAuthorization(Component, isAuthorizedState, redirectTo) {
       this._handleLogin = this._handleLogin.bind(this);
     }
 
-    _handleLogin(user) {
-      this.props.login({email: user.email, password: user.password});
-    }
-
     render() {
       return (
         isAuthorizedState === this.props.isAuthorized
@@ -34,6 +30,10 @@ function withAuthorization(Component, isAuthorizedState, redirectTo) {
             />
           )
       );
+    }
+
+    _handleLogin(user) {
+      this.props.login({email: user.email, password: user.password});
     }
   }
 

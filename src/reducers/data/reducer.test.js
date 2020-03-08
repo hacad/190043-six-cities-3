@@ -1,6 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
 import {data, ActionCreator, Operation, ActionType} from "./reducer.js";
+import {defaultSortingOptionItem} from "../../mocks/places-sorting-options.js";
 
 it(`Reducer should return initial state by default`, () => {
   // Arrange
@@ -25,13 +26,19 @@ it(`Reducer should change city and offers`, () => {
   const currentState = {
     city: {
       name: `Amsterdam`
+    },
+    placeSortingOption: {
+      caption: `Price: high to low`,
+      value: `price`,
+      order: `DESC`
     }
   };
 
   const requiredState = {
     city: {
       name: `Paris`
-    }
+    },
+    placeSortingOption: defaultSortingOptionItem
   };
 
   const action = ActionCreator.changeCity(requiredState.city);
@@ -273,4 +280,50 @@ it(`Reducer should make correct API call to load favorites`, () => {
         payload: {favoriteOffers: []}
       });
     });
+});
+
+it(`Reducer should change order`, () => {
+  // Arrange
+  const currentState = {
+    placeSortingOption: {
+      caption: `Price: high to low`,
+      value: `price`,
+      order: `DESC`
+    }
+  };
+
+  const requiredState = {
+    placeSortingOption: {
+      caption: `Top rated first`,
+      value: `rating`,
+      order: `DESC`
+    }
+  };
+
+  const action = ActionCreator.changeSorting(requiredState.placeSortingOption);
+
+  // Act
+  const newState = data(currentState, action);
+
+  // Assert
+  expect(newState).toEqual(requiredState);
+});
+
+it(`Reducer should change active offer`, () => {
+  // Arrange
+  const currentState = {
+    activeOffer: undefined
+  };
+
+  const requiredState = {
+    activeOffer: {}
+  };
+
+  const action = ActionCreator.changeActiveOffer(requiredState.activeOffer);
+
+  // Act
+  const newState = data(currentState, action);
+
+  // Assert
+  expect(newState).toEqual(requiredState);
 });

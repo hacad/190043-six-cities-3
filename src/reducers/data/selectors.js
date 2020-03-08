@@ -1,15 +1,29 @@
 import {createSelector} from "reselect";
-import reducerNames from "../reducerNames.js";
+import reducerNames from "../reducer-names.js";
 
 const getOffers = (state) => state[reducerNames.DATA].offers;
+export const getSortingOption = (state) => state[reducerNames.DATA].placeSortingOption;
 export const getCity = (state) => state[reducerNames.DATA].city;
 export const getCities = (state) => state[reducerNames.DATA].cities;
 export const getSelectedPlaces = createSelector(
     getOffers,
     getCity,
-    (offers, city) =>
-      offers
-        .filter((offer) => offer.city.name === city.name)
+    getSortingOption,
+    (offers, city, placeSortingOption) => {
+      let sortedOffers = offers.filter((offer) => offer.city.name === city.name);
+      if (placeSortingOption && placeSortingOption.order) {
+        sortedOffers = sortByOrder(sortedOffers, placeSortingOption.value, placeSortingOption.order);
+      }
+
+      return sortedOffers;
+      function sortByOrder(arr, value, order) {
+        switch (order) {
+          case `ASC`: return arr.sort((a, b) => a[value] - b[value]);
+          case `DESC`: return arr.sort((a, b) => b[value] - a[value]);
+          default: return arr;
+        }
+      }
+    }
 );
 export const getOfferById = (id, state) => {
   return getOffers(state).filter((offer) => offer.id === id)[0];

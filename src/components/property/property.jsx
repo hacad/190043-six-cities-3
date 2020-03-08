@@ -4,19 +4,19 @@ import PropTypes from "prop-types";
 import PropertyPropType from "../prop-types/property.js";
 import ReviewPropType from "../prop-types/review.js";
 import PlacePropType from "../prop-types/place.js";
-import {Operation} from "../../reducers/data/reducer";
+import {ActionCreator, Operation} from "../../reducers/data/reducer";
+import ReducerNames from "../../reducers/reducer-names.js";
 import ReviewList from "../review-list/review-list.jsx";
 import {getOfferById, getComments, getSelectedPlaces} from "../../reducers/data/selectors.js";
 import Header from "../header/header.jsx";
 import BookmarkButton from "../bookmark-button/bookmark-button.jsx";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
-import NearPlaces from "../near-places/near-places.jsx";
-import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
+import CitiesMap from "../cities-map/cities-map.jsx";
+import PlacesList from "../places-list/places-list.jsx";
 
 const HeaderWrapped = withAuthorization(Header);
 const BookmarkButtonWrapped = withAuthorization(BookmarkButton);
 const ReviewListWrapped = withAuthorization(ReviewList);
-const NearPlacesWrapped = withActiveItem(NearPlaces);
 
 class Property extends PureComponent {
   constructor(props) {
@@ -34,11 +34,34 @@ class Property extends PureComponent {
   }
 
   render() {
-    const {offer, comments, nearOffers, hotelId} = this.props;
+    const {offer, comments, nearOffers, hotelId, activeOffer, onActivateItem, onDeactivateItem} = this.props;
 
     if (!offer) {
       return null;
     }
+
+    const activeCitiesMapOffer = activeOffer
+      ? {
+        data: activeOffer.location,
+        displaySettings: {
+          icon: {
+            iconUrl: `/img/pin-active.svg`
+          }
+        }
+      }
+      : undefined;
+
+    const nearOfferLocations = nearOffers.map((nearOffer) => {
+      return {data: nearOffer.location};
+    });
+    nearOfferLocations.push({
+      data: offer.location,
+      displaySettings: {
+        icon: {
+          iconUrl: `/img/pin-active.svg`
+        }
+      }
+    });
 
     return (
       <div className="page">
@@ -136,8 +159,22 @@ class Property extends PureComponent {
                 <ReviewListWrapped hotelId={hotelId} reviews={comments} />
               </div>
             </div>
+            <CitiesMap city={offer.city} offers={nearOfferLocations} activeOffer={activeCitiesMapOffer} className="property__map map"/>
           </section>
-          <NearPlacesWrapped activeCity={offer.city} currentOfferLocation={offer.location} places={nearOffers} />
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">Other places in the neighbourhood</h2>
+              <PlacesList
+                places={nearOffers}
+                onClickCardHeader={() => {}}
+                className="near-places__list places__list"
+                onActivatePlace={onActivateItem}
+                onDeactivatePlace={onDeactivateItem}
+                articleTagClassNamePrefix="near-places__card"
+                divImageWrapperClassNamePrefix="near-places"
+              />
+            </section>
+          </div>
         </main>
       </div>
     );
@@ -149,7 +186,10 @@ Property.propTypes = {
   offer: PropertyPropType,
   nearOffers: PropTypes.arrayOf(PlacePropType),
   comments: PropTypes.arrayOf(ReviewPropType),
-  loadComments: PropTypes.func.isRequired
+  loadComments: PropTypes.func.isRequired,
+  activeOffer: PlacePropType,
+  onActivateItem: PropTypes.func.isRequired,
+  onDeactivateItem: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -161,7 +201,8 @@ const mapStateToProps = (state, ownProps) => {
     nearOffers: getSelectedPlaces(state)
                 .filter((offer) => offer.id !== hotelId)
                 .slice(0, 3),
-    comments: getComments(state)
+    comments: getComments(state),
+    activeOffer: state[ReducerNames.DATA].activeOffer
   });
 };
 
@@ -169,6 +210,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadComments: () => {
       dispatch(Operation.loadComments(parseInt(ownProps.match.params.id, 10)));
+    },
+    onActivateItem: (activeOffer) => {
+      dispatch(ActionCreator.changeActiveOffer(activeOffer));
+    },
+    onDeactivateItem: () => {
+      dispatch(ActionCreator.changeActiveOffer(undefined));
     }
   };
 };

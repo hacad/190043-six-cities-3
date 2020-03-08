@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import PlacesSortingPropType from "../prop-types/places-sorting.js";
+import CityPropType from "../prop-types/city.js";
 
 class PlacesSorting extends PureComponent {
   constructor(props) {
@@ -10,8 +11,14 @@ class PlacesSorting extends PureComponent {
     this._handleSelectToggle = this._handleSelectToggle.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.activeCity !== this.props.activeCity) {
+      this.props.onActivateOpened(false);
+    }
+  }
+
   render() {
-    const {items, activeItem, activeOpened} = this.props;
+    const {items, selectedItem, activeOpened} = this.props;
 
     return (
       <form className="places__sorting" action="#" method="get">
@@ -20,7 +27,7 @@ class PlacesSorting extends PureComponent {
           className="places__sorting-type" tabIndex="0"
           onClick={this._handleSelectToggle}
         >
-          {activeItem.caption}
+          {selectedItem.caption}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
@@ -30,7 +37,7 @@ class PlacesSorting extends PureComponent {
             items.map((item, index) => (
               <li
                 key={item.caption}
-                className={`places__option ${activeItem.caption === item.caption ? `places__option--active` : ``}`}
+                className={`places__option ${selectedItem.caption === item.caption ? `places__option--active` : ``}`}
                 tabIndex={index}
                 onClick={() => this._handleItemClick(item)}
               >
@@ -45,7 +52,6 @@ class PlacesSorting extends PureComponent {
 
   _handleItemClick(selectedItem) {
     this.props.onActivateOpened(false);
-    this.props.onActivateItem(selectedItem);
     this.props.onItemSelect(selectedItem);
   }
 
@@ -57,10 +63,10 @@ class PlacesSorting extends PureComponent {
 PlacesSorting.propTypes = {
   items: PropTypes.arrayOf(PlacesSortingPropType).isRequired,
   onItemSelect: PropTypes.func.isRequired,
-  activeItem: PlacesSortingPropType.isRequired,
-  onActivateItem: PropTypes.func.isRequired,
+  selectedItem: PlacesSortingPropType.isRequired,
   activeOpened: PropTypes.bool.isRequired,
-  onActivateOpened: PropTypes.func.isRequired
+  onActivateOpened: PropTypes.func.isRequired,
+  activeCity: CityPropType.isRequired
 };
 
 export default PlacesSorting;

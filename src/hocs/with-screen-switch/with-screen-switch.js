@@ -61,7 +61,6 @@ function withScreenSwitch(Component) {
             />
           )}/>
         </Switch>
-
       );
     }
   }

@@ -1,5 +1,5 @@
-import reducerNames from "../reducerNames.js";
-import {keysToCamel} from "../../utils.js";
+import ReducerNames from "../reducer-names.js";
+import {applyCamelCase} from "../../utils.js";
 import history from "../../history.js";
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const ActionType = {
-  REQUIRE_AUTHORIZATION: `${reducerNames.USER}_REQUIRE_AUTHORIZATION`,
+  REQUIRE_AUTHORIZATION: `${ReducerNames.USER}_REQUIRE_AUTHORIZATION`,
 };
 
 const ActionCreator = {
@@ -45,7 +45,7 @@ const Operation = {
     api
       .post(`/login`, form)
       .then((response) => {
-        const data = keysToCamel(response.data);
+        const data = applyCamelCase(response.data);
         data.avatarUrl = `${api.defaults.baseURL}${data.avatarUrl}`;
         dispatch(ActionCreator.requireAuthorization(false, data));
 
@@ -54,10 +54,6 @@ const Operation = {
       .catch(() => {
         dispatch(ActionCreator.requireAuthorization(true, undefined));
       });
-  },
-
-  logout: () => (dispatch) => {
-    dispatch(ActionCreator.requireAuthorization(true, undefined));
   }
 };
 
