@@ -16,8 +16,8 @@ const testPlace = {
     }
   },
   type: `apartment`,
-  preview_image: `img/apartment-01.jpg`,
-  is_premium: false,
+  previewImage: `img/apartment-01.jpg`,
+  isPremium: false,
   title: `Beautiful &amp; luxurious apartment at great location`,
   price: 120,
   rating: 93,
