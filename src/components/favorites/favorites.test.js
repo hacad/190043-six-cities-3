@@ -1,13 +1,64 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Favorites from "./favorites.jsx";
+import {BrowserRouter as Router} from "react-router-dom";
+import {Favorites} from "./favorites.jsx";
 
 jest.mock(`../../hocs/with-authorization/with-authorization.js`, () => () => `<div />`);
 
-it(`Favorites correctly renders after relaunch`, () => {
+const favorites = [{
+  city: {
+    name: `Amsterdam`,
+    location: {
+      latitude: 52.370216,
+      longitude: 4.895168,
+      zoom: 10
+    }
+  },
+  places: [
+    {
+      id: 1,
+      city: {
+        name: `Amsterdam`,
+        location: {
+          latitude: 52.370216,
+          longitude: 4.895168,
+          zoom: 10
+        }
+      },
+      type: `apartment`,
+      previewImage: `img/apartment-01.jpg`,
+      isPremium: false,
+      title: `Beautiful &amp; luxurious apartment at great location`,
+      price: 120,
+      rating: 93,
+      isFavorite: true,
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168
+      }
+    }
+  ]
+}];
+
+it(`Favorites empty correctly renders after relaunch`, () => {
   // Arrange && Act
-  const favorites = renderer.create(<Favorites />).toJSON();
+  const favoritesPage = renderer.create(
+      <Router>
+        <Favorites favorites={[]}/>
+      </Router>).toJSON();
 
   // Assert
-  expect(favorites).toMatchSnapshot();
+  expect(favoritesPage).toMatchSnapshot();
+});
+
+
+it(`Favorites not empty correctly renders after relaunch`, () => {
+  // Arrange && Act
+  const favoritesPage = renderer.create(
+      <Router>
+        <Favorites favorites={favorites}/>
+      </Router>).toJSON();
+
+  // Assert
+  expect(favoritesPage).toMatchSnapshot();
 });

@@ -1,13 +1,13 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {Operation} from "../../reducers/user/reducer.js";
 import {connect} from "react-redux";
+import {compose} from "recompose";
+import {Redirect} from "react-router-dom";
+import {Operation} from "../../reducers/user/reducer.js";
 import {getUser, isAuthorized} from "../../reducers/user/selectors.js";
 import UserPropType from "../../components/prop-types/user.js";
 
-import {compose} from "recompose";
-
-function withAuthorization(Component) {
+function withAuthorization(Component, isPrivate) {
   class WithAuthorization extends PureComponent {
     constructor(props) {
       super(props);
@@ -49,14 +49,21 @@ function withAuthorization(Component) {
 
     render() {
       return (
-        <Component
-          {...this.props}
-          onEmailChange={this._handleEmailChange}
-          onPasswordChange={this._handlePasswordChange}
-          onClickSignIn={this._handleLogin}
-          onClickSignOut={this._handleLogout}
-          isCredentialsValid={!!this.state.email && !!this.state.password}
-        />
+        isPrivate && !this.props.isAuthorized
+          ? (
+            <Redirect to="/login" />
+          )
+          : (
+            <Component
+              {...this.props}
+              onEmailChange={this._handleEmailChange}
+              onPasswordChange={this._handlePasswordChange}
+              onClickSignIn={this._handleLogin}
+              onClickSignOut={this._handleLogout}
+              isCredentialsValid={!!this.state.email && !!this.state.password}
+            />
+          )
+
       );
     }
   }
