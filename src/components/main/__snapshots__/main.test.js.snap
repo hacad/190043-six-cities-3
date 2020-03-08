@@ -194,7 +194,7 @@ Array [
             className="cities__right-section"
           >
             <section
-              className="cities__map map"
+              className="property__map map"
               id="map"
             />
           </div>

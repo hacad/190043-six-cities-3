@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import {Main} from "./main.jsx";
 
 jest.mock(`../../hocs/with-authorization/with-authorization.js`, () => () => `<div />`);
 jest.mock(`../place-card/place-card.jsx`, () => `<div />`);
