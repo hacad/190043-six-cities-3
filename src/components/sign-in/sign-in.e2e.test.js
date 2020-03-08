@@ -10,16 +10,15 @@ it(`SignIn call onSubmit when button clicked`, () => {
   const submitHandler = jest.fn();
   const signIn = shallow(
       <SignIn
-        isCredentialsValid={true}
         onClickSignIn={submitHandler}
-        onEmailChange={jest.fn()}
-        onPasswordChange={jest.fn()}
+        onSubmit={jest.fn()}
+        onChange={jest.fn()}
       />
   );
 
   // Act
   const formNode = signIn.find(`form.login__form`);
-  formNode.simulate(`submit`);
+  formNode.simulate(`submit`, {preventDefault: jest.fn()});
 
   // Assert
   expect(submitHandler).toHaveBeenCalledTimes(1);
