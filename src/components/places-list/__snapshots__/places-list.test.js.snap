@@ -8,9 +8,9 @@ exports[`PlacesList correctly renders after relaunch 1`] = `
     articleTagClassNamePrefix="cities__place-card"
     divImageWrapperClassNamePrefix="cities__image-wrapper"
     divInfoClassNamePrefix=""
-    onActivate={[MockFunction]}
-    onClickHeader={[MockFunction]}
-    onDeactivate={[MockFunction]}
+    handleActivate={[MockFunction]}
+    handleClickHeader={[MockFunction]}
+    handleDeactivate={[MockFunction]}
     place={
       Object {
         "city": Object {

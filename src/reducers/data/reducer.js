@@ -1,5 +1,5 @@
 import ReducerNames from "../reducer-names.js";
-import {applyCamelCase} from "../../utils.js";
+import {applyCamelCase, extractCitiesFromOffers} from "../../utils.js";
 import {defaultSortingOptionItem} from "../../mocks/places-sorting-options.js";
 
 const initialState = {
@@ -40,11 +40,12 @@ const ActionCreator = {
     };
   },
 
-  loadOffers: (offers) => {
+  loadOffers: (offers, cities) => {
     return {
       type: ActionType.LOAD_OFFERS,
       payload: {
-        offers
+        offers,
+        cities
       }
     };
   },
@@ -106,18 +107,9 @@ const data = function (state = initialState, action) {
       });
       break;
     case ActionType.LOAD_OFFERS:
-      const citiesSet = new Set();
-      const citiesList = [];
-      for (let offer of action.payload.offers) {
-        if (!citiesSet.has(offer.city.name)) {
-          citiesList.push(offer.city);
-          citiesSet.add(offer.city.name);
-        }
-      }
-
       Object.assign(newState, state, {
         offers: action.payload.offers,
-        cities: citiesList
+        cities: action.payload.cities
       });
       break;
     case ActionType.TOGGLE_FAVORITE:
@@ -163,8 +155,10 @@ const Operation = {
         let offers = [];
         if (response && response.data) {
           offers = formatOffers(response.data);
-          dispatch(ActionCreator.loadOffers(offers));
+          const cities = extractCitiesFromOffers(offers);
+          dispatch(ActionCreator.loadOffers(offers, cities));
         }
+
         return offers;
       });
   },
@@ -176,6 +170,7 @@ const Operation = {
         if (response && response.data) {
           updatedOffers = formatOffers([response.data]);
           dispatch(ActionCreator.toggleFavorite(updatedOffers[0]));
+          dispatch(Operation.loadFavorites());
         }
 
         return updatedOffers;
@@ -189,7 +184,6 @@ const Operation = {
         if (response && response.data) {
           favoriteOffers = formatOffers(response.data);
           dispatch(ActionCreator.loadFavorites(favoriteOffers));
-          dispatch(Operation.loadFavorites());
         }
 
         return favoriteOffers;

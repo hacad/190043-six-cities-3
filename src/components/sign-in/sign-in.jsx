@@ -5,19 +5,19 @@ import withAuthorization from "../../hocs/with-authorization/with-authorization.
 import ErrorLabel from "../error-label/error-label.jsx";
 const HeaderWrapped = withAuthorization(Header);
 
-function SignIn({onChange, onSubmit, form, onClickSignIn, isDisabled, errors}) {
+function SignIn({handleChange, handleSubmit, form, handleClickSignIn, isDisabled, errors}) {
 
-  const onFormSubmit = (evt) => {
+  const handleSubmitForm = (evt) => {
     evt.preventDefault();
-    onSubmit();
-    onClickSignIn(form);
+    handleSubmit();
+    handleClickSignIn(form);
   };
 
   const renderEmailValidationError = errors && errors[`email`]
-    ? <ErrorLabel txtLbl={errors[`email`]} htmlFor="email" />
+    ? <ErrorLabel textLabel={errors[`email`]} htmlFor="email" />
     : ``;
   const renderPasswordValidationError = errors && errors[`password`]
-    ? <ErrorLabel txtLbl={errors[`password`]} htmlFor="password" />
+    ? <ErrorLabel textLabel={errors[`password`]} htmlFor="password" />
     : ``;
   return (
     <Fragment>
@@ -31,7 +31,7 @@ function SignIn({onChange, onSubmit, form, onClickSignIn, isDisabled, errors}) {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post" onChange={onChange} onSubmit={onFormSubmit}>
+              <form className="login__form form" action="#" method="post" onChange={handleChange} onSubmit={handleSubmitForm}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input
@@ -81,9 +81,9 @@ function SignIn({onChange, onSubmit, form, onClickSignIn, isDisabled, errors}) {
 
 SignIn.propTypes = {
   isDisabled: PropTypes.bool,
-  onClickSignIn: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  handleClickSignIn: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   form: PropTypes.shape({
     email: PropTypes.string,
     password: PropTypes.string

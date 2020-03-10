@@ -86,9 +86,9 @@ exports[`Places correctly renders after relaunch 1`] = `
       <<div />
         articleTagClassNamePrefix="cities__place-card"
         divImageWrapperClassNamePrefix="cities__image-wrapper"
-        onActivate={[MockFunction]}
-        onClickHeader={[Function]}
-        onDeactivate={[MockFunction]}
+        handleActivate={[MockFunction]}
+        handleClickHeader={[Function]}
+        handleDeactivate={[MockFunction]}
         place={
           Object {
             "city": Object {

@@ -57,11 +57,11 @@ it(`Places correctly renders after relaunch`, () => {
       <Places
         places={places}
         className="cities__places-list places__list tabs__content"
-        onClickCardHeader={jest.fn()}
+        handleClickCardHeader={jest.fn()}
         activeOffer={activeOffer}
-        onActivateItem={jest.fn()}
-        onDeactivateItem={jest.fn()}
-        onChangeSorting={jest.fn()}
+        handleItemActivate={jest.fn()}
+        handleItemDeactivate={jest.fn()}
+        handleSortingChange={jest.fn()}
         activeCity={activeOffer.city}
         selectedItem={defaultSortingOptionItem}
       />

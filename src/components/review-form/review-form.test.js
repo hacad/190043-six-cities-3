@@ -7,13 +7,13 @@ it(`ReviewForm correctly renders after relaunch`, () => {
   const reviewForm = renderer.create(
       <ReviewForm
         hotelId={1}
-        onSubmit={jest.fn()}
-        onSendForm={jest.fn()}
-        onChange={jest.fn()}
+        handleSubmit={jest.fn()}
+        handleSendForm={jest.fn()}
+        handleChange={jest.fn()}
         isDisabled={false}
         form={{rating: `5`, comment: `comment`}}
         errors={{}}
-        onActivateItem={jest.fn()}
+        handleItemActivate={jest.fn()}
         activeItem={false}
       />
   ).toJSON();

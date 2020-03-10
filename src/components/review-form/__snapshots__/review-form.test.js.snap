@@ -137,10 +137,11 @@ exports[`ReviewForm correctly renders after relaunch 1`] = `
   <textarea
     className="reviews__textarea form__textarea"
     id="comment"
-    maxLength={5}
-    minLength={1}
+    maxLength={300}
+    minLength={50}
     name="comment"
     placeholder="Tell how was your stay, what you like and what can be improved"
+    required={true}
   />
   
   <div
@@ -159,7 +160,7 @@ exports[`ReviewForm correctly renders after relaunch 1`] = `
       <b
         className="reviews__text-amount"
       >
-        1
+        50
          characters
       </b>
       .

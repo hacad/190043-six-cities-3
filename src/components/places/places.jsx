@@ -5,19 +5,19 @@ import {ActionCreator} from "../../reducers/data/reducer.js";
 import ReducerNames from "../../reducers/reducer-names.js";
 import {getSortingOption} from "../../reducers/data/selectors.js";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
-import PlacesSortingPropType from "../prop-types/places-sorting.js";
+import PlacesSortingPropType from "../../prop-types/places-sorting.js";
 import PlacesSorting from "../places-sorting/places-sorting.jsx";
-import PlacePropType from "../prop-types/place.js";
+import PlacePropType from "../../prop-types/place.js";
 import PlacesList from "../places-list/places-list.jsx";
 import CitiesMap from "../cities-map/cities-map.jsx";
-import CityPropType from "../prop-types/city.js";
+import CityPropType from "../../prop-types/city.js";
 import {placesSortingOptions} from "../../mocks/places-sorting-options";
 
-const PlacesSortingWrapped = withActiveItem(PlacesSorting, false, `Opened`);
+const PlacesSortingWrapped = withActiveItem(PlacesSorting, false, `Open`);
 const PlacesListWrapped = withActiveItem(PlacesList);
 
 function Places(props) {
-  const {places, onActivateItem, onDeactivateItem, onChangeSorting,
+  const {places, handleItemActivate, handleItemDeactivate, handleSortingChange,
     activeCity, activeOffer, selectedItem} = props;
   const offers = places.map((place) => {
     return {data: place.location};
@@ -42,14 +42,14 @@ function Places(props) {
           activeCity={activeCity}
           selectedItem={selectedItem}
           items={placesSortingOptions}
-          onItemSelect={onChangeSorting}
+          handleItemSelect={handleSortingChange}
         />
         <PlacesListWrapped
           places={places}
-          onClickCardHeader={() => {}}
+          handleClickCardHeader={() => {}}
           className="cities__places-list places__list tabs__content"
-          onActivatePlace={onActivateItem}
-          onDeactivatePlace={onDeactivateItem}
+          handleActivatePlace={handleItemActivate}
+          handleDeactivatePlace={handleItemDeactivate}
           articleTagClassNamePrefix="cities__place-card"
           divImageWrapperClassNamePrefix="cities__image-wrapper"
         />
@@ -64,11 +64,11 @@ function Places(props) {
 Places.propTypes = {
   places: PropTypes.arrayOf(PlacePropType).isRequired,
   className: PropTypes.string.isRequired,
-  onClickCardHeader: PropTypes.func.isRequired,
+  handleClickCardHeader: PropTypes.func.isRequired,
   activeOffer: PlacePropType,
-  onActivateItem: PropTypes.func.isRequired,
-  onDeactivateItem: PropTypes.func.isRequired,
-  onChangeSorting: PropTypes.func.isRequired,
+  handleItemActivate: PropTypes.func.isRequired,
+  handleItemDeactivate: PropTypes.func.isRequired,
+  handleSortingChange: PropTypes.func.isRequired,
   activeCity: CityPropType.isRequired,
   selectedItem: PlacesSortingPropType.isRequired,
 };
@@ -82,13 +82,13 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onChangeSorting: (placeSortingOption) => {
+    handleSortingChange: (placeSortingOption) => {
       dispatch(ActionCreator.changeSorting(placeSortingOption));
     },
-    onActivateItem: (activeOffer) => {
+    handleItemActivate: (activeOffer) => {
       dispatch(ActionCreator.changeActiveOffer(activeOffer));
     },
-    onDeactivateItem: () => {
+    handleItemDeactivate: () => {
       dispatch(ActionCreator.changeActiveOffer(undefined));
     }
   };

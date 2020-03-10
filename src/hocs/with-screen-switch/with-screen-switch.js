@@ -1,8 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import CityPropType from "../../components/prop-types/city";
-import PlacePropType from "../../components/prop-types/place.js";
+import CityPropType from "../../prop-types/city";
+import PlacePropType from "../../prop-types/place.js";
 import {ActionCreator} from "../../reducers/data/reducer.js";
 import {
   getSelectedPlaces,

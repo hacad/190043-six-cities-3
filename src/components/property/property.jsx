@@ -1,9 +1,9 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import PropertyPropType from "../prop-types/property.js";
-import ReviewPropType from "../prop-types/review.js";
-import PlacePropType from "../prop-types/place.js";
+import PropertyPropType from "../../prop-types/property.js";
+import ReviewPropType from "../../prop-types/review.js";
+import PlacePropType from "../../prop-types/place.js";
 import {ActionCreator, Operation} from "../../reducers/data/reducer";
 import ReducerNames from "../../reducers/reducer-names.js";
 import ReviewList from "../review-list/review-list.jsx";
@@ -34,7 +34,7 @@ class Property extends PureComponent {
   }
 
   render() {
-    const {offer, comments, nearOffers, hotelId, activeOffer, onActivateItem, onDeactivateItem} = this.props;
+    const {offer, comments, nearOffers, hotelId, activeOffer, handleItemActivate, handleItemDeactivate} = this.props;
 
     if (!offer) {
       return null;
@@ -166,10 +166,10 @@ class Property extends PureComponent {
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <PlacesList
                 places={nearOffers}
-                onClickCardHeader={() => {}}
+                handleClickCardHeader={() => {}}
                 className="near-places__list places__list"
-                onActivatePlace={onActivateItem}
-                onDeactivatePlace={onDeactivateItem}
+                handleActivatePlace={handleItemActivate}
+                handleDeactivatePlace={handleItemDeactivate}
                 articleTagClassNamePrefix="near-places__card"
                 divImageWrapperClassNamePrefix="near-places"
               />
@@ -188,8 +188,8 @@ Property.propTypes = {
   comments: PropTypes.arrayOf(ReviewPropType),
   loadComments: PropTypes.func.isRequired,
   activeOffer: PlacePropType,
-  onActivateItem: PropTypes.func.isRequired,
-  onDeactivateItem: PropTypes.func.isRequired
+  handleItemActivate: PropTypes.func.isRequired,
+  handleItemDeactivate: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -211,10 +211,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadComments: () => {
       dispatch(Operation.loadComments(parseInt(ownProps.match.params.id, 10)));
     },
-    onActivateItem: (activeOffer) => {
+    handleItemActivate: (activeOffer) => {
       dispatch(ActionCreator.changeActiveOffer(activeOffer));
     },
-    onDeactivateItem: () => {
+    handleItemDeactivate: () => {
       dispatch(ActionCreator.changeActiveOffer(undefined));
     }
   };

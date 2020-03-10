@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const createAPI = (onLoginFail) => {
   const api = axios.create({
-    baseURL: `https://htmlacademy-react-2.appspot.com/six-cities`,
+    baseURL: `https://htmlacademy-react-3.appspot.com/six-cities`,
     timeout: 5000,
     withCredentials: true
   });
@@ -12,13 +12,16 @@ export const createAPI = (onLoginFail) => {
   };
 
   const onFail = (err) => {
-    if (err.response.status === 401 || err.response.status === 403) {
-      onLoginFail();
-
+    if (err && err.response && err.response.config && err.response.config.passThrough) {
       return;
     }
 
-    throw err;
+    if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+      onLoginFail();
+      return;
+    }
+
+    return;
   };
 
   api.interceptors.response.use(onSuccess, onFail);

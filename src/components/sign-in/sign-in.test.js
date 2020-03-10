@@ -7,9 +7,9 @@ jest.mock(`../../hocs/with-authorization/with-authorization.js`, () => () => `<d
 it(`SignIn correctly renders after relaunch`, () => {
   const signIn = renderer.create(
       <SignIn
-        onClickSignIn={jest.fn()}
-        onSubmit={jest.fn()}
-        onChange={jest.fn()}
+        handleClickSignIn={jest.fn()}
+        handleSubmit={jest.fn()}
+        handleChange={jest.fn()}
       />
   )
   .toJSON();

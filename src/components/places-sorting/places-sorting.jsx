@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import PlacesSortingPropType from "../prop-types/places-sorting.js";
-import CityPropType from "../prop-types/city.js";
+import PlacesSortingPropType from "../../prop-types/places-sorting.js";
+import CityPropType from "../../prop-types/city.js";
 
 class PlacesSorting extends PureComponent {
   constructor(props) {
@@ -13,12 +13,12 @@ class PlacesSorting extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (prevProps.activeCity !== this.props.activeCity) {
-      this.props.onActivateOpened(false);
+      this.props.handleOpenActivate(false);
     }
   }
 
   render() {
-    const {items, selectedItem, activeOpened} = this.props;
+    const {items, selectedItem, activeOpen} = this.props;
 
     return (
       <form className="places__sorting" action="#" method="get">
@@ -32,7 +32,7 @@ class PlacesSorting extends PureComponent {
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
         </span>
-        <ul className={`places__options places__options--custom ${activeOpened ? `places__options--opened` : ``}`}>
+        <ul className={`places__options places__options--custom ${activeOpen ? `places__options--opened` : ``}`}>
           {
             items.map((item, index) => (
               <li
@@ -51,21 +51,21 @@ class PlacesSorting extends PureComponent {
   }
 
   _handleItemClick(selectedItem) {
-    this.props.onActivateOpened(false);
-    this.props.onItemSelect(selectedItem);
+    this.props.handleOpenActivate(false);
+    this.props.handleItemSelect(selectedItem);
   }
 
   _handleSelectToggle() {
-    this.props.onActivateOpened(!this.props.activeOpened);
+    this.props.handleOpenActivate(!this.props.activeOpen);
   }
 }
 
 PlacesSorting.propTypes = {
   items: PropTypes.arrayOf(PlacesSortingPropType).isRequired,
-  onItemSelect: PropTypes.func.isRequired,
+  handleItemSelect: PropTypes.func.isRequired,
   selectedItem: PlacesSortingPropType.isRequired,
-  activeOpened: PropTypes.bool.isRequired,
-  onActivateOpened: PropTypes.func.isRequired,
+  activeOpen: PropTypes.bool.isRequired,
+  handleOpenActivate: PropTypes.func.isRequired,
   activeCity: CityPropType.isRequired
 };
 

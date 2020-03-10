@@ -1,11 +1,11 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
-import PlacePropType from "../prop-types/place.js";
+import PlacePropType from "../../prop-types/place.js";
 import Places from "../places/places.jsx";
 import PlacesEmpty from "../places-empty/places-empty.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
-import CityPropType from "../prop-types/city.js";
+import CityPropType from "../../prop-types/city.js";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
 
@@ -34,7 +34,7 @@ function Main(props) {
             {places && places.length
               ? <Places
                 places={places}
-                onClickCardHeader={() => {}}
+                handleClickCardHeader={() => {}}
                 className="cities__places-list places__list tabs__content"
                 activeCity={activeCity}
               />

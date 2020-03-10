@@ -1,8 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
-import CityPropType from "../prop-types/city.js";
-import CitiesMapOfferPropType from "../prop-types/cities-map-offer.js";
+import CityPropType from "../../prop-types/city.js";
+import CitiesMapOfferPropType from "../../prop-types/cities-map-offer.js";
 
 class CitiesMap extends PureComponent {
   constructor(props) {

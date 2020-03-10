@@ -54,6 +54,21 @@ const Operation = {
       .catch(() => {
         dispatch(ActionCreator.requireAuthorization(true, undefined));
       });
+  },
+
+  getAuthStatus: () => (dispatch, _, api) => {
+    api
+      .get(`/login`, {
+        passThrough: true
+      })
+      .then((response) => {
+        if (response && response.status === 200 && response.data) {
+          const data = applyCamelCase(response.data);
+          data.avatarUrl = `${api.defaults.baseURL}${data.avatarUrl}`;
+          dispatch(ActionCreator.requireAuthorization(false, data));
+        }
+      })
+      .catch(() => {});
   }
 };
 

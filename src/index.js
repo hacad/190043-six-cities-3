@@ -6,7 +6,8 @@ import thunk from "redux-thunk";
 import {compose} from "recompose";
 import {createAPI} from "./api.js";
 import reducer from "./reducers/reducer.js";
-import {ActionCreator, Operation} from "./reducers/data/reducer.js";
+import {ActionCreator, Operation as DataOperations} from "./reducers/data/reducer.js";
+import {Operation as UserOperations} from "./reducers/user/reducer.js";
 import App from "./components/app/app.jsx";
 import withScreenSwitch from "./hocs/with-screen-switch/with-screen-switch.js";
 import {Router} from "react-router-dom";
@@ -23,7 +24,8 @@ let store = createStore(
     )
 );
 
-store.dispatch(Operation.loadOffers())
+store.dispatch(UserOperations.getAuthStatus());
+store.dispatch(DataOperations.loadOffers())
       .then((offers) => {
         if (offers && offers.length > 0) {
           store.dispatch(ActionCreator.changeCity(offers[0].city));

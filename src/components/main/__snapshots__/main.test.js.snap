@@ -94,7 +94,7 @@ Array [
             }
           }
           className="cities__places-list places__list tabs__content"
-          onClickCardHeader={[Function]}
+          handleClickCardHeader={[Function]}
           places={
             Array [
               Object {
