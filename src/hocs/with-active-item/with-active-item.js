@@ -3,11 +3,11 @@ import React, {PureComponent} from "react";
 const withActiveItem = (Component, defaultItem, itemName) => {
   const defaultItemName = itemName || `Item`;
   const activeItemName = `active${itemName || defaultItemName}`;
-  const activateHandlerName = `_handleActivate${defaultItemName}`;
-  const deactivateHandlerName = `_handleDeactivate${defaultItemName}`;
+  const activateHandlerName = `_handle${defaultItemName}Activate`;
+  const deactivateHandlerName = `_handle${defaultItemName}Deactivate`;
 
-  const activateItemEventName = `onActivate${defaultItemName}`;
-  const deactivateItemEventName = `onDeactivate${defaultItemName}`;
+  const itemActivateEventName = `handle${defaultItemName}Activate`;
+  const itemDeactivateEventName = `handle${defaultItemName}Deactivate`;
 
   class WithActiveItem extends PureComponent {
     constructor(props) {
@@ -23,8 +23,8 @@ const withActiveItem = (Component, defaultItem, itemName) => {
 
     render() {
       const childProps = {
-        [activateItemEventName]: this[activateHandlerName],
-        [deactivateItemEventName]: this[deactivateHandlerName]
+        [itemActivateEventName]: this[activateHandlerName],
+        [itemDeactivateEventName]: this[deactivateHandlerName]
       };
 
       childProps[activeItemName] = this.state[activeItemName];

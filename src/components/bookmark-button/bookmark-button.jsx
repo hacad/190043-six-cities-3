@@ -12,7 +12,7 @@ function BookmarkButton(props) {
   const className = `${classNamePrefix}__bookmark-button button ${isFavorite && isAuthorized ? `${classNamePrefix}__bookmark-button--active` : ``}`;
 
   const renderToggleFavoriteError = errors && errors[`toggleFavorite`]
-    ? <ErrorLabel txtLbl={errors[`toggleFavorite`]} htmlFor="toggleFavorite" />
+    ? <ErrorLabel textLabel={errors[`toggleFavorite`]} htmlFor="toggleFavorite" />
     : ``;
   return (
     <button

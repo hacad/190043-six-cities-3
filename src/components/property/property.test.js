@@ -64,8 +64,8 @@ it(`Property correctly renders after relaunch`, () => {
           comments={reviews}
           loadComments={jest.fn()}
           className="near-places__list places__list"
-          onActivateItem={jest.fn()}
-          onDeactivateItem={jest.fn()} />
+          handleItemActivate={jest.fn()}
+          handleItemDeactivate={jest.fn()} />
       </Router>).toJSON();
 
   expect(property).toMatchSnapshot();

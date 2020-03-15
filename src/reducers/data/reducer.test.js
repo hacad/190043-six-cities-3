@@ -67,7 +67,7 @@ it(`Reducer should make correct API call load offers`, () => {
       expect(dispatch).toBeCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: ActionType.LOAD_OFFERS,
-        payload: {offers: []}
+        payload: {offers: [], cities: []}
       });
     });
 });
@@ -211,7 +211,7 @@ it(`Reducer should make correct API call to toggle favorite`, () => {
   // Act & Assert
   return toggleFavorite(dispatch, jest.fn(), api)
     .then(() => {
-      expect(dispatch).toBeCalledTimes(1);
+      expect(dispatch).toBeCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: ActionType.TOGGLE_FAVORITE,
         payload: {offer: {rating: 5, starRating: 100}}
@@ -274,7 +274,7 @@ it(`Reducer should make correct API call to load favorites`, () => {
   // Act & Assert
   return loadFavorites(dispatch, jest.fn(), api)
     .then(() => {
-      expect(dispatch).toBeCalledTimes(2);
+      expect(dispatch).toBeCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: ActionType.LOAD_FAVORITES,
         payload: {favoriteOffers: []}

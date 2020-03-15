@@ -6,9 +6,9 @@ import {Operation} from "../../reducers/data/reducer.js";
 import ErrorLabel from "../error-label/error-label.jsx";
 
 const ReviewForm = (props) => {
-  const {hotelId, onSubmit, onSendForm,
-    isDisabled, onChange, form,
-    errors, activeItem: isCommentedAlready, onActivateItem} = props;
+  const {hotelId, handleSubmit, handleSendForm,
+    isDisabled, handleChange, form,
+    errors, activeItem: isCommentedAlready, handleItemActivate} = props;
   const RATING_ITEMS = [
     {value: 5, title: `perfect`},
     {value: 4, title: `good`},
@@ -16,29 +16,29 @@ const ReviewForm = (props) => {
     {value: 2, title: `badly`},
     {value: 1, title: `terribly`},
   ];
-  const MIN_REVIEW_CHARS = 1;
-  const MAX_REVIEW_CHARS = 5;
+  const MIN_REVIEW_CHARS = 50;
+  const MAX_REVIEW_CHARS = 300;
 
-  const onFormSubmit = (evt) => {
+  const handleSubmitForm = (evt) => {
     evt.preventDefault();
-    onSendForm(hotelId, form)
+    handleSendForm(hotelId, form)
       .then(() => {
-        onSubmit();
-        onActivateItem(true);
+        handleItemActivate(true);
+        handleSubmit();
       })
       .catch(() => {});
   };
 
   const renderRatingValidationError = !form.rating && !(errors && errors[`comment`]) && form.comment
-    ? <ErrorLabel txtLbl="Please rate" htmlFor="rating" />
+    ? <ErrorLabel textLabel="Please rate" htmlFor="rating" />
     : ``;
 
   const renderPostCommentError = errors && errors[`comment`]
-    ? <ErrorLabel txtLbl={errors[`comment`]} htmlFor="comment" />
+    ? <ErrorLabel textLabel={errors[`comment`]} htmlFor="comment" />
     : ``;
 
   return (
-    <form className="reviews__form form" action="#" method="post" onChange={onChange} onSubmit={onFormSubmit}>
+    <form className="reviews__form form" action="#" method="post" onChange={handleChange} onSubmit={handleSubmitForm}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
@@ -60,7 +60,8 @@ const ReviewForm = (props) => {
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength={MIN_REVIEW_CHARS}
-        maxLength={MAX_REVIEW_CHARS}>
+        maxLength={MAX_REVIEW_CHARS}
+        required>
       </textarea>
       {renderPostCommentError}
       <div className="reviews__button-wrapper">
@@ -75,9 +76,9 @@ const ReviewForm = (props) => {
 
 ReviewForm.propTypes = {
   hotelId: PropTypes.number.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  onSendForm: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleSendForm: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   form: PropTypes.shape({
     rating: PropTypes.string,
@@ -87,13 +88,13 @@ ReviewForm.propTypes = {
     rating: PropTypes.string,
     comment: PropTypes.string
   }),
-  onActivateItem: PropTypes.func.isRequired,
+  handleItemActivate: PropTypes.func.isRequired,
   activeItem: PropTypes.bool.isRequired
 };
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    onSendForm: (hotelId, form) => {
+    handleSendForm: (hotelId, form) => {
       return dispatch(Operation.postComment(hotelId, form))
         .catch((error) => {
           const errorMessage =

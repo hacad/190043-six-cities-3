@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PlacePropType from "../prop-types/place.js";
+import PlacePropType from "../../prop-types/place.js";
 import BookmarkButton from "../bookmark-button/bookmark-button.jsx";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
 import {Link} from "react-router-dom";
@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 const BookmarkButtonWrapped = withAuthorization(BookmarkButton);
 
 const PlaceCard = (props) => {
-  const {place, onClickHeader, onActivate, onDeactivate,
+  const {place, handleClickHeader, handleActivate, handleDeactivate,
     articleTagClassNamePrefix, divImageWrapperClassNamePrefix,
     divInfoClassNamePrefix} = props;
   const {type, previewImage, isPremium, title, price, starRating: rating, id, isFavorite} = place;
@@ -16,10 +16,10 @@ const PlaceCard = (props) => {
   return (
     <article className={`${articleTagClassNamePrefix} place-card`}
       onMouseEnter={() => {
-        onActivate(place);
+        handleActivate(place);
       }}
       onMouseLeave={() => {
-        onDeactivate(place);
+        handleDeactivate(place);
       }}
     >
       {isPremium
@@ -55,7 +55,7 @@ const PlaceCard = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name" onClick={onClickHeader ? onClickHeader : () => {}}>
+        <h2 className="place-card__name" onClick={handleClickHeader ? handleClickHeader : () => {}}>
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -66,9 +66,9 @@ const PlaceCard = (props) => {
 
 PlaceCard.propTypes = {
   place: PlacePropType.isRequired,
-  onClickHeader: PropTypes.func,
-  onActivate: PropTypes.func.isRequired,
-  onDeactivate: PropTypes.func.isRequired,
+  handleClickHeader: PropTypes.func,
+  handleActivate: PropTypes.func.isRequired,
+  handleDeactivate: PropTypes.func.isRequired,
   articleTagClassNamePrefix: PropTypes.string.isRequired,
   divImageWrapperClassNamePrefix: PropTypes.string.isRequired,
   divInfoClassNamePrefix: PropTypes.string

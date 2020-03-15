@@ -34,9 +34,9 @@ it(`Handler is called when click on header`, () => {
   const clickHandler = jest.fn();
   const placeCard = shallow(<PlaceCard
     place={testPlace}
-    onClickHeader={clickHandler}
-    onActivate={jest.fn()}
-    onDeactivate={jest.fn()}
+    handleClickHeader={clickHandler}
+    handleActivate={jest.fn()}
+    handleDeactivate={jest.fn()}
     articleTagClassNamePrefix="cities__place-card"
     divImageWrapperClassNamePrefix="cities__image-wrapper"
     divInfoClassNamePrefix=""
@@ -52,13 +52,13 @@ it(`Handler is called when click on header`, () => {
 
 it(`Handler is called when card is hovered`, () => {
   // Arrange
-  const onActivateHandler = jest.fn();
-  const onDeactivateHandler = jest.fn();
+  const handleActivateHandler = jest.fn();
+  const handleDeactivateHandler = jest.fn();
   const placeCard = shallow(<PlaceCard
     place={testPlace}
-    onActivate={onActivateHandler}
-    onDeactivate={onDeactivateHandler}
-    onClickHeader={jest.fn()}
+    handleActivate={handleActivateHandler}
+    handleDeactivate={handleDeactivateHandler}
+    handleClickHeader={jest.fn()}
     articleTagClassNamePrefix="cities__place-card"
     divImageWrapperClassNamePrefix="cities__image-wrapper"
     divInfoClassNamePrefix=""
@@ -69,18 +69,18 @@ it(`Handler is called when card is hovered`, () => {
   placeCardNode.simulate(`mouseenter`);
 
   // Assert
-  expect(onActivateHandler).toHaveBeenCalledTimes(1);
+  expect(handleActivateHandler).toHaveBeenCalledTimes(1);
 });
 
 it(`Active place is set correctly`, () => {
   // Arrange
-  const onActivateHandler = jest.fn();
-  const onDeactivateHandler = jest.fn();
+  const handleActivateHandler = jest.fn();
+  const handleDeactivateHandler = jest.fn();
   const placeCard = shallow(<PlaceCard
     place={testPlace}
-    onActivate={onActivateHandler}
-    onDeactivate={onDeactivateHandler}
-    onClickHeader={jest.fn()}
+    handleActivate={handleActivateHandler}
+    handleDeactivate={handleDeactivateHandler}
+    handleClickHeader={jest.fn()}
     articleTagClassNamePrefix="cities__place-card"
     divImageWrapperClassNamePrefix="cities__image-wrapper"
     divInfoClassNamePrefix=""
@@ -91,6 +91,6 @@ it(`Active place is set correctly`, () => {
   placeCardNode.simulate(`mouseenter`);
 
   // Assert
-  expect(onActivateHandler).toHaveBeenCalledTimes(1);
-  expect(onActivateHandler).toHaveBeenCalledWith(testPlace);
+  expect(handleActivateHandler).toHaveBeenCalledTimes(1);
+  expect(handleActivateHandler).toHaveBeenCalledWith(testPlace);
 });

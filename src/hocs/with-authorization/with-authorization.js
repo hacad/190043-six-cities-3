@@ -5,7 +5,7 @@ import {compose} from "recompose";
 import {Redirect} from "react-router-dom";
 import {Operation} from "../../reducers/user/reducer.js";
 import {getUser, isAuthorized} from "../../reducers/user/selectors.js";
-import UserPropType from "../../components/prop-types/user.js";
+import UserPropType from "../../prop-types/user.js";
 
 function withAuthorization(Component, isAuthorizedState, redirectTo) {
   class WithAuthorization extends PureComponent {
@@ -24,7 +24,7 @@ function withAuthorization(Component, isAuthorizedState, redirectTo) {
           : (
             <Component
               {...this.props}
-              onClickSignIn={this._handleLogin}
+              handleClickSignIn={this._handleLogin}
               isAuthorized={this.props.isAuthorized}
               user={this.props.user}
             />

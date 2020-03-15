@@ -34,9 +34,9 @@ it(`PlaceCard correctly renders after relaunch`, () => {
         <Router>
           <PlaceCard
             place={testPlace}
-            onClickHeader={jest.fn()}
-            onActivate={jest.fn()}
-            onDeactivate={jest.fn()}
+            handleClickHeader={jest.fn()}
+            handleActivate={jest.fn()}
+            handleDeactivate={jest.fn()}
             articleTagClassNamePrefix="cities__place-card"
             divImageWrapperClassNamePrefix="cities__image-wrapper"
             divInfoClassNamePrefix=""

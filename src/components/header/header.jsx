@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import UserPropType from "../prop-types/user.js";
+import UserPropType from "../../prop-types/user.js";
 import {Link} from "react-router-dom";
 
 function Header({isAuthorized, user}) {

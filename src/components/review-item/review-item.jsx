@@ -1,5 +1,5 @@
 import React from "react";
-import ReviewPropType from "../prop-types/review.js";
+import ReviewPropType from "../../prop-types/review.js";
 
 const ReviewItem = ({review}) => {
   return (
@@ -28,7 +28,6 @@ const ReviewItem = ({review}) => {
           {review.comment}
         </p>
         <time className="reviews__time" dateTime={review.date}>
-          {/* {new Date(review.date).toLocaleDateString()} */}
           {review.formattedDate}
         </time>
       </div>

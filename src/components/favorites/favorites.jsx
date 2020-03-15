@@ -1,8 +1,8 @@
 import React, {Fragment, PureComponent} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import CityPropType from "../prop-types/city";
-import PlacePropType from "../prop-types/place";
+import CityPropType from "../../prop-types/city";
+import PlacePropType from "../../prop-types/place";
 import Header from "../header/header.jsx";
 import PlaceCard from "../place-card/place-card.jsx";
 import withAuthorization from "../../hocs/with-authorization/with-authorization.js";
@@ -71,8 +71,8 @@ class Favorites extends PureComponent {
                                       <PlaceCard
                                         key={place.id}
                                         place={place}
-                                        onActivate={() => {}}
-                                        onDeactivate={() => {}}
+                                        handleActivate={() => {}}
+                                        handleDeactivate={() => {}}
                                         articleTagClassNamePrefix="favorites__card"
                                         divImageWrapperClassNamePrefix="favorites"
                                         divInfoClassNamePrefix="favorites__card-info"

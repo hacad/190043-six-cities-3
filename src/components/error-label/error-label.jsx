@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function ErrorLabel({txtLbl, htmlFor}) {
+function ErrorLabel({textLabel, htmlFor}) {
   return (
     <label htmlFor={htmlFor} style={{color: `red`}}>
-      {txtLbl}
+      {textLabel}
     </label>
   );
 }
 
 ErrorLabel.propTypes = {
-  txtLbl: PropTypes.string.isRequired,
+  textLabel: PropTypes.string.isRequired,
   htmlFor: PropTypes.string.isRequired
 };
 

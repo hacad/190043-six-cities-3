@@ -5,7 +5,7 @@ import ErrorLabel from "./error-label.jsx";
 it(`ErrorLabel correctly renders after relaunch`, () => {
   const errorLabel = renderer.create(
       <ErrorLabel
-        txtLbl="some error text"
+        textLabel="some error text"
         htmlFor="id"
       />).toJSON();
 

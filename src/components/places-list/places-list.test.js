@@ -33,9 +33,9 @@ it(`PlacesList correctly renders after relaunch`, () => {
   const placesList = renderer
     .create(<PlacesList
       places={places}
-      onClickCardHeader={jest.fn()}
-      onActivatePlace={jest.fn()}
-      onDeactivatePlace={jest.fn()}
+      handleClickCardHeader={jest.fn()}
+      handleActivatePlace={jest.fn()}
+      handleDeactivatePlace={jest.fn()}
       className="cities__places-list places__list tabs__content"
       articleTagClassNamePrefix="cities__place-card"
       divImageWrapperClassNamePrefix="cities__image-wrapper"

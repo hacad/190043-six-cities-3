@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReviewPropType from "../prop-types/review.js";
+import ReviewPropType from "../../prop-types/review.js";
 import ReviewItem from "../review-item/review-item.jsx";
 import ReviewForm from "../review-form/review-form.jsx";
 import withForm from "../../hocs/with-form/with-form.js";
