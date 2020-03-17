@@ -13,7 +13,7 @@ class PlacesSorting extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (prevProps.activeCity !== this.props.activeCity) {
-      this.props.handleOpenActivate(false);
+      this.props.onOpenActivate(false);
     }
   }
 
@@ -51,21 +51,21 @@ class PlacesSorting extends PureComponent {
   }
 
   _handleItemClick(selectedItem) {
-    this.props.handleOpenActivate(false);
-    this.props.handleItemSelect(selectedItem);
+    this.props.onOpenActivate(false);
+    this.props.onItemSelect(selectedItem);
   }
 
   _handleSelectToggle() {
-    this.props.handleOpenActivate(!this.props.activeOpen);
+    this.props.onOpenActivate(!this.props.activeOpen);
   }
 }
 
 PlacesSorting.propTypes = {
   items: PropTypes.arrayOf(PlacesSortingPropType).isRequired,
-  handleItemSelect: PropTypes.func.isRequired,
+  onItemSelect: PropTypes.func.isRequired,
   selectedItem: PlacesSortingPropType.isRequired,
   activeOpen: PropTypes.bool.isRequired,
-  handleOpenActivate: PropTypes.func.isRequired,
+  onOpenActivate: PropTypes.func.isRequired,
   activeCity: CityPropType.isRequired
 };
 

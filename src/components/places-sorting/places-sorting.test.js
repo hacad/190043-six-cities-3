@@ -7,11 +7,10 @@ it(`PlacesSorting correctly renders after relaunch`, () => {
   const placesSorting = renderer.create(
       <PlacesSorting
         items={placesSortingOptions}
-        handleItemSelect={jest.fn()}
+        onItemSelect={jest.fn()}
         selectedItem={placesSortingOptions[0]}
-        handleItemActivate={jest.fn()}
         activeOpen={true}
-        handleOpenActivate={jest.fn()}
+        onOpenActivate={jest.fn()}
         activeCity={{
           name: `Paris`,
           location: {

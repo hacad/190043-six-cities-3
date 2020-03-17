@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 const BookmarkButtonWrapped = withAuthorization(BookmarkButton);
 
 const PlaceCard = (props) => {
-  const {place, handleClickHeader, handleActivate, handleDeactivate,
+  const {place, onHeaderClick, onActivate, onDeactivate,
     articleTagClassNamePrefix, divImageWrapperClassNamePrefix,
     divInfoClassNamePrefix} = props;
   const {type, previewImage, isPremium, title, price, starRating: rating, id, isFavorite} = place;
@@ -16,10 +16,10 @@ const PlaceCard = (props) => {
   return (
     <article className={`${articleTagClassNamePrefix} place-card`}
       onMouseEnter={() => {
-        handleActivate(place);
+        onActivate(place);
       }}
       onMouseLeave={() => {
-        handleDeactivate(place);
+        onDeactivate(place);
       }}
     >
       {isPremium
@@ -55,7 +55,7 @@ const PlaceCard = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name" onClick={handleClickHeader ? handleClickHeader : () => {}}>
+        <h2 className="place-card__name" onClick={onHeaderClick ? onHeaderClick : () => {}}>
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -66,9 +66,9 @@ const PlaceCard = (props) => {
 
 PlaceCard.propTypes = {
   place: PlacePropType.isRequired,
-  handleClickHeader: PropTypes.func,
-  handleActivate: PropTypes.func.isRequired,
-  handleDeactivate: PropTypes.func.isRequired,
+  onHeaderClick: PropTypes.func,
+  onActivate: PropTypes.func.isRequired,
+  onDeactivate: PropTypes.func.isRequired,
   articleTagClassNamePrefix: PropTypes.string.isRequired,
   divImageWrapperClassNamePrefix: PropTypes.string.isRequired,
   divInfoClassNamePrefix: PropTypes.string

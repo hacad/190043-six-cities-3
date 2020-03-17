@@ -5,12 +5,12 @@ import withAuthorization from "../../hocs/with-authorization/with-authorization.
 import ErrorLabel from "../error-label/error-label.jsx";
 const HeaderWrapped = withAuthorization(Header);
 
-function SignIn({handleChange, handleSubmit, form, handleClickSignIn, isDisabled, errors}) {
+function SignIn({onChange, onSubmit, form, onSignInClick, isDisabled, errors}) {
 
   const handleSubmitForm = (evt) => {
     evt.preventDefault();
-    handleSubmit();
-    handleClickSignIn(form);
+    onSubmit();
+    onSignInClick(form);
   };
 
   const renderEmailValidationError = errors && errors[`email`]
@@ -31,7 +31,7 @@ function SignIn({handleChange, handleSubmit, form, handleClickSignIn, isDisabled
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post" onChange={handleChange} onSubmit={handleSubmitForm}>
+              <form className="login__form form" action="#" method="post" onChange={onChange} onSubmit={handleSubmitForm}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input
@@ -81,9 +81,9 @@ function SignIn({handleChange, handleSubmit, form, handleClickSignIn, isDisabled
 
 SignIn.propTypes = {
   isDisabled: PropTypes.bool,
-  handleClickSignIn: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  onSignInClick: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   form: PropTypes.shape({
     email: PropTypes.string,
     password: PropTypes.string

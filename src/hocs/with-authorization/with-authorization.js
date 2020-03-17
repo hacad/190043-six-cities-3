@@ -24,7 +24,7 @@ function withAuthorization(Component, isAuthorizedState, redirectTo) {
           : (
             <Component
               {...this.props}
-              handleClickSignIn={this._handleLogin}
+              onSignInClick={this._handleLogin}
               isAuthorized={this.props.isAuthorized}
               user={this.props.user}
             />

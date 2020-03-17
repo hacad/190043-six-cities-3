@@ -15,7 +15,6 @@ it(`When isAuthorizedState is equal isAuthorized should redirect to passed url`,
       <Router>
         <GuardedMockComponentWrapped
           login={jest.fn()}
-          logout={jest.fn()}
           isAuthorized={false}
         />
       </Router>);
@@ -31,7 +30,6 @@ it(`When isAuthorizedState is not equal isAuthorized should return guarded compo
       <Router>
         <GuardedMockComponentWrapped
           login={jest.fn()}
-          logout={jest.fn()}
           isAuthorized={true}
         />
       </Router>);

@@ -166,10 +166,10 @@ class Property extends PureComponent {
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <PlacesList
                 places={nearOffers}
-                handleClickCardHeader={() => {}}
+                onCardHeaderClick={() => {}}
                 className="near-places__list places__list"
-                handleActivatePlace={handleItemActivate}
-                handleDeactivatePlace={handleItemDeactivate}
+                onPlaceActivate={handleItemActivate}
+                onPlaceDeactivate={handleItemDeactivate}
                 articleTagClassNamePrefix="near-places__card"
                 divImageWrapperClassNamePrefix="near-places"
               />

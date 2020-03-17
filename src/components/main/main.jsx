@@ -13,7 +13,7 @@ const HeaderWrapped = withAuthorization(Header);
 const CitiesListWrapped = withActiveItem(CitiesList);
 
 function Main(props) {
-  const {places, city: activeCity, cities, onChangeCity} = props;
+  const {places, city: activeCity, cities, onCityChange} = props;
 
   return (
     <Fragment>
@@ -28,13 +28,13 @@ function Main(props) {
           <CitiesListWrapped
             activeCity={activeCity}
             cities={cities}
-            onChangeCity={onChangeCity}
+            onCityChange={onCityChange}
           />
           <div className="cities">
             {places && places.length
               ? <Places
                 places={places}
-                handleClickCardHeader={() => {}}
+                onCardHeaderClick={() => {}}
                 className="cities__places-list places__list tabs__content"
                 activeCity={activeCity}
               />
@@ -51,7 +51,7 @@ Main.propTypes = {
   city: CityPropType,
   cities: PropTypes.arrayOf(CityPropType).isRequired,
   places: PropTypes.arrayOf(PlacePropType).isRequired,
-  onChangeCity: PropTypes.func.isRequired,
+  onCityChange: PropTypes.func.isRequired,
 };
 
 export default Main;

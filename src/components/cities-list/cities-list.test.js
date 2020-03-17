@@ -35,8 +35,8 @@ it(`Cities List correctly renders`, () => {
       <CitiesList
         activeCity={city}
         cities={cities}
-        onChangeCity={jest.fn()}
-        handleItemActivate={jest.fn()}
+        onCityChange={jest.fn()}
+        onItemActivate={jest.fn()}
       />
   )
   .toJSON();

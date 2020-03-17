@@ -8,24 +8,24 @@ Enzyme.configure({adapter: new Adapter()});
 const MockComponent = () => <div />;
 const MockComponentWrapped = withActiveItem(MockComponent);
 
-it(`When handleItemActivate is called should contain passed value`, () => {
+it(`When onItemActivate is called should contain passed value`, () => {
   // Arrange
   const wrapper = shallow(<MockComponentWrapped />);
 
   // Act
   const activeItem = `some value`;
-  wrapper.props().handleItemActivate(activeItem);
+  wrapper.props().onItemActivate(activeItem);
 
   // Assert
   expect(wrapper.state().activeItem).toEqual(activeItem);
 });
 
-it(`When handleItemDeactivate is called should clear current value`, () => {
+it(`When onItemnDeactivate is called should clear current value`, () => {
   // Arrange
   const wrapper = shallow(<MockComponentWrapped />);
 
   // Act
-  wrapper.props().handleItemDeactivate();
+  wrapper.props().onItemDeactivate();
 
   // Assert
   expect(wrapper.state().activeItem).toBeNull();
@@ -48,8 +48,8 @@ it(`When item name is set should be used as part of active item and event names`
   // Act && Assert
   expect(wrapper.state()).toHaveProperty(`activeOpen`);
   expect(wrapper.state().activeOpen).toEqual(`value`);
-  expect(wrapper.props()).toHaveProperty(`handleOpenActivate`);
-  expect(wrapper.props().handleOpenActivate).toBeInstanceOf(Function);
-  expect(wrapper.props()).toHaveProperty(`handleOpenDeactivate`);
-  expect(wrapper.props().handleOpenDeactivate).toBeInstanceOf(Function);
+  expect(wrapper.props()).toHaveProperty(`onOpenActivate`);
+  expect(wrapper.props().onOpenActivate).toBeInstanceOf(Function);
+  expect(wrapper.props()).toHaveProperty(`onOpenDeactivate`);
+  expect(wrapper.props().onOpenDeactivate).toBeInstanceOf(Function);
 });

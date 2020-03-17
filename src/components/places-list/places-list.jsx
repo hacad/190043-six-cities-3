@@ -4,7 +4,7 @@ import PlaceCard from "../place-card/place-card.jsx";
 import PlacePropType from "../../prop-types/place.js";
 
 function PlacesList(props) {
-  const {className, handleClickCardHeader, places, handleActivatePlace, handleDeactivatePlace,
+  const {className, onCardHeaderClick, places, onPlaceActivate, onPlaceDeactivate,
     articleTagClassNamePrefix, divImageWrapperClassNamePrefix, divInfoClassNamePrefix} = props;
   return (
     <div className={className}>
@@ -12,9 +12,9 @@ function PlacesList(props) {
         <PlaceCard
           key={place.id}
           place={place}
-          handleClickHeader={handleClickCardHeader}
-          handleActivate={handleActivatePlace}
-          handleDeactivate={handleDeactivatePlace}
+          onHeaderClick={onCardHeaderClick}
+          onActivate={onPlaceActivate}
+          onDeactivate={onPlaceDeactivate}
           articleTagClassNamePrefix={articleTagClassNamePrefix}
           divImageWrapperClassNamePrefix={divImageWrapperClassNamePrefix}
           divInfoClassNamePrefix={divInfoClassNamePrefix}
@@ -26,9 +26,9 @@ function PlacesList(props) {
 
 PlacesList.propTypes = {
   places: PropTypes.arrayOf(PlacePropType).isRequired,
-  handleClickCardHeader: PropTypes.func.isRequired,
-  handleActivatePlace: PropTypes.func.isRequired,
-  handleDeactivatePlace: PropTypes.func.isRequired,
+  onCardHeaderClick: PropTypes.func.isRequired,
+  onPlaceActivate: PropTypes.func.isRequired,
+  onPlaceDeactivate: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
   articleTagClassNamePrefix: PropTypes.string.isRequired,
   divImageWrapperClassNamePrefix: PropTypes.string.isRequired,

@@ -38,7 +38,7 @@ it(`Main correctly renders after relaunch`, () => {
       city={places[0].city}
       cities={[places[0].city]}
       places={places}
-      onChangeCity={jest.fn()}/>)
+      onCityChange={jest.fn()}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -50,7 +50,7 @@ it(`Main correctly renders empty places after relaunch`, () => {
       city={places[0].city}
       cities={[places[0].city]}
       places={[]}
-      onChangeCity={jest.fn()}/>)
+      onCityChange={jest.fn()}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

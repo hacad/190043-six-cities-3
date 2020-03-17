@@ -6,8 +6,8 @@ const withActiveItem = (Component, defaultItem, itemName) => {
   const activateHandlerName = `_handle${defaultItemName}Activate`;
   const deactivateHandlerName = `_handle${defaultItemName}Deactivate`;
 
-  const itemActivateEventName = `handle${defaultItemName}Activate`;
-  const itemDeactivateEventName = `handle${defaultItemName}Deactivate`;
+  const itemActivateEventName = `on${defaultItemName}Activate`;
+  const itemDeactivateEventName = `on${defaultItemName}Deactivate`;
 
   class WithActiveItem extends PureComponent {
     constructor(props) {

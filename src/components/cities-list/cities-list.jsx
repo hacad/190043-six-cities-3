@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import CityPropType from "../../prop-types/city.js";
 import classNames from "classnames";
 
-const CitiesList = ({activeCity, cities, onChangeCity, handleItemActivate}) => {
+const CitiesList = ({activeCity, cities, onCityChange, onItemActivate}) => {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -20,8 +20,8 @@ const CitiesList = ({activeCity, cities, onChangeCity, handleItemActivate}) => {
                   href="#"
                   onClick={(evt) => {
                     evt.preventDefault();
-                    handleItemActivate(city);
-                    onChangeCity(city);
+                    onItemActivate(city);
+                    onCityChange(city);
                   }}>
                   <span>{city.name}</span>
                 </a>
@@ -37,8 +37,8 @@ const CitiesList = ({activeCity, cities, onChangeCity, handleItemActivate}) => {
 CitiesList.propTypes = {
   activeCity: CityPropType.isRequired,
   cities: PropTypes.arrayOf(CityPropType).isRequired,
-  onChangeCity: PropTypes.func.isRequired,
-  handleItemActivate: PropTypes.func.isRequired
+  onCityChange: PropTypes.func.isRequired,
+  onItemActivate: PropTypes.func.isRequired
 };
 
 export default CitiesList;
