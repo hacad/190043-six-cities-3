@@ -29,8 +29,8 @@ function withForm(Component) {
           form={form}
           errors={errors}
           isDisabled={isDisabled}
-          handleChange={this._handleChange}
-          handleSubmit={this._handleSubmit}
+          onChange={this._handleChange}
+          onSubmit={this._handleSubmit}
           onError={this._handleError}
         />
       );

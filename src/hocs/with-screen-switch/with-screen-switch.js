@@ -34,12 +34,12 @@ function withScreenSwitch(Component) {
         city,
         cities,
         places,
-        onChangeCity,
+        onCityChange,
       } = childProps;
       delete childProps.city;
       delete childProps.cities;
       delete childProps.places;
-      delete childProps.onChangeCity;
+      delete childProps.onCityChange;
       delete childProps.isAuthorized;
 
       return (
@@ -55,7 +55,7 @@ function withScreenSwitch(Component) {
                   city={city}
                   cities={cities}
                   places={places}
-                  onChangeCity={onChangeCity}
+                  onCityChange={onCityChange}
                 />;
               }}
             />
@@ -70,7 +70,7 @@ function withScreenSwitch(Component) {
     city: CityPropType,
     cities: PropTypes.arrayOf(CityPropType).isRequired,
     places: PropTypes.arrayOf(PlacePropType).isRequired,
-    onChangeCity: PropTypes.func.isRequired
+    onCityChange: PropTypes.func.isRequired
   };
 
   return WithScreenSwitch;
@@ -87,7 +87,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onChangeCity: (city) => {
+    onCityChange: (city) => {
       dispatch(ActionCreator.changeCity(city));
     }
   };

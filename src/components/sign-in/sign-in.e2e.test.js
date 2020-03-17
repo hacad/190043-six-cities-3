@@ -10,9 +10,9 @@ it(`SignIn call onSubmit when button clicked`, () => {
   const submitHandler = jest.fn();
   const signIn = shallow(
       <SignIn
-        handleClickSignIn={submitHandler}
-        handleSubmit={jest.fn()}
-        handleChange={jest.fn()}
+        onSignInClick={submitHandler}
+        onSubmit={jest.fn()}
+        onChange={jest.fn()}
       />
   );
 

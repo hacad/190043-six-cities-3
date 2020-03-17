@@ -71,8 +71,8 @@ class Favorites extends PureComponent {
                                       <PlaceCard
                                         key={place.id}
                                         place={place}
-                                        handleActivate={() => {}}
-                                        handleDeactivate={() => {}}
+                                        onActivate={() => {}}
+                                        onDeactivate={() => {}}
                                         articleTagClassNamePrefix="favorites__card"
                                         divImageWrapperClassNamePrefix="favorites"
                                         divInfoClassNamePrefix="favorites__card-info"

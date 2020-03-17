@@ -77,7 +77,7 @@ Array [
             },
           ]
         }
-        onChangeCity={[MockFunction]}
+        onCityChange={[MockFunction]}
       />
       <div
         className="cities"
@@ -94,7 +94,7 @@ Array [
             }
           }
           className="cities__places-list places__list tabs__content"
-          handleClickCardHeader={[Function]}
+          onCardHeaderClick={[Function]}
           places={
             Array [
               Object {
@@ -205,7 +205,7 @@ Array [
             },
           ]
         }
-        onChangeCity={[MockFunction]}
+        onCityChange={[MockFunction]}
       />
       <div
         className="cities"

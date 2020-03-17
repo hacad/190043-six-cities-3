@@ -17,7 +17,7 @@ const PlacesSortingWrapped = withActiveItem(PlacesSorting, false, `Open`);
 const PlacesListWrapped = withActiveItem(PlacesList);
 
 function Places(props) {
-  const {places, handleItemActivate, handleItemDeactivate, handleSortingChange,
+  const {places, onItemActivate, onItemDeactivate, onSortingChange, onCardHeaderClick,
     activeCity, activeOffer, selectedItem} = props;
   const offers = places.map((place) => {
     return {data: place.location};
@@ -42,14 +42,14 @@ function Places(props) {
           activeCity={activeCity}
           selectedItem={selectedItem}
           items={placesSortingOptions}
-          handleItemSelect={handleSortingChange}
+          onItemSelect={onSortingChange}
         />
         <PlacesListWrapped
           places={places}
-          handleClickCardHeader={() => {}}
+          onCardHeaderClick={onCardHeaderClick}
           className="cities__places-list places__list tabs__content"
-          handleActivatePlace={handleItemActivate}
-          handleDeactivatePlace={handleItemDeactivate}
+          onPlaceActivate={onItemActivate}
+          onPlaceDeactivate={onItemDeactivate}
           articleTagClassNamePrefix="cities__place-card"
           divImageWrapperClassNamePrefix="cities__image-wrapper"
         />
@@ -64,11 +64,11 @@ function Places(props) {
 Places.propTypes = {
   places: PropTypes.arrayOf(PlacePropType).isRequired,
   className: PropTypes.string.isRequired,
-  handleClickCardHeader: PropTypes.func.isRequired,
+  onCardHeaderClick: PropTypes.func.isRequired,
   activeOffer: PlacePropType,
-  handleItemActivate: PropTypes.func.isRequired,
-  handleItemDeactivate: PropTypes.func.isRequired,
-  handleSortingChange: PropTypes.func.isRequired,
+  onItemActivate: PropTypes.func.isRequired,
+  onItemDeactivate: PropTypes.func.isRequired,
+  onSortingChange: PropTypes.func.isRequired,
   activeCity: CityPropType.isRequired,
   selectedItem: PlacesSortingPropType.isRequired,
 };
@@ -82,13 +82,13 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSortingChange: (placeSortingOption) => {
+    onSortingChange: (placeSortingOption) => {
       dispatch(ActionCreator.changeSorting(placeSortingOption));
     },
-    handleItemActivate: (activeOffer) => {
+    onItemActivate: (activeOffer) => {
       dispatch(ActionCreator.changeActiveOffer(activeOffer));
     },
-    handleItemDeactivate: () => {
+    onItemDeactivate: () => {
       dispatch(ActionCreator.changeActiveOffer(undefined));
     }
   };
